@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Engineering AI Agents · 交互式课程</title>
+  <link rel="stylesheet" href="assets/course.css">
+</head>
+<body>
+  <!-- 渐进增强：本页静态可读可导航；course.css 加载后此横幅自动隐藏。
+       若你看到这条横幅，说明浏览器（或扩展）拦截了本地文件的样式/脚本。 -->
+  <div id="env-warning" style="margin:14px auto 0;padding:14px 18px;max-width:852px;border:2px solid #c93a3a;background:#fdeeee;color:#181b20;font-size:15px;line-height:1.7;">
+    <b>样式与交互未能加载。</b>你的浏览器（或某个浏览器扩展）拦截了本地文件的 CSS/JS。
+    解决办法：① 用 Safari 打开本文件；② Chrome 无痕窗口（菜单 → 打开新的无痕窗口）把文件拖入，可确认是否扩展所致；
+    ③ 地址栏输入 <b>chrome://extensions</b>，临时关闭全部扩展后刷新本页。课程文字内容本身可以照常阅读。
+  </div>
+
+  <div id="site-head"></div>
+
+  <main>
+    <section class="hero">
+      <div class="kicker">INTERACTIVE COURSE · 学习即产品</div>
+      <h1>Engineering AI Agents<br>把「会用 AI」变成「会工程化 AI」</h1>
+      <p class="sub">
+        以斯坦福 CS329Z 讲义为底本的重制课程：每一讲都从一个真实场景的失败开始，
+        逼出机制，再用可交互的演示把它拆到本质——概率大脑 × 确定性边界。
+      </p>
+      <div class="cta">
+        <a class="btn btn-primary" id="hero-cta" href="l01/index.html">从 L01 开始 →</a>
+        <a class="btn" href="#course-map">先看课程地图</a>
+      </div>
+      <div id="progress-line" class="progress-line"></div>
+    </section>
+
+    <!-- 课程地图：静态 HTML（无 JS 也可浏览），course.js 按 localStorage 进度点亮"已完成" -->
+    <section id="course-map" style="margin-top: 26px;">
+      <div class="phase-title">① 入口 · 全景</div>
+      <div class="lesson-grid">
+        <a class="lesson-card" data-id="l01" href="l01/index.html">
+          <div class="lc-top"><span class="lc-num">L01</span><span class="pill ready">已上线</span></div>
+          <div class="lc-title">Agent 是什么：一个循环的五十年</div>
+          <div class="lc-desc">同一道题、三种接线：控制流的归属如何决定成败；解剖图与四大挑战。</div>
+          <div class="lc-meta">约 35 分钟</div>
+        </a>
+      </div>
+
+      <div class="phase-title">② 组件 · 单个 agent 的器官</div>
+      <div class="lesson-grid">
+        <div class="lesson-card soon" data-id="l02">
+          <div class="lc-top"><span class="lc-num">L02</span><span class="pill soon">即将上线</span></div>
+          <div class="lc-title">LLM 作为建筑材料</div>
+          <div class="lc-desc">概率采样机、上下文窗口、成本结构：动手前必须懂的物理性质。</div>
+        </div>
+        <div class="lesson-card soon" data-id="l03">
+          <div class="lc-top"><span class="lc-num">L03</span><span class="pill soon">即将上线</span></div>
+          <div class="lc-title">RAG：外挂知识器官</div>
+          <div class="lc-desc">检索 → 增强 → 生成，以及它如何天然成为 agent 的第一个工具。</div>
+        </div>
+        <div class="lesson-card soon" data-id="l04">
+          <div class="lc-top"><span class="lc-num">L04</span><span class="pill soon">即将上线</span></div>
+          <div class="lc-title">工具使用：从会说到会做</div>
+          <div class="lc-desc">结构化输出与函数调用协议（已可先玩配套实验室 Lab 01）。</div>
+        </div>
+      </div>
+
+      <div class="phase-title">③ 组织 · 让 agent 可靠运转</div>
+      <div class="lesson-grid">
+        <div class="lesson-card soon" data-id="l05">
+          <div class="lc-top"><span class="lc-num">L05</span><span class="pill soon">即将上线</span></div>
+          <div class="lc-title">框架与编排：看穿打包术</div>
+          <div class="lc-desc">框架到底替你做了什么；用不用框架，是一道架构决策题。</div>
+        </div>
+        <div class="lesson-card soon" data-id="l06">
+          <div class="lc-top"><span class="lc-num">L06</span><span class="pill soon">即将上线</span></div>
+          <div class="lc-title">设计模式与脚手架</div>
+          <div class="lc-desc">ReAct、Reflexion、规划-执行：被实践验证过的循环形状。</div>
+        </div>
+        <div class="lesson-card soon" data-id="l07">
+          <div class="lc-top"><span class="lc-num">L07</span><span class="pill soon">即将上线</span></div>
+          <div class="lc-title">记忆架构</div>
+          <div class="lc-desc">上下文窗口 ≠ 记忆：存什么、怎么压缩、何时取回的工程系统。</div>
+        </div>
+      </div>
+
+      <div class="phase-title">④ 群体 · agent 社会</div>
+      <div class="lesson-grid">
+        <div class="lesson-card soon" data-id="l08">
+          <div class="lc-top"><span class="lc-num">L08</span><span class="pill soon">即将上线</span></div>
+          <div class="lc-title">多智能体系统</div>
+          <div class="lc-desc">分工、通信与失控成本：本质是组织设计问题。</div>
+        </div>
+      </div>
+    </section>
+
+    <section style="margin-top: 54px;">
+      <div class="phase-title">实战实验室 · 双击即用</div>
+      <div class="lesson-grid">
+        <a class="lesson-card" href="../labs/01-structured-io/structured-io-lab.html">
+          <div class="lc-top"><span class="lc-num">Lab 01</span><span class="pill ready">配套 L04 / L06</span></div>
+          <div class="lc-title">Structured I/O 实验室</div>
+          <div class="lc-desc">从裸接口失败动物园，到正则→NFA→掩码解码，再到函数调用协议与最小 agent 闭环。浏览器双击即玩。</div>
+        </a>
+      </div>
+      <p style="color: var(--muted); font-size: 14px; margin-top: 10px;">
+        实验室与讲次相互独立：不依赖任何环境，全部逻辑在浏览器本地运行。
+      </p>
+    </section>
+
+    <section style="margin-top: 54px;">
+      <div class="phase-title">如何使用本课程</div>
+      <div class="card">
+        <ol style="margin: 0; padding-left: 22px; line-height: 2.1;">
+          <li><b>读</b> —— 每讲按「场景 → 本质 → 机制 → 思考题」四段推进，先见问题，后见方法。</li>
+          <li><b>玩</b> —— 讲义里的交互组件是课程的一部分：逐步播放、拨动参数、看因果，玩过才算学过。</li>
+          <li><b>答</b> —— 每讲末尾的思考题先自己答，再展开参考答案；答不上来回上一幕。</li>
+          <li><b>进度本地保存</b> —— 「标记已学完」记录在本机浏览器，无需注册登录。</li>
+        </ol>
+        <noscript><p style="color:#9a6700;">提示：当前浏览器禁用了 JavaScript——课程浏览不受影响，但「学习进度标记」与交互组件需要启用后可用。</p></noscript>
+      </div>
+    </section>
+
+    <section style="margin-top: 40px;">
+      <div class="callout">
+        <h3 style="margin-top: 0;">这条线贯穿全课程</h3>
+        <p style="margin: 6px 0;">
+          Agent = <b>循环（五十年历史）</b> + <b>通用大脑（LLM）</b>。
+          全课只做一件事：给概率大脑加确定性边界——结构化输出、校验闸、工具协议、记忆系统、评测与安全，
+          并在误差复利 <code>pⁿ</code> 的现实里，把工程做可靠。
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-foot">
+    <div class="inner">
+      本课程是 <a href="http://web.stanford.edu/class/cs329z" target="_blank" rel="noopener">斯坦福 CS329Z · Engineering AI Agents</a>
+      （Diyi Yang / Michael Ryan / John Yang）讲义的学习笔记式原创演绎，讲义版权归原作者所有；
+      课程文本与交互组件为原创，引用处均标注讲义页码。学习进程公开迭代中。
+    </div>
+  </footer>
+
+  <script src="assets/course.js"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+# 讲义 PDF：版权红线，永不入库、永不上网（AGENTS.md §1）
+lecture*.pdf
+
+# Node / VitePress 构建产物
+node_modules/
+site/.vitepress/dist/
+site/.vitepress/cache/
+
+# 系统与缓存垃圾
+.DS_Store
+__pycache__/
+*.pyc
+*.log
+
+# 精读全文本地学习版（版权红线：不入库不上网；线上走摘录模式 index.md）
+site/l01/readings/react/full.md

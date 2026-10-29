@@ -1,0 +1,14 @@
+// llama.cpp 的 GBNF 文法：与 step3 手写的正则同一个契约，但这是生产级格式。
+// 用法：llama-cli -m model.gguf --grammar-file person.gbnf -p "生成一个人物:"
+// llama.cpp 在推理时把这份文法编译成自动机，逐 token 掩蔽 logits——
+// 与 step3 里你亲手实现的机制完全相同，只是它能吃完整的 JSON 文法。
+
+root   ::= "{" ws "\"name\"" ws ":" ws string "," ws "\"age\"" ws ":" ws number "}"
+
+// JSON 字符串：支持转义；这里比 step3 的 [a-z]+ 宽松得多——文法松紧是设计决策
+string ::= "\"" ( [^"\\\x7F\x00-\x1F] | "\\" (["\\bfnrt] | "u" [0-9a-fA-F]{4}) )* "\""
+
+// JSON 数字
+number ::= ("-"? ([0-9] | [1-9] [0-9]{0,15})) ("." [0-9]+)? ([eE] [-+]? [0-9] [1-9]{0,15})?
+
+ws ::= | " " | "\n" [ \t]{0,20}

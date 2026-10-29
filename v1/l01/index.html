@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>L01 · Agent 是什么：一个循环的五十年 — Engineering AI Agents</title>
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body data-page="l01">
+  <!-- 渐进增强：本页课文静态可读；course.css 加载后此横幅自动隐藏 -->
+  <div id="env-warning" style="margin:14px auto 0;padding:14px 18px;max-width:852px;border:2px solid #c93a3a;background:#fdeeee;color:#181b20;font-size:15px;line-height:1.7;">
+    <b>样式与交互未能加载。</b>你的浏览器（或某个浏览器扩展）拦截了本地文件的 CSS/JS。
+    解决办法：① 用 Safari 打开本文件；② Chrome 无痕窗口（菜单 → 打开新的无痕窗口）把文件拖入，可确认是否扩展所致；
+    ③ 地址栏输入 <b>chrome://extensions</b>，临时关闭全部扩展后刷新本页。课程文字内容本身可以照常阅读。
+  </div>
+  <div id="site-head"></div>
+
+  <main>
+    <header class="lesson-header">
+      <div class="kicker">LECTURE 01 · 入口与全景</div>
+      <h1>Agent 是什么：一个循环的五十年</h1>
+      <div class="meta">
+        <span class="pill ready">已上线</span>
+        <span>对应讲义 lecture01.pdf · p.17–71</span>
+        <span>约 35 分钟</span>
+        <span>前置：无</span>
+      </div>
+      <nav class="lesson-toc" aria-label="本讲结构">
+        <a class="toc-link" href="#scene">开场实验</a>
+        <a class="toc-link" href="#act-1">一 · 循环五十年</a>
+        <a class="toc-link" href="#act-2">二 · 解剖图</a>
+        <a class="toc-link" href="#act-3">三 · 谁决定下一步</a>
+        <a class="toc-link" href="#act-4">四 · 四大挑战</a>
+        <a class="toc-link" href="#takeaway">带走三句话</a>
+        <a class="toc-link" href="#quiz">思考题</a>
+      </nav>
+    </header>
+
+    <section class="act">
+      <p>
+        这一讲只解决一件事：<b>把「agent」从模糊的热词变成一张精确的地图</b>。
+        学完你能回答：agent 到底是什么、它从哪来、workflow 和 agent 的分界线画在哪、
+        以及为什么这门课后面的每一讲，都是在给「概率大脑」加「确定性边界」。
+      </p>
+    </section>
+
+    <!-- ================= 场景 ================= -->
+    <section class="act" id="scene">
+      <h2>开场实验：能力没变，结局全变</h2>
+      <p class="act-sub">同一个模型、同一批工具、同一道题——只换「接线方式」（讲义 p.35–36 原例重演）</p>
+      <p>
+        考题：<b>除了 Apple Remote，还有什么设备能控制「Apple Remote 最初设计所配套的那个程序」？</b>
+        下面把它分别接成三种系统。点三种模式各跑一遍（⭐ 标记的是关键帧），再看后面的分析。
+      </p>
+
+      <div class="widget" id="l01-theater">
+        <h3>剧场 · 谁拥有控制流？</h3>
+        <noscript><p style="color:#9a6700;margin:0 0 10px;">剧场组件需要启用 JavaScript；下方课文阅读不受影响。</p></noscript>
+        <div class="controls-row" style="margin-bottom: 8px;">
+          <button type="button" class="btn th-mode" data-m="cot" aria-pressed="false">① 纯推理 CoT</button>
+          <button type="button" class="btn th-mode" data-m="wf" aria-pressed="false">② 固定流水线 Workflow</button>
+          <button type="button" class="btn th-mode" data-m="react" aria-pressed="false">③ ReAct Agent</button>
+        </div>
+        <div class="controls-row" style="margin-bottom: 8px;">
+          <button type="button" class="btn" id="th-prev">◀ 上一步</button>
+          <button type="button" class="btn btn-primary" id="th-next">下一步 ▶</button>
+          <button type="button" class="btn" id="th-play">⏵ 自动播放</button>
+          <span class="th-frame" id="th-frame"></span>
+          <span class="pill ready" id="th-owner"></span>
+        </div>
+        <div class="controls-row" style="margin-bottom: 8px;" id="th-chips">
+          <span class="th-chip" data-c="llm">LLM Core</span>
+          <span class="th-chip" data-c="reason">推理</span>
+          <span class="th-chip" data-c="memory">记忆</span>
+          <span class="th-chip" data-c="tools">工具</span>
+          <span class="th-chip" data-c="env">环境</span>
+        </div>
+        <div class="hint" id="th-hint" aria-live="polite"></div>
+        <div class="th-trace" id="th-trace"></div>
+        <style>
+          #l01-theater .th-frame { color: var(--muted); font-size: 13px; }
+          #l01-theater .th-chip { font-size: 12.5px; padding: 2px 11px; border-radius: 999px; background: var(--card-2); color: var(--muted); opacity: .6; }
+          #l01-theater .th-chip.on { background: var(--accent-soft); color: var(--accent); font-weight: 600; opacity: 1; }
+          #l01-theater .th-trace { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+          #l01-theater .th-row { display: flex; gap: 10px; align-items: baseline; opacity: .5; }
+          #l01-theater .th-row.cur { opacity: 1; background: var(--accent-soft); border-radius: 8px; padding: 6px 10px; margin: 0 -10px; }
+          #l01-theater .th-kind { flex: none; font-size: 12px; min-width: 54px; display: inline-flex; align-items: center; gap: 5px; color: var(--muted); }
+          #l01-theater .th-dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+          #l01-theater .k-user .th-dot, #l01-theater .k-answer .th-dot { background: var(--muted); }
+          #l01-theater .k-thought .th-dot { background: #8b5cf6; }
+          #l01-theater .k-act .th-dot { background: #3b82f6; }
+          #l01-theater .k-obs .th-dot { background: #d97706; }
+          #l01-theater .k-code .th-dot { background: #0d9488; }
+          #l01-theater .th-text { font-size: 14.5px; line-height: 1.7; }
+          #l01-theater .th-verdict .th-text { font-weight: 600; }
+          #l01-theater .th-verdict.ok .th-text { color: var(--ok); }
+          #l01-theater .th-verdict.bad .th-text { color: var(--bad); }
+        </style>
+        <script>
+        (function () {
+          var root = document.getElementById('l01-theater');
+          var Q = '问题：除了 Apple Remote，还有什么设备能控制「Apple Remote 最初设计所配套的那个程序」？';
+          var MODES = {
+            cot: { owner: '无循环 · 单次生成', frames: [
+              { k: 'user', c: ['llm'], t: Q, h: '纯推理模式：模型唯一的信息来源是训练时冻结的参数化记忆——没有任何外部入口。' },
+              { k: 'thought', c: ['llm', 'reason'], t: 'Thought：一步步想——Apple Remote 是 Apple TV 的遥控器；Apple TV 可以用 iPhone、iPad、iPod Touch 控制……', h: '推理链本身流畅自洽。问题不在逻辑，在前提：它对「最初配套的程序」的记忆是错的（其实是 Front Row 媒体中心，不是 Apple TV）。' },
+              { k: 'answer', c: ['llm'], t: 'Answer：iPhone、iPad、iPod Touch。', h: '幻觉的本质：把参数化记忆当事实输出，而且没有任何机制能发现错误。' },
+              { k: 'verdict', c: [], t: '❌ 错误（正确答案：键盘功能键）。环境交互 0 次——它没有「看」，只有「想」。', h: '记住这个结局，切到模式②③对照。' }
+            ] },
+            wf: { owner: '代码 · 固定步骤', frames: [
+              { k: 'user', c: [], t: Q, h: '流水线模式（教学重演）：步骤在写代码时就定死了，LLM 只是被塞进各个槽位里干活。' },
+              { k: 'code', c: ['tools'], t: '[代码] 第 1 步（固定）：Search["Apple Remote"] —— 无论问题是什么，第 1 步永远是它。', h: '代码在运行前就决定了所有步骤的顺序。' },
+              { k: 'obs', c: ['env', 'memory'], t: 'Obs 1：Apple Remote 于 2005 年 10 月发布……最初设计用于控制 Front Row 媒体中心程序……', h: '流水线至今一切正常。' },
+              { k: 'code', c: ['tools'], t: '[代码] 第 2 步（固定）：从 Obs 1 抽取程序名 → Search["Front Row"]', h: '注意：这一步是写死的。代码不会「读懂」将要返回的观察——它只是执行。' },
+              { k: 'obs', c: ['env', 'memory'], t: 'Obs 2：未找到 ["Front Row"]。相似条目：[Front Row Seat to Earth（纪录片）、Front Row Motorsports（车队）、Front Row (software)……]', h: '⭐ 全剧场最关键的一帧：正确做法是消歧——改查 "Front Row (software)"。这个决定需要读懂观察的内容，而代码做不到，除非你预先写尽所有分支。' },
+              { k: 'code', c: ['tools'], t: '[代码] 第 3 步（固定）：取相似列表第 1 条 → Search["Front Row Seat to Earth"]', h: '机械执行第 1 条——歧义在这一刻变成错误，而且流水线自己毫无察觉。' },
+              { k: 'obs', c: ['env'], t: 'Obs 3：一部关于地球科学的纪录片……（与本题无关）', h: '错误继续传播。' },
+              { k: 'answer', c: [], t: '[代码] 兜底输出：无法确定，疑似 Apple TV。', h: '每一步都「执行正确」，答案仍然错——这就是死流程。' },
+              { k: 'verdict', c: [], t: '❌ 错误。诊断：当下一步取决于观察的内容时，控制流必须交给能「读懂」观察的一方。', h: '现在切到模式③，看同样的歧义撞上循环会发生什么。' }
+            ] },
+            react: { owner: '模型 · 边看边决定', frames: [
+              { k: 'user', c: [], t: Q, h: '同一道题、同一个模型、同一批工具——唯一的变化：下一步由模型在循环里决定（ReAct，讲义 p.36 原例）。' },
+              { k: 'thought', c: ['llm', 'reason', 'memory'], t: 'Thought 1：我需要搜索 Apple Remote，找到它最初设计用来控制的程序。', h: '推理是「内部动作」：先改变自己的状态，再决定外部动作。' },
+              { k: 'act', c: ['tools'], t: 'Act 1：Search["Apple Remote"]', h: '模型自己选择了工具和参数。' },
+              { k: 'obs', c: ['env', 'memory'], t: 'Obs 1：（同前）……最初设计用于控制 Front Row 媒体中心程序……', h: '观察写回上下文——记忆（上下文）在增长，这就是最原始的 agent 记忆。' },
+              { k: 'thought', c: ['llm', 'reason', 'memory'], t: 'Thought 2：Apple Remote 最初控制的是 Front Row。我需要搜索 Front Row，看还有什么设备能控制它。', h: '读观察 → 更新计划 → 决定下一个动作。' },
+              { k: 'act', c: ['tools'], t: 'Act 2：Search["Front Row"]' },
+              { k: 'obs', c: ['env', 'memory'], t: 'Obs 2：未找到 ["Front Row"]。相似条目：[Front Row Seat to Earth、Front Row Motorsports、Front Row (software)……]', h: '⭐ 同样的歧义撞上来了。流水线在这里必死——看下一帧谁来做决定。' },
+              { k: 'thought', c: ['llm', 'reason', 'memory'], t: 'Thought 3：Front Row 没有直接找到。列表里的 "Front Row (software)" 才像媒体中心软件——改搜它。', h: '这就是 agent 的定义性瞬间：模型读懂观察、修改计划、更换动作——控制流在运行时被重写。' },
+              { k: 'act', c: ['tools'], t: 'Act 3：Search["Front Row (software)"]' },
+              { k: 'obs', c: ['env', 'memory'], t: 'Obs 3：Front Row 是一款已停产的媒体中心软件……可由 Apple Remote 或键盘功能键控制。', h: '证据到手，可以收敛了。' },
+              { k: 'thought', c: ['llm', 'reason'], t: 'Thought 4：Front Row (software) 可由 Apple Remote 或键盘功能键控制。所以答案是键盘功能键。', h: '终答前的最后一步推理。' },
+              { k: 'act', c: ['tools'], t: 'Act 4：Finish["键盘功能键"]', h: 'Finish 也是一个工具调用——「停下来」本身同样是模型的决定。' },
+              { k: 'verdict', c: [], t: '✅ 正确（键盘功能键）。环境交互 3 次、4 轮循环——模型在 Obs 2 处救回了流水线必死的局。', h: '对照三种模式：能力（同一个 LLM）没变，变的是控制流的归属。这就是 L01 的核心。' }
+            ] }
+          };
+          var KIND_LABEL = { user: '提问', thought: '思考', act: '行动', obs: '观察', code: '代码', answer: '输出', verdict: '结论' };
+          var mode = 'cot', idx = 0, timer = null;
+          var els = {
+            trace: root.querySelector('#th-trace'), hint: root.querySelector('#th-hint'),
+            frame: root.querySelector('#th-frame'), owner: root.querySelector('#th-owner'),
+            prev: root.querySelector('#th-prev'), next: root.querySelector('#th-next'), play: root.querySelector('#th-play'),
+            modes: root.querySelectorAll('.th-mode'), chips: root.querySelectorAll('.th-chip')
+          };
+          function envCount(m, upTo) {
+            var n = 0;
+            for (var i = 0; i <= upTo; i++) { if (MODES[m].frames[i].k === 'obs') n++; }
+            return n;
+          }
+          function render() {
+            var d = MODES[mode], f = d.frames[idx];
+            els.modes.forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.m === mode ? 'true' : 'false'); });
+            els.frame.textContent = '第 ' + (idx + 1) + ' / ' + d.frames.length + ' 帧 · 环境交互 ' + envCount(mode, idx) + ' 次';
+            els.owner.textContent = '控制流：' + d.owner;
+            els.chips.forEach(function (ch) { ch.classList.toggle('on', f.c.indexOf(ch.dataset.c) >= 0); });
+            els.hint.innerHTML = '<span class="k">现在看什么 · </span>' + f.h;
+            els.trace.innerHTML = '';
+            for (var i = 0; i <= idx; i++) {
+              var fr = d.frames[i];
+              var row = document.createElement('div');
+              row.className = 'th-row k-' + fr.k + (fr.k === 'verdict' ? ' th-verdict ' + (fr.t.charAt(0) === '✅' ? 'ok' : 'bad') : '') + (i === idx ? ' cur' : '');
+              var kind = document.createElement('span');
+              kind.className = 'th-kind';
+              kind.innerHTML = '<span class="th-dot"></span>' + (KIND_LABEL[fr.k] || fr.k);
+              var text = document.createElement('span');
+              text.className = 'th-text';
+              text.textContent = fr.t;
+              row.appendChild(kind); row.appendChild(text);
+              els.trace.appendChild(row);
+            }
+            els.prev.disabled = (idx === 0);
+            els.next.disabled = (idx === d.frames.length - 1);
+            stopPlay(false);
+          }
+          function stopPlay(updateBtn) {
+            if (timer) { clearInterval(timer); timer = null; }
+            if (updateBtn !== false) els.play.textContent = '⏵ 自动播放';
+          }
+          function go(m, i) {
+            mode = MODES[m] ? m : 'cot';
+            idx = Math.max(0, Math.min(i || 0, MODES[mode].frames.length - 1));
+            render();
+          }
+          els.modes.forEach(function (b) { b.addEventListener('click', function () { stopPlay(); go(b.dataset.m, 0); }); });
+          els.prev.addEventListener('click', function () { stopPlay(); go(mode, idx - 1); });
+          els.next.addEventListener('click', function () { stopPlay(); go(mode, idx + 1); });
+          els.play.addEventListener('click', function () {
+            if (timer) { stopPlay(); return; }
+            if (idx === MODES[mode].frames.length - 1) { idx = -1; }
+            els.play.textContent = '⏸ 暂停';
+            timer = setInterval(function () {
+              if (idx >= MODES[mode].frames.length - 1) { stopPlay(); return; }
+              go(mode, idx + 1);
+            }, 1700);
+          });
+          go('cot', 0);
+        })();
+        </script>
+      </div>
+
+      <p>
+        三个结局：<b>纯推理</b>幻觉出一个流畅但错误的答案（它没「看」，只有「想」）；
+        <b>固定流水线</b>每步都执行正确，却必死在 Obs 2 的歧义上（代码不读观察）；
+        <b>ReAct agent</b>在同一个歧义处改道、查对、收敛。
+        这就是 L01 的全部秘密——<b>能力是同一个，变的是控制流的归属。</b>
+      </p>
+    </section>
+
+    <!-- ================= 第一幕 ================= -->
+    <section class="act" id="act-1">
+      <h2>第一幕：这个「循环」比 LLM 老五十年</h2>
+      <p class="act-sub">讲义 p.19–27</p>
+      <p>把讲义五页历史压成一句话：<b>循环是旧发明，新的是通用大脑。</b></p>
+      <ul>
+        <li><b>1973–1995</b>：Actor 形式式、Society of Mind、Contract Net——多智能体协作的概念在 LLM 诞生前就在了。1995 年 Russell &amp; Norvig 给出教科书定义：<i>通过传感器感知、通过执行器行动的任何东西</i>。注意，这个定义里一个字都没提 LLM。</li>
+        <li><b>1998–2015 RL 时代</b>：Sutton &amp; Barto 把「agent–环境循环」形式化，DQN 在 Atari 上打赢人类。循环有了，但<b>大脑要为每个任务从零训练</b>——奖励稀疏、样本天价。</li>
+        <li><b>2022 LLM 时代</b>：in-context learning 让大脑第一次<b>可插拔</b>——换任务不用重训，换一份说明书（prompt）就行。ReAct（2022.10，比 ChatGPT 还早两个月）做的事，本质就是给 GPT-3 一份说明书加一个搜索框。</li>
+      </ul>
+      <p>
+        所以「为什么是现在」的答案不是「模型变聪明了」这么简单，而是：
+        <b>控制流第一次可以用自然语言编写了。</b>以前程序的分支写在 <code>if/else</code> 里，现在写在 prompt 里，由模型在运行时动态执行。
+      </p>
+    </section>
+
+    <!-- ================= 第二幕 ================= -->
+    <section class="act" id="act-2">
+      <h2>第二幕：解剖图——五条语法对应五个部件</h2>
+      <p class="act-sub">讲义 p.29–53</p>
+      <p>讲义用 ReAct 的轨迹语法逐词映射出 agent 的五大件，这张图会贯穿整门课：</p>
+      <table>
+        <thead><tr><th>ReAct 轨迹里的</th><th>对应部件</th><th>一句话职责</th></tr></thead>
+        <tbody>
+          <tr><td><code>the model</code></td><td><b>LLM Core</b></td><td>概率大脑：把文本观察映射为下一步决定</td></tr>
+          <tr><td><code>Thought[...]</code></td><td><b>推理与规划</b></td><td>内部动作——先改变自己的状态，再决定外部动作</td></tr>
+          <tr><td><code>traces so far</code></td><td><b>记忆</b></td><td>轨迹本身就是最原始的记忆（上下文）</td></tr>
+          <tr><td><code>Act:</code></td><td><b>工具</b></td><td>检索、计算器、代码、搜索、读写文件……</td></tr>
+          <tr><td><code>Obs:</code></td><td><b>环境</b></td><td>浏览器、操作系统、数据库、外部世界</td></tr>
+        </tbody>
+      </table>
+      <p>两个留待后续展开的钩子：</p>
+      <ul>
+        <li><b>记忆按内容分三型</b>——episodic（存经历，追加式事件流）、semantic（存知识，LLM 对事件做推理后写入）、procedural（存技能，Voyager 存的是代码）——L07 整讲展开。</li>
+        <li><b>推理模式是个家族</b>——CoT、Self-Consistency（多路采样投票）、Reflexion（失败后用自然语言自我反思）、多智能体辩论、orchestrator 协调——L06 展开。</li>
+      </ul>
+      <div class="callout">
+        <p style="margin:0;">
+          如果做过配套的 <a href="../../labs/01-structured-io/structured-io-lab.html">Lab 01</a>，
+          你会有强烈的既视感：lab01 第 6 步的 <code>decide → validate → execute → observe</code> 循环就是这张图的代码化，
+          而那道 Pydantic 校验闸就是「概率大脑」外面裹的第一层「确定性边界」。
+        </p>
+      </div>
+    </section>
+
+    <!-- ================= 第三幕 ================= -->
+    <section class="act" id="act-3">
+      <h2>第三幕：全课程最重要的一刀——谁决定下一步</h2>
+      <p class="act-sub">讲义 p.56–59 · 参考 Berkeley《The Shift from Models to Compound AI Systems》</p>
+      <blockquote>
+        <p><b>Workflow：代码定步骤</b>（Agentless、AlphaCode 2）—— <b>Agent：LLM 定步骤</b>（SWE-agent）。两者都是复合 AI 系统：LLM + 其他组件。</p>
+      </blockquote>
+      <p>这不是优劣之分，是<b>架构的第一决策</b>，各拿一副牌：</p>
+      <ul>
+        <li><b>Workflow</b>：可预测、便宜、好调试——但脆，遇到剧场 Obs 2 那种「下一步取决于观察内容」的局面就死。</li>
+        <li><b>Agent</b>：灵活、能改道——但每一步都是概率的，而概率会复利。</li>
+      </ul>
+
+      <div class="widget" id="pn-calc">
+        <h3>误差复利计算器 · 端到端可靠率 = p<sup>n</sup></h3>
+        <div class="controls-row">
+          <label>每步可靠率 p <input type="range" id="pn-p" min="80" max="100" step="0.5" value="95"></label>
+          <b id="pn-pv" class="pn-num">95%</b>
+        </div>
+        <div class="controls-row">
+          <label>步数 n <input type="range" id="pn-n" min="1" max="50" step="1" value="20"></label>
+          <b id="pn-nv" class="pn-num">20</b>
+        </div>
+        <div class="pn-out-row">
+          <div class="progress-track"><div class="progress-fill" id="pn-bar"></div></div>
+          <b id="pn-out" style="font-size: 20px;">36%</b>
+        </div>
+        <div class="hint" id="pn-cap" style="margin-top: 10px;"></div>
+        <style>
+          #pn-calc label { display: flex; align-items: center; gap: 10px; font-size: 14.5px; flex: 1; min-width: 240px; }
+          #pn-calc input[type="range"] { flex: 1; }
+          #pn-calc .pn-num { min-width: 52px; font-variant-numeric: tabular-nums; }
+          #pn-calc .pn-out-row { display: flex; align-items: center; gap: 14px; margin-top: 14px; }
+          #pn-calc .progress-track { flex: 1; height: 9px; background: var(--card-2); border-radius: 999px; overflow: hidden; }
+          #pn-calc .progress-fill { height: 100%; background: var(--accent); border-radius: 999px; transition: width 0.25s ease; }
+        </style>
+        <script>
+        (function () {
+          var root = document.getElementById('pn-calc');
+          var sp = root.querySelector('#pn-p'), sn = root.querySelector('#pn-n');
+          var pv = root.querySelector('#pn-pv'), nv = root.querySelector('#pn-nv');
+          var out = root.querySelector('#pn-out'), bar = root.querySelector('#pn-bar'), cap = root.querySelector('#pn-cap');
+          function fmt(x) { return (x * 100).toFixed(1).replace(/\.0$/, ''); }
+          function render() {
+            var p = sp.value / 100, n = +sn.value;
+            var r = Math.pow(p, n);
+            pv.textContent = sp.value + '%';
+            nv.textContent = n;
+            out.textContent = fmt(r) + '%';
+            bar.style.width = (r * 100).toFixed(1) + '%';
+            bar.style.background = r < 0.5 ? 'var(--bad)' : r < 0.8 ? 'var(--warn)' : 'var(--ok)';
+            cap.innerHTML = '每步 ' + sp.value + '% 的可靠率，走 ' + n + ' 步之后端到端只剩 <b>' + fmt(r) + '%</b>。' +
+              (r < 0.5 ? ' —— 低于抛硬币。这就是「能力 99%」的系统在长任务上翻车的原因。' : '');
+          }
+          sp.addEventListener('input', render);
+          sn.addEventListener('input', render);
+          render();
+        })();
+        </script>
+      </div>
+
+      <p>
+        由此得到本讲最实用的一条判据：<b>当下一步取决于观察的内容时，控制流必须交给模型；当下一步总是确定的时，把它焊死在代码里。</b>
+        真实系统几乎都是混搭——外层 workflow 定骨架，局部 agent 处理不确定的洞。
+      </p>
+    </section>
+
+    <!-- ================= 第四幕 ================= -->
+    <section class="act" id="act-4">
+      <h2>第四幕：四大挑战 = 课程地图的另一半</h2>
+      <p class="act-sub">讲义 p.61–70</p>
+      <p>为什么这门课后面长那样？因为 agent 有四个结构性难题，每一讲都在还其中一笔债：</p>
+      <ol>
+        <li><b>可靠性</b>：误差复利 + 三宗罪——同任务不同跑结果不一致、对 prompt/工具的小扰动敏感、失败模式不可预期。Princeton 的 HAL 仪表盘（p.63）有个刺眼的结论：<b>能力涨得快，可靠性涨得慢</b>——工程的价值就在这条缝里，这也是这门课存在的原因。</li>
+        <li><b>训练</b>：奖励稀疏、战线长、rollout 贵。</li>
+        <li><b>长程</b>：上下文增长且漂移——记忆系统因此成为必需品（L07）。</li>
+        <li><b>安全</b>：任务完成 ≠ 行为安全。留三个印象：恶意弹窗对 agent 的<b>攻击成功率 87%</b>（它会分心）；PrivacyLens 发现 agent 行动时系统性无视隐私规范；以及<b>多智能体合谋</b>（L08 的暗面）。</li>
+      </ol>
+    </section>
+
+    <!-- ================= 收束 ================= -->
+    <section class="act" id="takeaway">
+      <h2>带走三句话</h2>
+      <div class="callout ok">
+        <ol style="margin: 0; padding-left: 22px; line-height: 2;">
+          <li>Agent = <b>循环（五十年）+ 通用大脑（三年）</b>；新东西是控制流可用自然语言编写。</li>
+          <li>Workflow vs Agent 之别只有一个问题：<b>谁决定下一步</b>。判据：下一步依赖观察内容 → 交给模型；总是确定 → 焊死在代码。</li>
+          <li>这门课做的一切工程，都是在给概率大脑<b>加确定性边界</b>，同时接受 p<sup>n</sup> 的现实并设法把 n 和 1−p 压下来。</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ================= 思考题 ================= -->
+    <section class="act quiz" id="quiz">
+      <h2>思考题</h2>
+      <p class="act-sub">先自己答，再展开参考答案。</p>
+      <details>
+        <summary>1 · Lab 01 第 6 步的 mini agent 是 workflow 还是 agent？</summary>
+        <div class="ans"><span class="tag">参考答案</span><br>
+          <b>混搭。</b>「调用哪个工具、填什么参数」由模型生成——这是 agent 的部分；
+          但「校验失败 → 报错回喂 → 重试，最多 k 次」这个外层循环、以及类型契约本身，是代码写死的——这是 workflow 的部分。
+          这正是第三幕判据的应用：决策点不确定 → 交给模型；控制策略确定 → 焊死在代码。
+        </div>
+      </details>
+      <details>
+        <summary>2 · 举一个「该用 workflow 却容易被诱惑上 agent」的任务，和一个反过来的。</summary>
+        <div class="ans"><span class="tag">参考答案（示例）</span><br>
+          该用 workflow 却上了 agent：固定格式的周报摘要——步骤完全确定（读 → 摘 → 排版），agent 只会增加成本、延迟与不确定性。<br>
+          该用 agent 却塞进 workflow：开放式客服退款处理——下一步是查订单、查政策还是升级人工，取决于对话内容与查询结果，观察决定行动，分支无法预先写尽。
+        </div>
+      </details>
+      <details>
+        <summary>3 · 每步 99% 可靠的 50 步 agent，端到端是多少？这个数字解释了什么现象？</summary>
+        <div class="ans"><span class="tag">参考答案</span><br>
+          0.99<sup>50</sup> ≈ <b>60.5%</b>。它解释了：长程任务（如 SWE-bench 上的多文件改动题）的成功率远低于模型单点能力；
+          同一任务多次运行结果不一致（HAL 的 consistency 指标）。工程对策：缩短链（分层 workflow）、
+          在链中插校验闸与重试（抬高 p、把失败变成可恢复的）、对高价值步骤并行采样投票（Self-Consistency）。
+        </div>
+      </details>
+    </section>
+
+    <!-- ================= 延伸 ================= -->
+    <section class="act">
+      <h2>延伸阅读</h2>
+      <ul>
+        <li>ReAct: Yao et al., <i>Synergizing Reasoning and Acting in Language Models</i>（arXiv:2210.03629, 2022）</li>
+        <li>Zaharia et al., <i>The Shift from Models to Compound AI Systems</i>（BAIR Blog, 2024）</li>
+        <li>HAL 能力-可靠性仪表盘：<a href="https://hal.cs.princeton.edu" target="_blank" rel="noopener">hal.cs.princeton.edu</a></li>
+        <li>Sutton &amp; Barto, <i>Reinforcement Learning: An Introduction</i>（agent–environment 循环的出处）</li>
+        <li>动手：先玩 <a href="../../labs/01-structured-io/structured-io-lab.html">Lab 01 · Structured I/O 实验室</a>（配合 L04）</li>
+      </ul>
+    </section>
+
+    <div class="lesson-actions">
+      <button class="btn btn-primary" id="mark-done" type="button">✓ 标记本讲已学完</button>
+      <span style="color: var(--muted); font-size: 14px;">进度保存在本机浏览器</span>
+    </div>
+  </main>
+
+  <footer class="site-foot">
+    <div class="inner">
+      本页为 <a href="http://web.stanford.edu/class/cs329z" target="_blank" rel="noopener">斯坦福 CS329Z</a>
+      讲义的学习笔记式原创演绎（引用页码如文中所注），讲义版权归原作者；文本与交互组件为原创。
+    </div>
+  </footer>
+
+  <script src="../assets/course.js"></script>
+</body>
+</html>

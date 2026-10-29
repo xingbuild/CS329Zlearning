@@ -1,0 +1,3045 @@
+<!doctype html>
+<html lang="zh" data-visualize-standalone>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src 'unsafe-inline' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src blob: data:; frame-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>Structured IO Lab</title>
+<style>:root{color-scheme:light dark;background:light-dark(rgb(255 255 255), rgb(24 24 24))}html,body{margin:0}body{box-sizing:border-box;padding:1rem;background:inherit}iframe{display:block;width:100%;height:calc(100vh - 2rem);margin:0 auto;border:0}</style></head>
+<body><iframe id="zcode-visualization" sandbox="allow-scripts" title="Structured IO Lab" data-srcdoc="&lt;!doctype html&gt;
+&lt;html lang=&quot;zh&quot; data-visualize-standalone&gt;
+&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+&lt;meta http-equiv=&quot;Content-Security-Policy&quot; content=&quot;default-src &#x27;none&#x27;; script-src &#x27;unsafe-inline&#x27; &#x27;unsafe-eval&#x27; &#x27;wasm-unsafe-eval&#x27; blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src &#x27;unsafe-inline&#x27; blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src blob: data:; frame-src &#x27;none&#x27;; object-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; form-action &#x27;none&#x27;&quot;&gt;
+&lt;title&gt;Structured IO Lab&lt;/title&gt;&lt;style&gt;:root {
+  color-scheme: light dark;
+  background-color: var(
+    --background,
+    var(--color-background-primary, light-dark(rgb(255 255 255), rgb(24 24 24)))
+  ) !important;
+
+  /* Agent-facing contract; keep in sync with SKILL.md. */
+  --background: var(
+    --color-background-primary,
+    light-dark(rgb(255 255 255), rgb(24 24 24))
+  );
+  --foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --card: var(--gen-ui-card, light-dark(#ffffff, #2b2b2b));
+  --card-border: var(--gen-ui-card-border, var(--border));
+  --card-foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --popover: var(
+    --color-background-secondary,
+    light-dark(rgb(255 255 255), rgb(45 45 45))
+  );
+  --popover-foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --primary: var(
+    --gen-ui-primary, light-dark(#000000, #ffffff)
+  );
+  --content-accent: var(
+    --color-text-info,
+    light-dark(rgb(51 156 255), rgb(131 195 255))
+  );
+  --primary-foreground: var(
+    --gen-ui-primary-foreground,
+    light-dark(rgb(255 255 255), rgb(0 0 0))
+  );
+  --secondary: var(
+    --gen-ui-secondary,
+    light-dark(rgb(230 230 230), rgb(54 54 54))
+  );
+  --secondary-foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --muted: color-mix(in srgb, var(--foreground) 10%, transparent);
+  --muted-foreground: var(
+    --color-text-secondary,
+    light-dark(rgb(26 28 31 / 49.4%), rgb(255 255 255 / 49.8%))
+  );
+  --accent: var(
+    --color-background-info,
+    light-dark(rgb(229 242 255), rgb(13 39 63))
+  );
+  --accent-foreground: var(
+    --color-text-info,
+    light-dark(rgb(51 156 255), rgb(131 195 255))
+  );
+  --destructive: var(
+    --color-text-warning,
+    light-dark(rgb(226 85 7), rgb(255 133 73))
+  );
+  --border: var(
+    --color-border-secondary,
+    light-dark(rgb(26 28 31 / 8%), rgb(255 255 255 / 8.2%))
+  );
+  --input: var(
+    --color-border-primary,
+    light-dark(
+      rgb(26 28 31 / 11.8%),
+      color-mix(in oklab, rgb(0 0 0) 10%, transparent)
+    )
+  );
+  --ring: var(
+    --gen-ui-input-border-focused,
+    light-dark(rgb(51 156 255), rgb(131 195 255 / 76%))
+  );
+  --font-size-base: var(--font-text-md-size, 14px);
+  --blue: light-dark(rgb(51 156 255), rgb(51 156 255));
+  --orange: light-dark(rgb(226 85 7), rgb(251 106 34));
+  --green: light-dark(rgb(0 162 64), rgb(64 201 119));
+  --red: light-dark(rgb(224 46 42), rgb(255 103 100));
+  --purple: light-dark(rgb(146 79 247), rgb(173 123 249));
+  --yellow: light-dark(rgb(255 195 0), rgb(255 210 64));
+  --viz-series-1: var(--content-accent);
+  --viz-series-2: light-dark(rgb(243 136 59), rgb(245 154 86));
+  --viz-series-3: light-dark(rgb(93 201 119), rgb(116 213 139));
+  --viz-series-4: light-dark(rgb(235 119 177), rgb(240 143 192));
+  --viz-series-5: light-dark(rgb(155 121 236), rgb(170 145 239));
+  --viz-series-6: light-dark(rgb(58 185 177), rgb(90 203 194));
+
+  /* Internal implementation variables; not part of the agent contract. */
+  --font-sans: -apple-system, system-ui, &quot;Segoe UI&quot;, sans-serif;
+  --font-mono:
+    ui-monospace, SFMono-Regular, &quot;SF Mono&quot;, Menlo, Consolas, &quot;Liberation Mono&quot;,
+    monospace;
+  --font-size-normal: var(--font-size-base);
+  --font-size-tooltip: calc(var(--font-size-base) - 1px);
+  --font-size-small: var(--font-text-sm-size, calc(var(--font-size-base) - 2px));
+  --font-size-h1: var(--font-heading-md-size, calc(var(--font-size-base) + 4px));
+  --font-size-h2: var(--font-heading-sm-size, calc(var(--font-size-base) + 2px));
+  --font-size-h3: var(--font-heading-xs-size, var(--font-size-base));
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --icon-size: 16px;
+  --line-height-normal: calc(var(--font-size-normal) * 1.5);
+  --line-height-tooltip: calc(var(--font-size-tooltip) * 1.4285714286);
+  --line-height-small: calc(var(--font-size-small) + 4px);
+  --corner-shape: round;
+  /* 旧比例圆角会产生非标准档位；独立 token 与 App 层级保持一致。 */
+  --radius-sm: var(--border-radius-sm, 4px);
+  --radius-md: var(--border-radius-md, 6px);
+  --radius-lg: var(--border-radius-lg, 8px);
+  --radius-xl: var(--border-radius-xl, 12px);
+  --radius-2xl: var(--radius-xl);
+  --control-radius: var(--radius-lg);
+  --input-bg: var(--gen-ui-input, light-dark(#ffffff, #2b2b2b));
+  --input-bg-focused: var(--gen-ui-input-focused, var(--input-bg));
+  --input-border: var(--gen-ui-input-border, var(--input));
+  --input-border-hover: var(--gen-ui-input-border-hover, var(--border));
+  /* 独立导出没有宿主 focused token，仍需保留可辨认的键盘焦点。 */
+  --input-border-focused: var(--gen-ui-input-border-focused, var(--ring));
+  --placeholder: var(--gen-ui-foreground-subtlest, var(--muted-foreground));
+  --hover: var(--gen-ui-hover, var(--muted));
+  --selected: var(--gen-ui-selected, var(--muted));
+  --radius-full: 9999px;
+  --shadow-sm: 0 1px 2px -1px rgb(0 0 0 / 8%);
+  --checkmark-image: url(&quot;data:image/svg+xml,%3Csvg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; viewBox=&#x27;0 0 17 17&#x27;%3E%3Cpath d=&#x27;M12.8961 3.64101C13.1297 3.41418 13.4984 3.37523 13.7779 3.56581C14.0571 3.75635 14.1554 4.11331 14.0299 4.41347L13.9615 4.53847L7.71151 13.7045C7.59411 13.8767 7.4063 13.9877 7.19881 14.0072C6.99136 14.0267 6.78564 13.9533 6.63826 13.806L2.88826 10.056L2.79842 9.9457C2.6192 9.67407 2.64927 9.30496 2.88826 9.06581C3.12738 8.82669 3.49647 8.79676 3.76815 8.97597L3.8785 9.06581L7.03084 12.2182L12.8053 3.74941L12.8961 3.64101Z&#x27;/%3E%3C/svg%3E&quot;);
+
+  /* Legacy aliases; not part of the current agent contract. */
+  --viz-bg: transparent;
+  --viz-panel: var(--card);
+  --viz-border: var(--border);
+  --viz-text: var(--foreground);
+  --viz-muted: var(--muted-foreground);
+  --viz-accent: var(--content-accent);
+  --viz-accent-text: var(--primary-foreground);
+  --viz-accent-bg: var(--accent);
+  --viz-font-size: var(--font-size-base);
+  --viz-warning: var(--destructive);
+}
+
+:root[data-theme=&quot;light&quot;] {
+  color-scheme: light;
+}
+
+:root[data-theme=&quot;dark&quot;] {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html &gt; body {
+  /* Preserve MCP aliases for older inline renderers without creating :root cycles. */
+  --color-background-primary: var(
+    --background,
+    light-dark(rgb(255 255 255), rgb(24 24 24))
+  );
+  --color-text-primary: var(
+    --foreground,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --color-border-secondary: var(
+    --border,
+    light-dark(rgb(26 28 31 / 8%), rgb(255 255 255 / 8.2%))
+  );
+
+  margin: 0;
+  padding: var(--visualize-paint-gutter, 0px);
+  color: var(--foreground);
+  background: transparent !important;
+  font-family: var(--font-sans) !important;
+  font-size: var(--font-size-normal);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-normal);
+}
+
+.cursor-interaction {
+  cursor: var(--cursor-interaction, pointer);
+}
+
+a {
+  color: color-mix(in srgb, var(--viz-accent) 80%, var(--viz-text) 20%);
+  cursor: var(--cursor-interaction, pointer);
+  font-weight: var(--font-weight-medium, 500);
+  text-decoration: none;
+  text-underline-offset: 2px;
+}
+
+a:is(:hover, :focus-visible) {
+  text-decoration-line: underline;
+  text-decoration-style: dashed;
+  text-decoration-thickness: 0.5px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-block: 0;
+}
+
+h1 {
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+h2 {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+h3,
+h4,
+h5,
+h6 {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.3;
+}
+
+b,
+strong,
+th {
+  font-weight: var(--font-weight-medium);
+}
+
+code:not(pre code) {
+  display: inline;
+  padding: 1px 6px;
+  border-radius: var(--radius-sm);
+  corner-shape: var(--corner-shape);
+  background: var(--muted);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-small);
+  overflow-wrap: anywhere;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  word-break: break-word;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--foreground);
+  font: inherit;
+  text-align: start;
+}
+
+.table :is(th, td) {
+  padding-block: 10px;
+  padding-inline: 0 24px;
+  overflow-wrap: anywhere;
+  border-bottom: 1px solid var(--border);
+  text-align: start;
+  vertical-align: top;
+}
+
+.table-responsive &gt; .table :is(th, td) {
+  overflow-wrap: break-word;
+}
+
+.table :is(th, td):last-child {
+  padding-inline-end: 0;
+}
+
+.table :is(caption, thead th) {
+  font-weight: 600;
+}
+
+.table thead th {
+  padding-block: 8px;
+  border-bottom-color: color-mix(in srgb, var(--foreground) 16%, transparent);
+}
+
+.table tbody tr:last-child :is(th, td) {
+  border-bottom: 0;
+}
+
+.table.table-sm :is(th, td) {
+  padding-block: 6px;
+}
+
+.table.table-sm :is(th, td):not(:last-child) {
+  padding-inline-end: 16px;
+}
+
+.table :is(.text-end, [align=&quot;right&quot;]) {
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+}
+
+.table :is(.text-center, [align=&quot;center&quot;]) {
+  text-align: center;
+}
+
+.table .text-nowrap {
+  white-space: nowrap;
+}
+
+#widget {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  padding: 0;
+  background: transparent !important;
+}
+
+.card {
+  min-width: 0;
+  padding: 12px;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-xl);
+  corner-shape: var(--corner-shape);
+  color: var(--card-foreground);
+  background: var(--card);
+}
+
+.widget {
+  min-width: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: var(--radius-xl);
+  corner-shape: var(--corner-shape);
+  box-shadow: 0 0 0 0.5px var(--border-strong, var(--border));
+  color: var(--foreground);
+  background: var(--background);
+}
+
+/* 只计算可见圆角容器，任意布局 wrapper 不增加层级。 */
+:is(.card, .widget) {
+  --control-radius: var(--radius-lg);
+}
+:is(.card, .widget) :is(.card, .widget) {
+  border-radius: var(--radius-lg);
+  --control-radius: var(--radius-md);
+}
+:is(.card, .widget) :is(.card, .widget) :is(.card, .widget) {
+  border-radius: var(--radius-md);
+  --control-radius: var(--radius-sm);
+}
+:is(.card, .widget) :is(.card, .widget) :is(.card, .widget) :is(.card, .widget) {
+  border-radius: var(--radius-sm);
+}
+
+#widget &gt; :not(.card, .widget, .progress) {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.tooltip {
+  position: fixed;
+  z-index: 50;
+  top: 0;
+  left: 0;
+  width: max-content;
+  max-width: min(
+    20rem,
+    var(--tooltip-available-width, calc(100vw - 10px)),
+    calc(100vw - 10px)
+  );
+  max-height: min(
+    var(--tooltip-available-height, calc(100vh - 10px)),
+    calc(100vh - 10px)
+  );
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  corner-shape: var(--corner-shape);
+  color: var(--popover-foreground);
+  background: var(--popover);
+  box-shadow: none;
+  font-size: var(--font-size-tooltip);
+  line-height: var(--line-height-tooltip);
+  overflow-wrap: break-word;
+  white-space: normal;
+  pointer-events: none;
+  user-select: none;
+}
+
+.viz-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(max(180px, 24%), 1fr));
+  gap: 10px;
+}
+
+.viz-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.viz-stat-value {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+.viz-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+hr {
+  width: 100%;
+  height: 1px;
+  margin-block: 6px;
+  border: 0;
+  background: var(--border);
+}
+
+.nav {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 4px;
+}
+
+.progress {
+  display: flex;
+  height: 8px;
+  margin-block: calc((var(--line-height-normal, 1.5em) - 8px) / 2);
+  overflow: hidden;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--muted);
+}
+
+.progress-bar:only-child {
+  border-radius: var(--radius-full);
+}
+
+.progress-bar {
+  height: 100%;
+  flex-shrink: 0;
+  border: 0;
+  background: var(--viz-series-1);
+}
+
+.viz-badge {
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  color: var(--accent-foreground);
+  background: var(--accent);
+  font-weight: var(--font-weight-medium);
+}
+
+small,
+.text-small,
+.viz-badge {
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+.text-muted {
+  color: var(--muted-foreground);
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.viz-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.viz-controls &gt; .form-label {
+  display: grid;
+  min-width: min(100%, 260px);
+  flex: 1 1 280px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 2px 12px;
+  margin-bottom: 0;
+}
+
+.viz-controls &gt; .form-label &gt; :is(.form-control, .form-range, .form-select) {
+  grid-column: 1 / -1;
+}
+
+.btn,
+.nav-link,
+.form-check-input,
+.form-control,
+.form-range,
+.form-select {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-normal);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-normal);
+}
+
+.btn,
+.nav-link {
+  appearance: button;
+  display: inline-flex;
+  inline-size: fit-content;
+  max-inline-size: 100%;
+  min-height: 28px;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0 8px;
+  -webkit-app-region: no-drag;
+  border: 1px solid var(--gen-ui-border, var(--input));
+  border-radius: var(--control-radius);
+  corner-shape: var(--corner-shape);
+  color: var(--foreground);
+  background: transparent;
+  cursor: var(--cursor-interaction, pointer);
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+.btn:is(.btn-block, .viz-tile) {
+  inline-size: 100%;
+}
+
+.btn.viz-tile {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+a.btn {
+  cursor: var(--cursor-interaction, pointer);
+  text-decoration: none;
+}
+
+.btn:not(:disabled):hover,
+.nav-link:not(:disabled):not([aria-disabled=&quot;true&quot;]):hover {
+  border-color: var(--gen-ui-border-hover, var(--border));
+  background: color-mix(in srgb, var(--input-bg) 50%, transparent);
+}
+
+.btn-primary {
+  border-color: transparent;
+  color: var(--primary-foreground);
+  background: var(--primary);
+  background-clip: padding-box;
+}
+
+.btn-primary .text-muted {
+  color: color-mix(in srgb, var(--primary-foreground) 50%, transparent);
+}
+
+.btn-primary:not(:disabled):hover {
+  border-color: transparent;
+  background: color-mix(in srgb, var(--primary) 80%, transparent);
+  background-clip: padding-box;
+}
+
+.btn-ghost {
+  border-color: transparent;
+  color: var(--foreground);
+  background: transparent;
+}
+
+.btn-ghost:not(:disabled):hover {
+  border-color: transparent;
+  color: var(--foreground);
+  background: var(--hover);
+}
+
+.nav-pills .nav-link {
+  min-width: 0;
+  border-color: transparent;
+  color: var(--muted-foreground);
+  background: transparent;
+}
+
+.nav-justified .nav-link {
+  flex: 1 1 0;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+.nav-pills .nav-link.active {
+  color: var(--foreground);
+  background: var(--muted);
+}
+
+.btn-secondary {
+  border-color: transparent;
+  background: var(--secondary);
+}
+.btn-secondary:not(:disabled):hover {
+  border-color: transparent;
+  background: color-mix(in srgb, var(--secondary) 80%, transparent);
+}
+/* 固定高度叠加正文行高会让放大字号溢出；变体仅约束最小高度，保留内容增长。 */
+.btn:is(.btn-xs, .btn-sm, .btn-lg) {
+  line-height: 1;
+  padding-block: 2px;
+}
+.btn-xs {
+  min-height: 20px;
+}
+.btn-sm {
+  min-height: 24px;
+}
+.btn-lg {
+  min-height: 32px;
+  padding-inline: 10px;
+}
+.btn svg.lucide {
+  --icon-size: 14px;
+}
+.btn-xs svg.lucide {
+  --icon-size: 10px;
+}
+.btn-sm svg.lucide {
+  --icon-size: 12px;
+}
+.btn-lg svg.lucide {
+  --icon-size: 16px;
+}
+
+/* Shared preview chrome; product styles stay inside each variant. */
+.viz-dotted-background {
+  background-image: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--foreground) 14%, transparent) 0.8px,
+    transparent 0.8px
+  );
+  background-position: center;
+  background-size: 16px 16px;
+}
+
+.viz-carousel {
+  position: relative;
+  min-width: 0;
+}
+
+.viz-carousel:has(&gt; .viz-carousel-controls) {
+  min-height: calc(60px + var(--viz-carousel-picker-height, 0px));
+  padding-bottom: 60px;
+}
+
+.viz-carousel &gt; [data-variant][hidden] {
+  display: none !important;
+}
+
+.viz-carousel &gt; [data-variant] {
+  isolation: isolate;
+}
+
+.viz-carousel-controls {
+  --viz-carousel-hover: light-dark(
+    color-mix(in srgb, var(--foreground) 5.4%, transparent),
+    color-mix(in srgb, var(--foreground) 7.8%, transparent)
+  );
+  position: absolute;
+  z-index: 2;
+  bottom: 8px;
+  left: 50%;
+  display: flex;
+  width: max-content;
+  /* Leave room for the host&#x27;s design-controls launcher at the trailing edge. */
+  max-width: calc(100% - 96px);
+  align-items: center;
+  gap: 0;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-sans);
+  /* Match the settings dropdown chrome independently of the content font size. */
+  font-size: 13px;
+  font-weight: var(--font-weight-normal);
+  line-height: 18px;
+  transform: translateX(-50%);
+  user-select: none;
+}
+
+.viz-carousel-controls button,
+.viz-carousel-picker &gt; summary {
+  display: flex;
+  min-height: 30px;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 0 6px;
+  -webkit-app-region: no-drag;
+  border: 0;
+  border-radius: 14px;
+  color: inherit;
+  background: transparent;
+  font: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.viz-carousel-controls &gt; button,
+.viz-carousel-picker &gt; summary {
+  position: relative;
+  isolation: isolate;
+}
+
+.viz-carousel-controls &gt; button {
+  --icon-size: 16px;
+  width: 30px;
+  padding: 0;
+}
+
+.viz-carousel-picker &gt; summary {
+  padding-inline: 12px;
+}
+
+.viz-carousel-controls .viz-carousel-caret {
+  width: 14px;
+  height: 14px;
+  flex: none;
+  margin: 0;
+  color: inherit;
+  transform: rotate(180deg);
+}
+
+.viz-carousel-controls &gt; button &gt; svg,
+.viz-carousel-controls .viz-carousel-caret,
+.viz-carousel-count {
+  opacity: 0.5;
+}
+
+.viz-carousel-controls &gt; button::before,
+.viz-carousel-picker &gt; summary::before {
+  position: absolute;
+  z-index: -1;
+  inset: 3px;
+  border-radius: 12px;
+  content: &quot;&quot;;
+  pointer-events: none;
+}
+
+.viz-carousel-controls &gt; button:hover::before,
+.viz-carousel-picker &gt; summary:hover::before {
+  background: var(--viz-carousel-hover);
+}
+
+.viz-carousel-controls &gt; button,
+.viz-carousel-controls [data-lucide],
+.viz-carousel-controls .lucide {
+  flex-shrink: 0;
+}
+
+.viz-carousel-picker {
+  min-width: 0;
+}
+
+.viz-carousel-picker &gt; summary {
+  min-width: 0;
+  list-style: none;
+}
+
+.viz-carousel-picker &gt; summary::-webkit-details-marker {
+  display: none;
+}
+
+.viz-carousel-count {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.viz-carousel-name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.viz-carousel-options {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 4px);
+  left: 0;
+  display: flex;
+  max-height: 240px;
+  flex-direction: column;
+  gap: 2px;
+  overflow: auto;
+  padding: 4px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--background);
+  box-shadow: 0 4px 12px light-dark(rgb(0 0 0 / 6%), rgb(0 0 0 / 25%));
+}
+
+.viz-carousel-options &gt; button {
+  width: 100%;
+  min-height: 28px;
+  justify-content: flex-start;
+  padding: 4px 8px;
+  font-size: var(--font-size-small);
+  text-align: start;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.viz-carousel-options &gt; [aria-current=&quot;true&quot;],
+.viz-carousel-options &gt; button:hover {
+  background: var(--viz-carousel-hover);
+}
+
+.btn:disabled,
+.nav-link:disabled,
+.nav-link[aria-disabled=&quot;true&quot;] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+[data-lucide] {
+  stroke-width: 1.6;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--foreground);
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  min-height: 36px;
+  padding: 0 8px;
+  outline: none;
+  border: 1px solid var(--input-border);
+  border-radius: var(--control-radius);
+  corner-shape: var(--corner-shape);
+  color: var(--foreground);
+  background: var(--input-bg);
+}
+
+.form-control::placeholder {
+  color: var(--placeholder);
+}
+
+.form-control[type=&quot;file&quot;] {
+  padding: 0;
+  overflow: hidden;
+  cursor: var(--cursor-interaction, pointer);
+}
+
+.form-control[type=&quot;file&quot;]::file-selector-button {
+  min-height: 26px;
+  margin-right: 8px;
+  padding: 0 8px;
+  border: 0;
+  border-right: 1px solid var(--input);
+  color: var(--secondary-foreground);
+  background: var(--input-bg);
+  cursor: inherit;
+  font: inherit;
+}
+
+.form-control[type=&quot;file&quot;]:not(:disabled):hover::file-selector-button {
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.form-control-color[type=&quot;color&quot;] {
+  width: 40px;
+  height: 28px;
+  padding: 3px;
+  cursor: var(--cursor-interaction, pointer);
+}
+
+.form-control-color[type=&quot;color&quot;]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.form-control-color[type=&quot;color&quot;]::-webkit-color-swatch {
+  border: 0;
+  border-radius: calc(var(--radius-lg) - 4px);
+  corner-shape: var(--corner-shape);
+}
+
+textarea.form-control {
+  height: auto;
+  min-height: 64px;
+  padding: 8px;
+  resize: vertical;
+}
+
+.form-control:focus-visible {
+  border-color: var(--input-border-focused);
+  background-color: var(--input-bg-focused);
+}
+
+.form-control:disabled,
+.form-select:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.form-select {
+  appearance: none;
+  display: block;
+  width: 100%;
+  min-height: 36px;
+  margin: 0;
+  padding: 0 32px 0 8px;
+  outline: none;
+  border: 1px solid var(--input-border);
+  border-radius: var(--control-radius);
+  corner-shape: var(--corner-shape);
+  color: var(--foreground);
+  background-color: var(--input-bg);
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--muted-foreground) 50%),
+    linear-gradient(135deg, var(--muted-foreground) 50%, transparent 50%);
+  background-position:
+    calc(100% - 14px) 50%,
+    calc(100% - 10px) 50%;
+  background-repeat: no-repeat;
+  background-size: 4px 4px;
+  cursor: var(--cursor-interaction, default);
+}
+
+.form-select:not(:disabled):not(:focus-visible):hover {
+  border-color: var(--input-border-hover);
+}
+
+.form-select:focus-visible {
+  border-color: var(--input-border-focused);
+  background-color: var(--input-bg-focused);
+}
+
+.form-control:not(:disabled):not(:focus-visible):hover {
+  border-color: var(--input-border-hover);
+}
+.form-control.form-control-sm, .form-select.form-select-sm {
+  min-height: 28px;
+}
+.form-control.form-control-xs, .form-select.form-select-xs {
+  min-height: 24px;
+}
+
+.form-check {
+  display: flex;
+  min-height: 20px;
+  align-items: center;
+  gap: 6px;
+}
+
+.form-check-input {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+  margin: 0;
+  border: 1px solid var(--input-border);
+  color: var(--primary-foreground);
+  background-color: transparent;
+  cursor: var(--cursor-interaction, default);
+  transition:
+    background-color 150ms,
+    border-color 150ms,
+    box-shadow 150ms;
+}
+
+.form-check:not(.form-switch) .form-check-input[type=&quot;checkbox&quot;] {
+  border-color: var(--input-border);
+  border-radius: var(--radius-sm);
+  corner-shape: var(--corner-shape);
+  background-color: var(--input-bg);
+  box-shadow: none;
+}
+
+.form-check:not(.form-switch)
+  .form-check-input:not(:disabled):not(:checked):not(:indeterminate):hover {
+  /* 半选不是未选中；避免 hover 覆盖 primary 背景导致横线失去对比。 */
+  background-color: var(--card);
+}
+
+.form-check:not(.form-switch) .form-check-input[type=&quot;checkbox&quot;]:checked {
+  border-color: var(--primary);
+  background-color: var(--primary);
+}
+
+.form-check:not(.form-switch)
+  .form-check-input[type=&quot;checkbox&quot;]:checked::before {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--primary-foreground);
+  content: &quot;&quot;;
+  mask: var(--checkmark-image) center / 12px 12px no-repeat;
+}
+
+.form-check-input[type=&quot;radio&quot;] {
+  width: 16px;
+  height: 16px;
+  border-radius: var(--radius-full);
+}
+
+.form-check-input[type=&quot;radio&quot;]:checked {
+  border: 2px solid var(--primary);
+  background:
+    radial-gradient(circle, var(--primary-foreground) 0 2.5px, transparent 3px),
+    var(--primary);
+}
+
+.form-check:not(.form-switch) .form-check-input:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.form-check:not(.form-switch) .form-check-input:disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.form-check:not(.form-switch) .form-check-input:disabled + .form-check-label {
+  cursor: not-allowed;
+}
+
+.form-switch .form-check-input:disabled,
+.form-switch .form-check-input:disabled + .form-check-label {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.form-check-label {
+  color: var(--foreground);
+  cursor: var(--cursor-interaction, default);
+}
+
+.form-switch .form-check-input {
+  position: relative;
+  width: 32px;
+  height: 18px;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: color-mix(in srgb, var(--primary) 30%, transparent);
+  box-shadow: none;
+  transition: background-color 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.form-switch .form-check-input::before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  box-sizing: border-box;
+  border: 1px solid var(--primary-foreground);
+  border-radius: var(--radius-full);
+  background: var(--primary-foreground);
+  box-shadow: none;
+  content: &quot;&quot;;
+  transform: translate(1px, -50%);
+  transition: transform 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.form-switch .form-check-input:checked {
+  background: var(--primary);
+}
+
+.form-switch .form-check-input:checked::before {
+  transform: translate(15px, -50%);
+}
+
+.form-switch .form-check-input:focus-visible {
+  box-shadow: 0 0 0 2px var(--ring);
+}
+
+.form-check:not(.form-switch) .form-check-input[type=&quot;checkbox&quot;]:indeterminate {
+  border-color: var(--primary);
+  background: var(--primary);
+}
+.form-check:not(.form-switch) .form-check-input[type=&quot;checkbox&quot;]:indeterminate::before {
+  display: block;
+  width: 8px;
+  height: 2px;
+  margin: 6px 3px;
+  background: var(--primary-foreground);
+  content: &quot;&quot;;
+}
+.form-check-input:disabled {
+  opacity: 0.5;
+}
+
+.form-range {
+  appearance: none;
+  display: block;
+  width: 100%;
+  height: 28px;
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: 0;
+  accent-color: var(--primary);
+  background: linear-gradient(
+      color-mix(in srgb, var(--foreground) 7%, transparent),
+      color-mix(in srgb, var(--foreground) 7%, transparent)
+    )
+    center / 100% 2px no-repeat;
+}
+
+.form-range::-webkit-slider-runnable-track {
+  height: 28px;
+  background: transparent;
+}
+
+.form-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  margin-top: 4px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: var(--primary-foreground);
+}
+
+.form-range:focus-visible::-webkit-slider-thumb {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-range::-moz-range-track {
+  height: 28px;
+  background: transparent;
+}
+
+.form-range::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: var(--primary-foreground);
+}
+
+.form-range:focus-visible::-moz-range-thumb {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-range:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.btn:not(.btn-primary, .viz-tile):is(
+  [aria-pressed=&quot;true&quot;],
+  [aria-selected=&quot;true&quot;],
+  .is-selected
+) {
+  border-color: var(--gen-ui-border, var(--border));
+  color: var(--foreground);
+  background: var(--selected);
+}
+
+.btn.viz-tile:is([aria-pressed=&quot;true&quot;], [aria-selected=&quot;true&quot;], .is-selected) {
+  border-color: var(--primary);
+  box-shadow: inset 0 0 0 1px var(--primary);
+}
+
+.btn:focus-visible,
+.nav-link:focus-visible,
+.viz-carousel-controls :is(button, summary):focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+@media (pointer: coarse) {
+  .viz-carousel:has(&gt; .viz-carousel-controls) {
+    min-height: calc(76px + var(--viz-carousel-picker-height, 0px));
+    padding-bottom: 76px;
+  }
+
+  .btn,
+  .nav-link,
+  .viz-carousel-controls button,
+  .viz-carousel-picker &gt; summary,
+  .form-control,
+  .form-select,
+  .form-control.form-control-sm,
+  .form-control.form-control-xs,
+  .form-select.form-select-sm,
+  .form-select.form-select-xs,
+  .btn.btn-xs,
+  .btn.btn-sm,
+  .btn.btn-lg {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* Keep small-screen WebKit from zooming when a text field receives focus. */
+  .form-control,
+  .form-select {
+    font-size: max(16px, var(--font-size-normal));
+  }
+
+  .form-control[type=&quot;file&quot;]::file-selector-button {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .form-control-color[type=&quot;color&quot;] {
+    width: 44px;
+    height: 44px;
+  }
+
+  .form-control:is(
+    [type=&quot;date&quot;],
+    [type=&quot;datetime-local&quot;],
+    [type=&quot;month&quot;],
+    [type=&quot;time&quot;],
+    [type=&quot;week&quot;]
+  ) {
+    min-width: 0;
+    max-width: 100%;
+    padding-block: 8px;
+  }
+
+  .form-check {
+    min-height: 44px;
+    padding-inline: 15px;
+  }
+
+  .form-check-input {
+    position: relative;
+  }
+
+  .form-check-input::after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 44px;
+    height: 44px;
+    content: &quot;&quot;;
+    transform: translate(-50%, -50%);
+  }
+
+  .form-check-label {
+    display: inline-flex;
+    min-width: 44px;
+    min-height: 44px;
+    align-items: center;
+  }
+
+  .form-range {
+    height: 44px;
+    touch-action: pan-y;
+  }
+
+  .form-range::-webkit-slider-runnable-track {
+    height: 44px;
+  }
+
+  .form-range::-moz-range-track {
+    height: 44px;
+  }
+
+  .form-range::-webkit-slider-thumb {
+    margin-top: 12px;
+  }
+}
+
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+#widget &gt; svg {
+  width: 100%;
+}
+
+/* Model-authored chart rules can otherwise stretch icons after these styles load. */
+svg.lucide {
+  display: block;
+  width: var(--icon-size) !important;
+  height: var(--icon-size) !important;
+  flex: none;
+  margin: 0 !important;
+  stroke-width: 1.6;
+}
+
+.text-warning,
+.text-destructive {
+  color: var(--destructive);
+}
+
+html&gt;body{padding:0}&lt;/style&gt;&lt;/head&gt;
+&lt;body&gt;&lt;script type=&quot;application/json&quot; id=&quot;zcode-visualization-widget-state&quot;&gt;null&lt;/script&gt;
+&lt;script&gt;(() =&gt; {
+  const root = document.documentElement;
+  const mediaQuery = globalThis.matchMedia(&quot;(prefers-color-scheme: dark)&quot;);
+  const apply = Reflect.apply;
+  const isArray = Array.isArray;
+  const hasOwn = Object.hasOwn;
+  const parentWindow = globalThis.parent;
+  const stringify = JSON.stringify;
+  const parse = JSON.parse;
+  const encode = TextEncoder.prototype.encode.bind(new TextEncoder());
+  const initialStateElement = document.getElementById(&quot;zcode-visualization-widget-state&quot;);
+  const initialGlobals = parse(initialStateElement?.textContent ?? &quot;{}&quot;);
+  initialStateElement?.remove();
+  /** @type {Record&lt;string, unknown&gt; | null} */
+  let state = initialGlobals.widgetState ?? null;
+  const statePersistence = initialGlobals.statePersistence ?? &quot;none&quot;;
+  let nextStateRequestId = 0;
+  /** @type {Map&lt;number, { resolve: () =&gt; void; reject: (error: Error) =&gt; void; timeout: ReturnType&lt;typeof globalThis.setTimeout&gt;; serializedState: string }&gt;} */
+  const pendingStateWrites = new Map();
+  const persistenceError = () =&gt;
+    Object.assign(new Error(&quot;The host could not persist the widget state update&quot;), {
+      code: -32000,
+      data: { code: &quot;widget_state_persistence_failed&quot;, retryable: false },
+    });
+  /**
+   * @param {object} prototype
+   * @param {string} property
+   */
+  const getPrototypeGetter = (prototype, property) =&gt; {
+    // oxlint-disable-next-line typescript/unbound-method -- invoked through captured Reflect.apply
+    const getter = Object.getOwnPropertyDescriptor(prototype, property)?.get;
+    if (getter == null) {
+      throw new Error(`Missing ${property} getter`);
+    }
+    return getter;
+  };
+  const getMessageData = getPrototypeGetter(MessageEvent.prototype, &quot;data&quot;);
+  const getMessagePorts = getPrototypeGetter(MessageEvent.prototype, &quot;ports&quot;);
+  const getMessageSource = getPrototypeGetter(MessageEvent.prototype, &quot;source&quot;);
+  // oxlint-disable-next-line typescript/unbound-method -- captured before the untrusted fragment runs
+  const addHostMessageListener = MessagePort.prototype.addEventListener;
+  // oxlint-disable-next-line typescript/unbound-method -- captured before the untrusted fragment runs
+  const postHostMessage = MessagePort.prototype.postMessage;
+  // oxlint-disable-next-line typescript/unbound-method -- captured before the untrusted fragment runs
+  const startHostPort = MessagePort.prototype.start;
+  // oxlint-disable-next-line typescript/unbound-method -- captured before the untrusted fragment runs
+  const stopMessagePropagation = Event.prototype.stopImmediatePropagation;
+  /** @type {MessagePort | null} */
+  let hostPort = null;
+  const postToHost = (type, payload) =&gt; {
+    if (hostPort != null) {
+      apply(postHostMessage, hostPort, [{ type, ...payload }]);
+    }
+  };
+  const openExternal = ({ href }) =&gt; {
+    if (globalThis.navigator.userActivation?.isActive === true) {
+      postToHost(&quot;open-external&quot;, { href });
+    }
+  };
+  const sendFollowUpMessage = ({ context, prompt, title }) =&gt; {
+    if (globalThis.navigator.userActivation?.isActive === true) {
+      postToHost(&quot;follow-up&quot;, { context, prompt, title });
+    }
+    return Promise.resolve();
+  };
+  /**
+   * @param {Record&lt;string, unknown&gt; | ((previous: Record&lt;string, unknown&gt; | null) =&gt; Record&lt;string, unknown&gt;)} next
+   * @returns {Promise&lt;void&gt;}
+   */
+  const setWidgetState = async (next) =&gt; {
+    const nextState = typeof next === &quot;function&quot; ? next(state) : next;
+    if (nextState == null || typeof nextState !== &quot;object&quot; || isArray(nextState)) {
+      throw new TypeError(&quot;Widget state must be a JSON object&quot;);
+    }
+    const inputState = stringify(nextState, (_key, /** @type {unknown} */ value) =&gt; {
+      if (
+        typeof value === &quot;undefined&quot; ||
+        typeof value === &quot;function&quot; ||
+        typeof value === &quot;symbol&quot; ||
+        (typeof value === &quot;number&quot; &amp;&amp; !Number.isFinite(value))
+      ) {
+        throw new TypeError(&quot;Widget state must be a JSON object&quot;);
+      }
+      return value;
+    });
+    const parsedState = parse(inputState);
+    if (parsedState == null || typeof parsedState !== &quot;object&quot; || isArray(parsedState)) {
+      throw new TypeError(&quot;Widget state must be a JSON object&quot;);
+    }
+    const storedState = {
+      modelContent: null,
+      privateContent: null,
+      ...parsedState,
+    };
+    const serializedState = stringify(storedState);
+    if (encode(serializedState).length &gt; 16 * 1024) {
+      throw new TypeError(&quot;Widget state must be a JSON object of at most 16 KiB&quot;);
+    }
+    if (
+      hasOwn(storedState, &quot;imageIds&quot;) &amp;&amp;
+      (!isArray(storedState.imageIds) ||
+        storedState.imageIds.some((/** @type {unknown} */ id) =&gt; typeof id !== &quot;string&quot;))
+    ) {
+      throw new TypeError(&quot;Widget state imageIds must be an array of strings&quot;);
+    }
+    if (storedState.imageIds?.length &gt; 0) {
+      throw Object.assign(new TypeError(&quot;Visualization state does not support image attachments&quot;), {
+        code: -32602,
+        data: { code: &quot;images_unsupported&quot; },
+      });
+    }
+    state = storedState;
+    globalThis.zcode.widgetState = state;
+    globalThis.dispatchEvent(
+      new CustomEvent(&quot;zcode:set_globals&quot;, {
+        detail: { globals: { widgetState: state } },
+      }),
+    );
+    if (statePersistence === &quot;none&quot;) {
+      throw persistenceError();
+    }
+    const id = ++nextStateRequestId;
+    return new Promise((resolve, reject) =&gt; {
+      const timeout = globalThis.setTimeout(() =&gt; {
+        pendingStateWrites.delete(id);
+        reject(persistenceError());
+      }, 30_000);
+      pendingStateWrites.set(id, { resolve, reject, timeout, serializedState });
+      postToHost(&quot;widget-state-write&quot;, { id, state: serializedState });
+    });
+  };
+  const syncTheme = () =&gt; {
+    const theme = mediaQuery.matches ? &quot;dark&quot; : &quot;light&quot;;
+    root.dataset.theme = theme;
+    globalThis.zcode = {
+      ...globalThis.zcode,
+      openExternal,
+      sendFollowUpMessage,
+      setWidgetState,
+      theme,
+      visualizationStyleVariables: {},
+      visualizationTheme: theme,
+      widgetState: state,
+      statePersistence,
+      stateModelContext: &quot;none&quot;,
+    };
+    globalThis.dispatchEvent(
+      new CustomEvent(&quot;zcode:set_globals&quot;, {
+        detail: { globals: globalThis.zcode },
+      }),
+    );
+  };
+  const sendHeight = () =&gt; {
+    postToHost(&quot;height&quot;, {
+      height: Math.ceil(
+        Math.max(document.body.scrollHeight, document.body.getBoundingClientRect().height),
+      ),
+    });
+  };
+
+  globalThis.addEventListener(
+    &quot;message&quot;,
+    (event) =&gt; {
+      const data = apply(getMessageData, event, []);
+      const ports = apply(getMessagePorts, event, []);
+      const source = apply(getMessageSource, event, []);
+      if (
+        hostPort != null ||
+        source !== parentWindow ||
+        typeof data !== &quot;object&quot; ||
+        data?.type !== &quot;zcode-visualization-initialize&quot; ||
+        !isArray(ports) ||
+        ports.length !== 1
+      ) {
+        return;
+      }
+      apply(stopMessagePropagation, event, []);
+      const nextHostPort = ports[0];
+      try {
+        apply(addHostMessageListener, nextHostPort, [
+          &quot;message&quot;,
+          (event) =&gt; {
+            const data = apply(getMessageData, event, []);
+            if (typeof data === &quot;object&quot; &amp;&amp; data?.type === &quot;measure&quot;) {
+              sendHeight();
+            } else if (typeof data === &quot;object&quot; &amp;&amp; data?.type === &quot;widget-state-result&quot;) {
+              /** @type {unknown} */
+              const id = data.id;
+              if (typeof id !== &quot;number&quot;) {
+                return;
+              }
+              const pending = pendingStateWrites.get(id);
+              if (pending != null) {
+                pendingStateWrites.delete(id);
+                globalThis.clearTimeout(pending.timeout);
+                if (data.ok === true) {
+                  pending.resolve();
+                } else {
+                  pending.reject(persistenceError());
+                }
+              }
+            }
+          },
+        ]);
+        apply(startHostPort, nextHostPort, []);
+      } catch {
+        return;
+      }
+      hostPort = nextHostPort;
+      for (const [id, { serializedState }] of pendingStateWrites) {
+        postToHost(&quot;widget-state-write&quot;, { id, state: serializedState });
+      }
+      sendHeight();
+    },
+    { capture: true },
+  );
+  document.currentScript?.remove();
+  mediaQuery.addEventListener(&quot;change&quot;, syncTheme);
+  globalThis.addEventListener(&quot;click&quot;, (event) =&gt; {
+    if (event.defaultPrevented) {
+      return;
+    }
+    let element = null;
+    if (event.target instanceof globalThis.Element) {
+      element = event.target;
+    } else if (event.target instanceof globalThis.Node) {
+      element = event.target.parentElement;
+    }
+    const link = element?.closest(&quot;a[href]&quot;);
+    const href = link?.getAttribute(&quot;href&quot;);
+    if (href == null) {
+      return;
+    }
+    if (href.startsWith(&quot;#&quot;)) {
+      let id;
+      try {
+        id = decodeURIComponent(href.slice(1));
+      } catch {
+        return;
+      }
+      const target = id.length === 0 ? root : document.getElementById(id);
+      if (target == null || globalThis.navigator.userActivation?.isActive !== true) {
+        return;
+      }
+      event.preventDefault();
+      postToHost(&quot;scroll-to&quot;, {
+        top: target.getBoundingClientRect().top + globalThis.scrollY,
+      });
+      return;
+    }
+    event.preventDefault();
+    openExternal({ href });
+  });
+  new ResizeObserver(sendHeight).observe(document.body);
+  syncTheme();
+})();
+&lt;/script&gt;
+&lt;div id=&quot;sio-lab&quot;&gt;
+  &lt;style&gt;
+    #sio-lab{font-size:var(--font-size-base)}
+    #sio-lab .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+    #sio-lab .board{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
+    #sio-lab .chip{display:inline-block;padding:1px 7px;border-radius:6px;font-size:12px;
+      font-family:ui-monospace,SFMono-Regular,Menlo,monospace;border:1px solid var(--border);
+      color:var(--muted-foreground);opacity:.45;text-decoration:line-through}
+    #sio-lab .chip.legal{opacity:1;text-decoration:none;color:var(--foreground);border-color:var(--border)}
+    #sio-lab .chip.masked{opacity:1;text-decoration:line-through;color:var(--red);border-color:var(--red)}
+    #sio-lab .chip.chosen{opacity:1;text-decoration:none;background:var(--primary);color:var(--primary-foreground);border-color:var(--primary)}
+    #sio-lab .out{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre-wrap;word-break:break-all;line-height:1.7}
+    #sio-lab .out .last{background:var(--accent);color:var(--accent-foreground);border-radius:4px;padding:0 3px}
+    #sio-lab .tl{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+    #sio-lab .row{display:grid;grid-template-columns:92px 1fr;gap:10px;align-items:start}
+    #sio-lab .badge{display:inline-block;padding:1px 8px;border-radius:99px;font-size:12px;
+      background:var(--muted);color:var(--muted-foreground);text-align:center;margin-top:2px;white-space:nowrap}
+    #sio-lab .badge.dec{background:var(--viz-series-1);color:var(--card)}
+    #sio-lab .badge.ok{background:var(--green);color:var(--card)}
+    #sio-lab .badge.bad{background:var(--red);color:var(--card)}
+    #sio-lab .row .txt{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;white-space:pre-wrap;word-break:break-all}
+    #sio-lab .row .txt.prose{font-family:inherit;font-size:var(--font-size-base);white-space:normal;word-break:normal;line-height:1.7}
+    #sio-lab .legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px;font-size:12px;color:var(--muted-foreground)}
+    #sio-lab .legend .chip{margin:0}
+    #sio-lab pre.payload{font-size:12.5px;white-space:pre-wrap;word-break:break-all;margin:8px 0;
+      padding:10px 12px;border-radius:8px;background:var(--muted)}
+    #sio-lab .hl{background:var(--accent);color:var(--accent-foreground);border-radius:3px;padding:0 3px}
+    #sio-lab .tpl{display:flex;flex-wrap:wrap;gap:3px;margin-top:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+    #sio-lab .tpl .seg{padding:1px 6px;border-radius:6px;font-size:12px;border:1px solid var(--border);color:var(--muted-foreground)}
+    #sio-lab .tpl .seg.done{color:var(--foreground)}
+    #sio-lab .tpl .seg.cur{background:var(--accent);color:var(--accent-foreground);border-color:transparent;font-weight:500}
+    #sio-lab .badge.mask{background:var(--purple);color:var(--card)}
+    #sio-lab .map{display:flex;flex-direction:column;margin-top:8px}
+    #sio-lab .map .mrow{display:grid;grid-template-columns:76px 1fr auto;gap:10px;align-items:center;padding:7px 10px;border-radius:8px;background:var(--muted)}
+    #sio-lab .map .mtag{font-size:12px;color:var(--muted-foreground);text-align:right}
+    #sio-lab .map .mtxt{font-size:13px;line-height:1.55}
+    #sio-lab .map .mtxt .sub{display:block;font-size:12px;color:var(--muted-foreground);margin-top:1px}
+    #sio-lab .map .mstep{display:flex;align-items:center;gap:6px;color:var(--muted-foreground);font-size:12px;padding:2px 0 2px 10px}
+    #sio-lab .flow{display:flex;flex-wrap:wrap;gap:4px;align-items:center;margin-top:8px;font-size:12px}
+    #sio-lab .flow .step{padding:2px 8px;border-radius:6px;background:var(--muted);color:var(--foreground)}
+    #sio-lab .flow .step.u{background:var(--viz-series-1);color:var(--card)}
+    #sio-lab .flow .sep{color:var(--muted-foreground)}
+    #sio-lab{--pele-bg:transparent;--pele-fg:var(--foreground);--pele-fg-muted:var(--muted-foreground)}
+    #sio-lab .mmd{margin-top:8px}
+    #sio-lab .mmd svg{max-width:100%;height:auto}
+    #sio-lab [hidden]{display:none!important}
+    #sio-lab .sticky{position:sticky;top:0;z-index:30;background:var(--background);padding:6px 0 8px;margin:0}
+    #sio-lab .tlbox{max-height:400px;overflow:auto;padding:2px 8px 2px 0;border:1px solid var(--border);border-radius:8px}
+    #sio-lab .status{font-size:13px;color:var(--muted-foreground);margin-top:8px}
+    #sio-lab .status b{color:var(--foreground);font-weight:500}
+  &lt;/style&gt;
+
+  &lt;h2&gt;Structured I/O 实验室&lt;/h2&gt;
+  &lt;p class=&quot;text-small text-muted&quot;&gt;本质一行式：&lt;span class=&quot;mono&quot;&gt;P(token | context) → P(token | context, token ∈ 文法)&lt;/span&gt; —— 把模型的概率采样约束进形式语言。五个章节，全部可以点。&lt;/p&gt;
+
+  &lt;details open style=&quot;margin-top:8px&quot;&gt;
+    &lt;summary&gt;&lt;b&gt;全景学习地图&lt;/b&gt;：问题如何一步步逼出方案（点「第 N 章」直接跳转）&lt;/summary&gt;
+    &lt;div class=&quot;mmd&quot; id=&quot;mmDia&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;map&quot; id=&quot;mmDiaFb&quot;&gt;
+      &lt;div class=&quot;mrow&quot;&gt;&lt;span class=&quot;mtag&quot;&gt;起点&lt;/span&gt;&lt;span class=&quot;mtxt&quot;&gt;模型的输出是&lt;b&gt;概率文本&lt;/b&gt;；程序的接口要&lt;b&gt;确定性结构&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;
+      &lt;div class=&quot;mstep&quot;&gt;▼ 先认清敌人&lt;/div&gt;
+      &lt;div class=&quot;mrow&quot;&gt;&lt;span class=&quot;mtag&quot;&gt;根本问题&lt;/span&gt;&lt;span class=&quot;mtxt&quot;&gt;合法输出的概率 P(合法) &amp;lt; 1，且不可预测&lt;span class=&quot;sub&quot;&gt;语法可判定（机器能 100% 保证）；语义不可判定（只能逼近）——这条分界线贯穿全部章节&lt;/span&gt;&lt;/span&gt;&lt;button class=&quot;btn jump&quot; data-go=&quot;t0&quot; type=&quot;button&quot;&gt;第 0 章 · 根本问题&lt;/button&gt;&lt;/div&gt;
+      &lt;div class=&quot;mstep&quot;&gt;▼ 失败长什么样？&lt;/div&gt;
+      &lt;div class=&quot;mrow&quot;&gt;&lt;span class=&quot;mtag&quot;&gt;亲眼所见&lt;/span&gt;&lt;span class=&quot;mtxt&quot;&gt;8 条真实模型输出喂给 json.loads，2 条存活&lt;span class=&quot;sub&quot;&gt;模型&quot;会&quot;写 JSON，缺的是让它【必须】这么写的机制&lt;/span&gt;&lt;/span&gt;&lt;button class=&quot;btn jump&quot; data-go=&quot;t1&quot; type=&quot;button&quot;&gt;第 1 章 · 裸接口&lt;/button&gt;&lt;/div&gt;
+      &lt;div class=&quot;mstep&quot;&gt;▼ 于是出现两条路线&lt;/div&gt;
+      &lt;div class=&quot;mrow&quot;&gt;&lt;span class=&quot;mtag&quot;&gt;路线一&lt;/span&gt;&lt;span class=&quot;mtxt&quot;&gt;&lt;b&gt;事后否决&lt;/b&gt;（校验回路＝拒绝采样）：语法闸 + 语义闸 + 报错回喂重试&lt;span class=&quot;sub&quot;&gt;缺陷：期望成本 1/P · 因果时间差 · 不保证停机&lt;/span&gt;&lt;/span&gt;&lt;button class=&quot;btn jump&quot; data-go=&quot;t2&quot; type=&quot;button&quot;&gt;第 2 章 · 两道闸门&lt;/button&gt;&lt;/div&gt;
+      &lt;div class=&quot;mstep&quot;&gt;▼ 路线一的缺陷逼出路线二：把检查移进解码本身&lt;/div&gt;
+      &lt;div class=&quot;mrow&quot;&gt;&lt;span class=&quot;mtag&quot;&gt;路线二&lt;/span&gt;&lt;span class=&quot;mtxt&quot;&gt;&lt;b&gt;事前条件化&lt;/b&gt;（掩码解码）：非法 token 进不了采样池，语法由构造保证&lt;span class=&quot;sub&quot;&gt;前提：碰得到 logits——本地模型 ✓，远程 API ✗&lt;/span&gt;&lt;/span&gt;&lt;button class=&quot;btn jump&quot; data-go=&quot;t3&quot; type=&quot;button&quot;&gt;第 3 章 · 掩码解码 ★&lt;/button&gt;&lt;/div&gt;
+      &lt;div class=&quot;mstep&quot;&gt;▼ 远程拿不到 logits 怎么办？让厂商替你做&lt;/div&gt;
+      &lt;div class=&quot;mrow&quot;&gt;&lt;span class=&quot;mtag&quot;&gt;产品化&lt;/span&gt;&lt;span class=&quot;mtxt&quot;&gt;Function Calling：把【训练 + 服务端掩码 + 解析】打包成协议&lt;span class=&quot;sub&quot;&gt;场景：模型只会说、代码能做却不知何时做；三角色＝用户 / 你的应用 / 模型 API&lt;/span&gt;&lt;/span&gt;&lt;button class=&quot;btn jump&quot; data-go=&quot;t4&quot; type=&quot;button&quot;&gt;第 4 章 · 工具协议&lt;/button&gt;&lt;/div&gt;
+      &lt;div class=&quot;mstep&quot;&gt;▼ 所有边界类型化之后，就能用 LLM 编程&lt;/div&gt;
+      &lt;div class=&quot;mrow&quot;&gt;&lt;span class=&quot;mtag&quot;&gt;汇合&lt;/span&gt;&lt;span class=&quot;mtxt&quot;&gt;&lt;b&gt;模型生成数据，代码解释执行&lt;/b&gt;：契约是解释器敢于信任输入的前提&lt;span class=&quot;sub&quot;&gt;语义不可判定 → 校验回路永远保留在每一层&lt;/span&gt;&lt;/span&gt;&lt;button class=&quot;btn jump&quot; data-go=&quot;t5&quot; type=&quot;button&quot;&gt;第 5 章 · Agent 闭环&lt;/button&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/details&gt;
+
+  &lt;div class=&quot;nav nav-pills&quot; role=&quot;tablist&quot; aria-label=&quot;章节&quot;&gt;
+    &lt;button class=&quot;nav-link active&quot; id=&quot;t0&quot; role=&quot;tab&quot; aria-controls=&quot;p0&quot; aria-selected=&quot;true&quot; type=&quot;button&quot;&gt;0 · 根本问题&lt;/button&gt;
+    &lt;button class=&quot;nav-link&quot; id=&quot;t1&quot; role=&quot;tab&quot; aria-controls=&quot;p1&quot; aria-selected=&quot;false&quot; type=&quot;button&quot;&gt;1 · 裸接口&lt;/button&gt;
+    &lt;button class=&quot;nav-link&quot; id=&quot;t2&quot; role=&quot;tab&quot; aria-controls=&quot;p2&quot; aria-selected=&quot;false&quot; type=&quot;button&quot;&gt;2 · 两道闸门&lt;/button&gt;
+    &lt;button class=&quot;nav-link&quot; id=&quot;t3&quot; role=&quot;tab&quot; aria-controls=&quot;p3&quot; aria-selected=&quot;false&quot; type=&quot;button&quot;&gt;3 · 掩码解码 ★&lt;/button&gt;
+    &lt;button class=&quot;nav-link&quot; id=&quot;t4&quot; role=&quot;tab&quot; aria-controls=&quot;p4&quot; aria-selected=&quot;false&quot; type=&quot;button&quot;&gt;4 · 工具协议&lt;/button&gt;
+    &lt;button class=&quot;nav-link&quot; id=&quot;t5&quot; role=&quot;tab&quot; aria-controls=&quot;p5&quot; aria-selected=&quot;false&quot; type=&quot;button&quot;&gt;5 · Agent 闭环&lt;/button&gt;
+  &lt;/div&gt;
+
+  &lt;div id=&quot;p0&quot; role=&quot;tabpanel&quot; aria-labelledby=&quot;t0&quot;&gt;
+    &lt;p class=&quot;text-small text-muted&quot; style=&quot;margin-top:12px&quot;&gt;先有问题，再有方法。掩码解码的存在不是因为&quot;让模型更听话&quot;，而是下面四个绕不开的事实。每个后续章节都是对其中一个事实的回应。&lt;/p&gt;
+    &lt;div class=&quot;tl&quot;&gt;
+      &lt;div class=&quot;row&quot;&gt;&lt;span class=&quot;badge&quot;&gt;事实一&lt;/span&gt;&lt;span class=&quot;txt prose&quot;&gt;模型的每一步都在【所有可能续写】上分配概率——客气话、围栏、Python 习惯都分走一份。合法输出的总概率 P(合法) 永远 &amp;lt; 1，且随 schema 冷门程度、输出长度、模型强弱大幅波动。它是&lt;b&gt;分布的属性&lt;/b&gt;，不是你能依赖的常量。（第 1 章：P &amp;lt; 1 的具体长相）&lt;/span&gt;&lt;/div&gt;
+      &lt;div class=&quot;row&quot;&gt;&lt;span class=&quot;badge&quot;&gt;事实二&lt;/span&gt;&lt;span class=&quot;txt prose&quot;&gt;校验回路的数学本质是&lt;b&gt;拒绝采样&lt;/b&gt;：生成→整条检查→不合格整条扔掉重来。期望生成次数 = 1/P(合法)。P=99% 时无感（1.01 倍）；P=50% 时翻倍；P=5% 时 20 倍且方差巨大；P→0 时&lt;b&gt;不是变贵，是不可行&lt;/b&gt;——重试永远不会成功。（第 2 章：拒绝采样本身）&lt;/span&gt;&lt;/div&gt;
+      &lt;div class=&quot;row&quot;&gt;&lt;span class=&quot;badge&quot;&gt;事实三&lt;/span&gt;&lt;span class=&quot;txt prose&quot;&gt;&lt;b&gt;因果时间差&lt;/b&gt;：错误发生在第 t 个 token 的选择上，却要等全部生成完才被解析器发现——中间隔着成百上千个 token，模型只能靠一段自然语言报错&quot;倒推&quot;自己的因果。掩码解码把否决移到出错的那一瞬间：反馈延迟从 O(全部输出) 降到 0，且不是用语言说的，是直接改采样池。（第 3 章：瞬时报否决）&lt;/span&gt;&lt;/div&gt;
+      &lt;div class=&quot;row&quot;&gt;&lt;span class=&quot;badge&quot;&gt;事实四&lt;/span&gt;&lt;span class=&quot;txt prose&quot;&gt;&lt;b&gt;可判定性划定了边界&lt;/b&gt;：语法合法与否是可判定的（一台自动机就能查），所以检查器可以编进采样器；语义对不对不可判定，只能留在采样器外面（Pydantic + 回路）。掩码管的边界不是设计偏好，是被可判定性逼出来的。（第 2 章 × 第 3 章的分工地基）&lt;/span&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;label class=&quot;form-label&quot; for=&quot;pLegal&quot; style=&quot;margin-top:16px&quot;&gt;亲手感受事实二：拖动 P(合法)，看&quot;校验回路&quot;要付出多少倍推理成本&lt;/label&gt;
+    &lt;input type=&quot;range&quot; class=&quot;form-range&quot; id=&quot;pLegal&quot; min=&quot;1&quot; max=&quot;100&quot; value=&quot;95&quot;&gt;
+    &lt;div id=&quot;pLegalVal&quot; class=&quot;text-small text-muted&quot; aria-live=&quot;polite&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;viz-grid&quot; style=&quot;margin-top:10px&quot;&gt;
+      &lt;div class=&quot;card viz-stat&quot;&gt;
+        &lt;div class=&quot;viz-stat-value tabular-nums&quot; id=&quot;rejCost&quot;&gt;—&lt;/div&gt;
+        &lt;div&gt;校验回路（拒绝采样）：期望生成次数 = 1/P&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;card viz-stat&quot;&gt;
+        &lt;div class=&quot;viz-stat-value tabular-nums&quot;&gt;1.00×&lt;/div&gt;
+        &lt;div&gt;掩码解码（精确条件化）：语法由构造保证，恒一次&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;p class=&quot;text-small text-muted&quot; style=&quot;margin-top:8px&quot;&gt;注意：两者不是替代关系而是分工——掩码把语法失败率压到 0 之后，重试预算全部留给语义；语义校验（第 2 章）依然是不可判定的那一半，永远需要回路。&lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;div id=&quot;p1&quot; role=&quot;tabpanel&quot; aria-labelledby=&quot;t1&quot; hidden&gt;
+    &lt;label class=&quot;form-label&quot; for=&quot;caseSel&quot; style=&quot;margin-top:12px&quot;&gt;真实模型的高频输出形态（没有加任何机制时）&lt;/label&gt;
+    &lt;select class=&quot;form-select&quot; id=&quot;caseSel&quot;&gt;&lt;/select&gt;
+    &lt;pre class=&quot;payload mono&quot; id=&quot;caseRaw&quot; aria-live=&quot;polite&quot;&gt;&lt;/pre&gt;
+    &lt;div class=&quot;tl&quot; id=&quot;caseGates&quot;&gt;&lt;/div&gt;
+    &lt;p class=&quot;status&quot; id=&quot;caseNote&quot;&gt;&lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;div id=&quot;p2&quot; role=&quot;tabpanel&quot; aria-labelledby=&quot;t2&quot; hidden&gt;
+    &lt;p class=&quot;text-small text-muted&quot; style=&quot;margin-top:12px&quot;&gt;修复回路：语法闸（json.loads）→ 语义闸（Pydantic）→ 报错原文回喂 → 重试。点「下一幕」看模型被报错驯服的过程。&lt;/p&gt;
+    &lt;div class=&quot;viz-controls sticky&quot;&gt;
+      &lt;button class=&quot;btn&quot; id=&quot;rpPrev&quot; type=&quot;button&quot;&gt;← 上一幕&lt;/button&gt;
+      &lt;button class=&quot;btn btn-primary&quot; id=&quot;rpNext&quot; type=&quot;button&quot;&gt;下一幕 →&lt;/button&gt;
+      &lt;span class=&quot;text-small text-muted&quot; id=&quot;rpCnt&quot;&gt;&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;tlbox&quot;&gt;&lt;div class=&quot;tl&quot; id=&quot;rpTl&quot; aria-live=&quot;polite&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div id=&quot;p3&quot; role=&quot;tabpanel&quot; aria-labelledby=&quot;t3&quot; hidden&gt;
+    &lt;p class=&quot;text-small text-muted&quot; style=&quot;margin-top:12px&quot;&gt;每一步只发生三件事：&lt;b&gt;①文法&lt;/b&gt;按当前位置开出菜单（此刻哪些 token 允许）；&lt;b&gt;②模型&lt;/b&gt;给全词表所有 token 打分，报出最想要的；&lt;b&gt;③掩膜&lt;/b&gt;把不在菜单里的打分作废（置 -inf），在菜单内选最高分。下面每步按四行讲解：位置 / 模型 / 掩码 / 判决。顶部模板条高亮你此刻站在文法的哪一段。&lt;/p&gt;
+    &lt;div class=&quot;sticky&quot;&gt;
+      &lt;div class=&quot;viz-controls&quot;&gt;
+        &lt;select class=&quot;form-select&quot; id=&quot;expSel&quot; style=&quot;max-width:300px&quot;&gt;
+          &lt;option value=&quot;py&quot; selected&gt;实验 B · 想写 Python 的 True&lt;/option&gt;
+          &lt;option value=&quot;good&quot;&gt;实验 A · 乖模型（基线）&lt;/option&gt;
+          &lt;option value=&quot;ada&quot;&gt;实验 C · 想说 &quot;Ada Lovelace&quot;&lt;/option&gt;
+        &lt;/select&gt;
+        &lt;label class=&quot;form-check form-switch&quot;&gt;
+          &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; id=&quot;maskSw&quot; checked&gt;
+          &lt;span class=&quot;form-check-label&quot;&gt;掩码开启&lt;/span&gt;
+        &lt;/label&gt;
+        &lt;button class=&quot;btn&quot; id=&quot;dcReset&quot; type=&quot;button&quot;&gt;重置&lt;/button&gt;
+        &lt;button class=&quot;btn&quot; id=&quot;dcPrev&quot; type=&quot;button&quot;&gt;← 上一步&lt;/button&gt;
+        &lt;button class=&quot;btn btn-primary&quot; id=&quot;dcNext&quot; type=&quot;button&quot;&gt;下一步 →&lt;/button&gt;
+        &lt;button class=&quot;btn&quot; id=&quot;dcPlay&quot; type=&quot;button&quot;&gt;自动播放&lt;/button&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;status&quot; id=&quot;dcStatus&quot;&gt;&lt;/div&gt;
+      &lt;p class=&quot;text-small&quot; id=&quot;dcNow&quot; aria-live=&quot;polite&quot; style=&quot;margin:2px 0 0&quot;&gt;&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;p class=&quot;text-small&quot; id=&quot;expHint&quot; aria-live=&quot;polite&quot; style=&quot;margin:8px 0 0&quot;&gt;&lt;/p&gt;
+    &lt;div class=&quot;tpl&quot; id=&quot;dcTpl&quot; aria-hidden=&quot;true&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;card&quot; style=&quot;margin-top:10px;padding:12px 14px&quot;&gt;
+      &lt;div class=&quot;out&quot; id=&quot;dcOut&quot;&gt;&lt;span class=&quot;text-muted&quot;&gt;（尚未开始）&lt;/span&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;tl&quot; id=&quot;dcPanel&quot; aria-live=&quot;polite&quot;&gt;&lt;/div&gt;
+    &lt;details style=&quot;margin-top:10px&quot;&gt;
+      &lt;summary&gt;进阶 · 全词表 55 格 × 本步菜单（可折叠）&lt;/summary&gt;
+      &lt;p class=&quot;text-small text-muted&quot; id=&quot;dcBoardCap&quot; style=&quot;margin:8px 0 0&quot;&gt;&lt;/p&gt;
+      &lt;div class=&quot;board&quot; id=&quot;dcBoard&quot;&gt;&lt;/div&gt;
+    &lt;/details&gt;
+  &lt;/div&gt;
+
+  &lt;div id=&quot;p4&quot; role=&quot;tabpanel&quot; aria-labelledby=&quot;t4&quot; hidden&gt;
+    &lt;p class=&quot;text-small text-muted&quot; style=&quot;margin-top:12px&quot;&gt;&lt;b&gt;从场景开始。&lt;/b&gt;假设你要做一个天气助手。用户在&lt;b&gt;你的应用&lt;/b&gt;的聊天框里问：&quot;北京现在多少度？&quot;——注意，用户是在跟&lt;b&gt;你的产品&lt;/b&gt;说话，不是直接跟模型说话。场上有三个角色：&lt;/p&gt;
+    &lt;div class=&quot;viz-row&quot; style=&quot;margin-top:6px&quot;&gt;
+      &lt;span class=&quot;viz-badge&quot;&gt;用户&lt;/span&gt;&lt;span class=&quot;text-small text-muted&quot;&gt;只看得到聊天框&lt;/span&gt;
+      &lt;span class=&quot;text-small text-muted&quot;&gt;▸&lt;/span&gt;
+      &lt;span class=&quot;viz-badge&quot;&gt;你的应用&lt;/span&gt;&lt;span class=&quot;text-small text-muted&quot;&gt;你写的代码，有一个现成的 get_weather 函数&lt;/span&gt;
+      &lt;span class=&quot;text-small text-muted&quot;&gt;▸&lt;/span&gt;
+      &lt;span class=&quot;viz-badge&quot;&gt;模型 API&lt;/span&gt;&lt;span class=&quot;text-small text-muted&quot;&gt;只收文本，只回文本&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;mmd&quot; id=&quot;sqDia&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;flow&quot; aria-label=&quot;一次完整往返的六步&quot;&gt;
+      &lt;span class=&quot;step u&quot;&gt;① 用户提问&lt;/span&gt;&lt;span class=&quot;sep&quot;&gt;▸&lt;/span&gt;
+      &lt;span class=&quot;step&quot;&gt;② 你的代码发 POST＋菜单（帧 1）&lt;/span&gt;&lt;span class=&quot;sep&quot;&gt;▸&lt;/span&gt;
+      &lt;span class=&quot;step&quot;&gt;③ 模型点菜（帧 2）&lt;/span&gt;&lt;span class=&quot;sep&quot;&gt;▸&lt;/span&gt;
+      &lt;span class=&quot;step&quot;&gt;④ 你的代码执行函数（帧 3）&lt;/span&gt;&lt;span class=&quot;sep&quot;&gt;▸&lt;/span&gt;
+      &lt;span class=&quot;step&quot;&gt;⑤ 回喂观察（帧 3）&lt;/span&gt;&lt;span class=&quot;sep&quot;&gt;▸&lt;/span&gt;
+      &lt;span class=&quot;step u&quot;&gt;⑥ 模型作答，展示给用户&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;p class=&quot;text-small text-muted&quot; style=&quot;margin:4px 0 0&quot;&gt;有色的是用户的世界——整个往返里他只经历①和⑥；其余全是你的代码与模型在幕后。剧场三帧＝中间的②③④⑤。&lt;/p&gt;
+    &lt;p class=&quot;text-small text-muted&quot; style=&quot;margin-top:8px&quot;&gt;&lt;b&gt;根本问题在这里诞生&lt;/b&gt;：模型&lt;b&gt;只会说，不能做&lt;/b&gt;——它没有天气数据，也运行不了你的代码；你的代码&lt;b&gt;能做，但不知道该什么时候做、用什么参数&lt;/b&gt;——它听不懂自然语言。两边互补，却谁也无法直接指挥谁。唯一的连接通道是模型的输出：文本。所以办法只能是——让模型用&lt;b&gt;结构化的文本&quot;点菜&quot;&lt;/b&gt;（我要调 get_weather，参数是这些），你的代码照单执行。&lt;b&gt;这就是工具调用的全部&lt;/b&gt;，协议只是把&quot;点菜&quot;的格式标准化。&lt;/p&gt;
+    &lt;p class=&quot;text-small text-muted&quot; style=&quot;margin-top:6px&quot;&gt;&lt;b&gt;那为什么是厂商的协议，而不是你自己写 prompt？&lt;/b&gt;你当然可以自己 prompt 它输出 JSON（那就是第 2 章，能用，但失败率是概率）；而远程 API 你拿不到 logits，第 3 章的掩码没处下手，只能把失败率交给重试。Function Calling 是厂商替你做：把【训练（专门学会点菜格式）＋ 服务端掩码（第 3 章那套，跑在你看不见的地方）＋ 解析】打包成协议。&lt;b&gt;不是新机制，是你已学机制的产品化包装。&lt;/b&gt;下面把一次完整点菜拆成三帧——每一帧都标明&lt;b&gt;此刻是谁在行动&lt;/b&gt;，点「下一步」走。&lt;/p&gt;
+    &lt;div class=&quot;viz-controls sticky&quot;&gt;
+      &lt;button class=&quot;btn&quot; id=&quot;fpPrev&quot; type=&quot;button&quot;&gt;← 上一步&lt;/button&gt;
+      &lt;button class=&quot;btn btn-primary&quot; id=&quot;fpNext&quot; type=&quot;button&quot;&gt;下一步 →&lt;/button&gt;
+      &lt;span class=&quot;text-small text-muted&quot; id=&quot;fpCnt&quot;&gt;&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;tlbox&quot;&gt;&lt;div class=&quot;tl&quot; id=&quot;fpTl&quot; aria-live=&quot;polite&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;p class=&quot;text-small text-muted&quot; style=&quot;margin-top:14px&quot;&gt;把你已学会的一切对位过来——协议里没有任何新东西：&lt;/p&gt;
+    &lt;div class=&quot;tl&quot;&gt;
+      &lt;div class=&quot;row&quot;&gt;&lt;span class=&quot;badge&quot;&gt;对位一&lt;/span&gt;&lt;span class=&quot;txt prose&quot;&gt;第 2 章的 Pydantic schema ≡ &lt;b&gt;tools[].function.parameters&lt;/b&gt;——同一种契约。一份 schema 三处消费：给模型当菜单 / 服务端当掩码文法 / 客户端当校验器。&lt;/span&gt;&lt;/div&gt;
+      &lt;div class=&quot;row&quot;&gt;&lt;span class=&quot;badge&quot;&gt;对位二&lt;/span&gt;&lt;span class=&quot;txt prose&quot;&gt;第 3 章的掩码解码 ≡ &lt;b&gt;服务端约束&lt;/b&gt;——机制一模一样，只是搬到你看不见的地方跑。你付的不是新机制的钱，是&quot;别人替你运维机制&quot;的钱。&lt;/span&gt;&lt;/div&gt;
+      &lt;div class=&quot;row&quot;&gt;&lt;span class=&quot;badge&quot;&gt;对位三&lt;/span&gt;&lt;span class=&quot;txt prose&quot;&gt;第 5 章的决策→执行→观察循环 ≡ &lt;b&gt;帧 1→2→3 转一圈&lt;/b&gt;——协议就是把 agent 循环的每一步格式标准化。&lt;/span&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;details style=&quot;margin-top:12px&quot;&gt;
+      &lt;summary&gt;完整协议载荷（初学可跳过）&lt;/summary&gt;
+      &lt;details open style=&quot;margin-top:8px&quot;&gt;
+        &lt;summary&gt;载荷 1 · 请求：tools 即菜单，schema 即契约&lt;/summary&gt;
+        &lt;pre class=&quot;payload mono&quot;&gt;{
+  &quot;model&quot;: &quot;deepseek-chat&quot;,
+  &quot;messages&quot;: [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;北京现在多少度？用摄氏度。&quot;}],
+  &quot;tools&quot;: [{
+    &quot;type&quot;: &quot;function&quot;,
+    &quot;function&quot;: {
+      &quot;name&quot;: &quot;get_weather&quot;,
+      &lt;span class=&quot;hl&quot;&gt;&quot;parameters&quot;&lt;/span&gt;: {                    &lt;span class=&quot;text-muted&quot;&gt;← JSON Schema，文法+校验二合一&lt;/span&gt;
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;city&quot;: {&quot;type&quot;: &quot;string&quot;},
+          &quot;unit&quot;: {&quot;type&quot;: &quot;string&quot;, &lt;span class=&quot;hl&quot;&gt;&quot;enum&quot;&lt;/span&gt;: [&quot;celsius&quot;, &quot;fahrenheit&quot;]}
+        },
+        &quot;required&quot;: [&quot;city&quot;, &quot;unit&quot;]
+      }
+    }
+  }],
+  &quot;tool_choice&quot;: &quot;auto&quot;
+}&lt;/pre&gt;
+      &lt;/details&gt;
+      &lt;details style=&quot;margin-top:8px&quot;&gt;
+        &lt;summary&gt;载荷 2 · 响应：arguments 是字符串，不是对象&lt;/summary&gt;
+        &lt;pre class=&quot;payload mono&quot;&gt;&quot;message&quot;: {
+  &quot;role&quot;: &quot;assistant&quot;,
+  &quot;content&quot;: null,
+  &quot;tool_calls&quot;: [{
+    &quot;id&quot;: &quot;call_0_abc123&quot;,
+    &quot;function&quot;: {
+      &quot;name&quot;: &quot;get_weather&quot;,
+      &lt;span class=&quot;hl&quot;&gt;&quot;arguments&quot;: &quot;{\&quot;city\&quot;: \&quot;北京\&quot;, \&quot;unit\&quot;: \&quot;celsius\&quot;}&quot;&lt;/span&gt;
+    }                                  &lt;span class=&quot;text-muted&quot;&gt;← str！json.loads 永远省不掉&lt;/span&gt;
+  }]
+},
+&quot;finish_reason&quot;: &quot;tool_calls&quot;&lt;/pre&gt;
+      &lt;/details&gt;
+      &lt;details style=&quot;margin-top:8px&quot;&gt;
+        &lt;summary&gt;载荷 3 · 第二轮：结构化观察以 role=tool 回喂&lt;/summary&gt;
+        &lt;pre class=&quot;payload mono&quot;&gt;[
+  {&quot;role&quot;: &quot;user&quot;,      &quot;content&quot;: &quot;北京现在多少度？用摄氏度。&quot;},
+  {&quot;role&quot;: &quot;assistant&quot;, &quot;tool_calls&quot;: [ ...上面那次调用... ]},
+  &lt;span class=&quot;hl&quot;&gt;{&quot;role&quot;: &quot;tool&quot;, &quot;tool_call_id&quot;: &quot;call_0_abc123&quot;,&lt;/span&gt;
+   &lt;span class=&quot;hl&quot;&gt; &quot;content&quot;: &quot;{\&quot;temp\&quot;: 18, \&quot;condition\&quot;: \&quot;晴\&quot;}&quot;}&lt;/span&gt;   &lt;span class=&quot;text-muted&quot;&gt;← 你的代码产出的结构化观察&lt;/span&gt;
+]&lt;/pre&gt;
+      &lt;/details&gt;
+    &lt;/details&gt;
+  &lt;/div&gt;
+
+  &lt;div id=&quot;p5&quot; role=&quot;tabpanel&quot; aria-labelledby=&quot;t5&quot; hidden&gt;
+    &lt;p class=&quot;text-small text-muted&quot; style=&quot;margin-top:12px&quot;&gt;「模型生成数据，代码解释执行」。开关闭闸门，看同一条决策在两种世界里的命运。&lt;/p&gt;
+    &lt;div class=&quot;mmd&quot; id=&quot;lpDia&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;flow&quot; aria-label=&quot;agent 循环的五拍&quot;&gt;
+      &lt;span class=&quot;step&quot;&gt;结构化决策&lt;/span&gt;&lt;span class=&quot;sep&quot;&gt;▸&lt;/span&gt;
+      &lt;span class=&quot;step&quot;&gt;校验（契约闸门）&lt;/span&gt;&lt;span class=&quot;sep&quot;&gt;▸&lt;/span&gt;
+      &lt;span class=&quot;step&quot;&gt;确定性执行&lt;/span&gt;&lt;span class=&quot;sep&quot;&gt;▸&lt;/span&gt;
+      &lt;span class=&quot;step&quot;&gt;结构化观察&lt;/span&gt;&lt;span class=&quot;sep&quot;&gt;↩&lt;/span&gt;
+      &lt;span class=&quot;text-small text-muted&quot;&gt;回到决策，循环……直到&lt;/span&gt;
+      &lt;span class=&quot;step u&quot;&gt;最终答案&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;viz-controls sticky&quot;&gt;
+      &lt;label class=&quot;form-check form-switch&quot;&gt;
+        &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; id=&quot;ctSw&quot; checked&gt;
+        &lt;span class=&quot;form-check-label&quot;&gt;契约闸门（Pydantic 校验）&lt;/span&gt;
+      &lt;/label&gt;
+      &lt;button class=&quot;btn&quot; id=&quot;agPrev&quot; type=&quot;button&quot;&gt;← 上一步&lt;/button&gt;
+      &lt;button class=&quot;btn btn-primary&quot; id=&quot;agNext&quot; type=&quot;button&quot;&gt;下一步 →&lt;/button&gt;
+      &lt;span class=&quot;text-small text-muted&quot; id=&quot;agCnt&quot;&gt;&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;tlbox&quot;&gt;&lt;div class=&quot;tl&quot; id=&quot;agTl&quot; aria-live=&quot;polite&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+  &lt;/div&gt;
+
+&lt;script&gt;
+(function(){
+&#x27;use strict&#x27;;
+/* ================= 引擎：正则 -&gt; NFA -&gt; 掩码解码（与教程 Python 版逐行对应，已在 Node 验证） ================= */
+class RegexNFA{
+  constructor(p){this.p=p;this.i=0;this.adj={};const r=this.parseAlt();this.start=r[0];this.accept=r[1];
+    if(this.i!==this.p.length)throw new Error(&#x27;leftover&#x27;);}
+  st(){const n=Object.keys(this.adj).length;this.adj[n]=[];return n;}
+  link(a,l,b){this.adj[a].push([l,b]);}
+  peek(){return this.i&lt;this.p.length?this.p[this.i]:null;}
+  leaf(cs){const s=this.st(),e=this.st();this.link(s,cs,e);return[s,e];}
+  parseAlt(){let r=this.parseConcat();
+    while(this.peek()===&#x27;|&#x27;){this.i++;const r2=this.parseConcat();
+      const ns=this.st(),ne=this.st();this.link(ns,null,r[0]);this.link(ns,null,r2[0]);
+      this.link(r[1],null,ne);this.link(r2[1],null,ne);r=[ns,ne];}return r;}
+  parseConcat(){const fr=[];
+    while(this.peek()!==null&amp;&amp;this.peek()!==&#x27;|&#x27;&amp;&amp;this.peek()!==&#x27;)&#x27;)fr.push(this.parseRepeat());
+    const s=this.st(),e=this.st();let pv=s;
+    for(const f of fr){this.link(pv,null,f[0]);pv=f[1];}this.link(pv,null,e);return[s,e];}
+  parseRepeat(){let r=this.parseAtom();
+    while([&#x27;*&#x27;,&#x27;+&#x27;,&#x27;?&#x27;].indexOf(this.peek())&gt;=0){const op=this.p[this.i];this.i++;
+      const ns=this.st(),ne=this.st();this.link(ns,null,r[0]);this.link(r[1],null,ne);
+      if(op===&#x27;*&#x27;||op===&#x27;+&#x27;)this.link(r[1],null,r[0]);
+      if(op===&#x27;*&#x27;||op===&#x27;?&#x27;)this.link(ns,null,ne);r=[ns,ne];}return r;}
+  parseAtom(){const c=this.p[this.i];
+    if(c===&#x27;(&#x27;){this.i++;const f=this.parseAlt();this.i++;return f;}
+    if(c===&#x27;[&#x27;){this.i++;const cs=new Set();
+      while(this.p[this.i]!==&#x27;]&#x27;){
+        if(this.p[this.i+1]===&#x27;-&#x27;&amp;&amp;this.p[this.i+2]!==&#x27;]&#x27;){
+          const a=this.p[this.i].charCodeAt(0),b=this.p[this.i+2].charCodeAt(0);
+          for(let x=a;x&lt;=b;x++)cs.add(String.fromCharCode(x));this.i+=3;
+        }else{cs.add(this.p[this.i]);this.i++;}}
+      this.i++;return this.leaf(cs);}
+    if(c===&#x27;\\&#x27;){this.i++;const ch=this.p[this.i];this.i++;return this.leaf(new Set([ch]));}
+    this.i++;return this.leaf(new Set([c]));}
+  epsClosure(ss){const st=Array.from(ss),seen=new Set(ss);
+    while(st.length){const s=st.pop();
+      for(const t of this.adj[s])if(t[0]===null&amp;&amp;!seen.has(t[1])){seen.add(t[1]);st.push(t[1]);}}
+    return seen;}
+  step(ss,ch){const cl=this.epsClosure(ss),nx=new Set();
+    for(const s of cl)for(const t of this.adj[s])if(t[0]!==null&amp;&amp;t[0].has(ch))nx.add(t[1]);
+    return nx.size?this.epsClosure(nx):new Set();}
+}
+const NFA=new RegexNFA(&#x27;\\{&quot;name&quot;: *&quot;[a-z]+&quot;, *&quot;age&quot;: *[0-9]+\\}&#x27;);
+const SINGLES=Array.from(new Set(&#x27;abcdefghijklmnopqrstuvwxyz0123456789 {}&quot;:,&#x27;.split(&#x27;&#x27;))).sort();
+const EXTRA=[&#x27;A&#x27;,&#x27;L&#x27;,&#x27;T&#x27;,&#x27;`&#x27;,&#x27;是&#x27;];
+const T_NAME=&#x27;&quot;name&quot;&#x27;,T_AGE=&#x27;&quot;age&quot;&#x27;,T_CS=&#x27;: &quot;&#x27;,T_CN=&#x27;: &#x27;,T_CM=&#x27;, &#x27;;
+const MERGES=[T_NAME,T_AGE,T_CS,T_CN,T_CM,&#x27;ice&quot;:&#x27;,&#x27;True&#x27;,&#x27;```json&#x27;,&#x27;是&#x27;];
+const VOCAB=Array.from(new Set(SINGLES.concat(EXTRA))).sort().concat(MERGES);
+function tokenVerdict(ss,tok){let cur=new Set(ss);
+  for(let i=0;i&lt;tok.length;i++){cur=NFA.step(cur,tok[i]);if(cur.size===0)return[false,i+1];}
+  return[true,null];}
+function legalTokens(ss){return VOCAB.filter(t=&gt;tokenVerdict(ss,t)[0]);}
+function consume(ss,tok){let cur=new Set(ss);
+  for(const ch of tok){cur=NFA.step(cur,ch);if(cur.size===0)return cur;}return cur;}
+const good=[{&#x27;{&#x27;:5},{[T_NAME]:5},{[T_CS]:5},{&#x27;a&#x27;:5},{&#x27;l&#x27;:5},{&#x27;i&#x27;:5},{&#x27;c&#x27;:5},{&#x27;e&#x27;:5},{&#x27;&quot;&#x27;:5},
+  {[T_CM]:5},{[T_AGE]:5},{[T_CN]:5},{&#x27;3&#x27;:5},{&#x27;0&#x27;:5},{&#x27;}&#x27;:5}];
+const py=good.slice(0,12).concat([{&#x27;True&#x27;:9,&#x27;3&#x27;:2},{&#x27;0&#x27;:4,&#x27;}&#x27;:2},{&#x27;}&#x27;:5}]);
+function intentModel(intent){const lo=intent.toLowerCase();
+  return function(t,em){const le=em.toLowerCase();let i=0;
+    for(const ch of le){while(i&lt;lo.length&amp;&amp;lo[i]!==ch)i++;i++;}
+    if(i&gt;=intent.length)return null;
+    const pr={};let sc=9.0,j=i;
+    while(j&lt;intent.length&amp;&amp;Object.keys(pr).length&lt;4){
+      for(const c of[intent[j],intent[j].toLowerCase()])
+        if(c&amp;&amp;pr[c]===undefined){pr[c]=sc;sc-=1.0;}j++;}
+    return pr;};}
+const SCRIPTS={
+  good:{rows:good,label:&#x27;实验 A&#x27;},
+  py:{rows:py,label:&#x27;实验 B&#x27;},
+  ada:{rows:Array(45).fill(intentModel(&#x27;{&quot;name&quot;: &quot;Ada Lovelace&quot;, &quot;age&quot;: 30}&#x27;)),label:&#x27;实验 C&#x27;}
+};
+function runDecode(script,masked){
+  const steps=[];let states=new Set([NFA.start]);const out=[];let leftAt=null;
+  for(let t=0;t&lt;script.length;t++){
+    let row=script[t];
+    if(typeof row===&#x27;function&#x27;)row=row(t,out.join(&#x27;&#x27;));
+    if(row===null){steps.push({type:&#x27;eos&#x27;,t:t,text:out.join(&#x27;&#x27;),chosen:null,active:NFA.epsClosure(states).size});break;}
+    let allowed;
+    if(masked){allowed=legalTokens(states);
+      if(!allowed.length){steps.push({type:&#x27;accept&#x27;,t:t,text:out.join(&#x27;&#x27;),chosen:null,active:NFA.epsClosure(states).size});break;}}
+    else allowed=VOCAB.slice();
+    const sc=tok=&gt;row[tok]!==undefined?row[tok]:-1.0;
+    let wanted=null,chosen=null;
+    for(const tok of VOCAB)if(wanted===null||sc(tok)&gt;sc(wanted))wanted=tok;
+    for(const tok of allowed)if(chosen===null||sc(tok)&gt;sc(chosen))chosen=tok;
+    states=consume(states,chosen);
+    let left=false;
+    if(!masked&amp;&amp;states.size===0&amp;&amp;leftAt===null){leftAt=t;left=true;}
+    out.push(chosen);
+    steps.push({type:&#x27;step&#x27;,t:t,wanted:wanted,chosen:chosen,ws:sc(wanted),cs:sc(chosen),
+      maskedPick:masked&amp;&amp;chosen!==wanted,legal:allowed,active:states.size,
+      text:out.join(&#x27;&#x27;),left:left});}
+  const text=out.join(&#x27;&#x27;);let jsonOK=true;
+  try{JSON.parse(text);}catch(e){jsonOK=false;}
+  const accepted=states.size&gt;0&amp;&amp;NFA.epsClosure(states).has(NFA.accept);
+  return{steps:steps,text:text,jsonOK:jsonOK,accepted:accepted};}
+
+/* ================= 第 1 章：裸接口 ================= */
+const CASES=[
+ {d:&#x27;markdown 围栏（最常见，聊天训练的本能）&#x27;,r:&#x27;```json\n{&quot;name&quot;: &quot;Alice&quot;, &quot;age&quot;: 30}\n```&#x27;,n:&#x27;模型在聊天里学会了&quot;展示代码&quot;，围栏对渲染器是礼物，对解析器是灾难。&#x27;},
+ {d:&#x27;客气话开场白&#x27;,r:&#x27;当然可以！以下是您要的 JSON：{&quot;name&quot;: &quot;Alice&quot;, &quot;age&quot;: 30}&#x27;,n:&#x27;同一根 token 流里，礼貌和载荷混在一起——模型没有&quot;正文/附加说明&quot;的分界概念。&#x27;},
+ {d:&#x27;尾随逗号（JS 允许，JSON 不允许）&#x27;,r:&#x27;{&quot;name&quot;: &quot;Alice&quot;, &quot;age&quot;: 30,}&#x27;,n:&#x27;语法是相对于解析器的：JS 引擎收，JSON 解析器不收。&#x27;},
+ {d:&#x27;代码注释（模型看多了带注释的配置文件）&#x27;,r:&#x27;{\n  &quot;name&quot;: &quot;Alice&quot;,  // 姓名\n  &quot;age&quot;: 30\n}&#x27;,n:&#x27;JSON 里没有注释。模型把两种&quot;看起来像 JSON&quot;的语料混着学了。&#x27;},
+ {d:&#x27;中文引号（中文语境高频，肉眼难辨）&#x27;,r:&#x27;{&quot;name&quot;: “Alice”, &quot;age&quot;: 30}&#x27;,n:&#x27;U+201C 和 U+0022 在语料里都大量出现在&quot;名字两端&quot;。语法在字节层判定，长得像不算数。&#x27;},
+ {d:&#x27;NaN（非标准扩展）&#x27;,r:&#x27;{&quot;name&quot;: &quot;Alice&quot;, &quot;age&quot;: NaN}&#x27;,n:&#x27;JS 的 JSON.parse 不认 NaN，Python 的 json 反而宽容——&quot;合法&quot;是解析器的属性，不是数据的属性。跨系统传数据时这格随时翻车。&#x27;},
+ {d:&#x27;裸 key（JS 对象字面量习惯）&#x27;,r:&#x27;{name: &quot;Alice&quot;, age: 30}&#x27;,n:&#x27;省引号是 JS 的语法糖。模型分布里两种写法都高概率。&#x27;},
+ {d:&#x27;终于合法了&#x27;,r:&#x27;{&quot;name&quot;: &quot;Alice&quot;, &quot;age&quot;: 30}&#x27;,n:&#x27;模型完全&quot;会&quot;写 JSON。缺的不是能力，是让它【必须】这么写的机制——这就是后面几章。&#x27;}
+];
+const caseSel=document.getElementById(&#x27;caseSel&#x27;),caseRaw=document.getElementById(&#x27;caseRaw&#x27;),
+      caseGates=document.getElementById(&#x27;caseGates&#x27;),caseNote=document.getElementById(&#x27;caseNote&#x27;);
+CASES.forEach((c,i)=&gt;{const o=document.createElement(&#x27;option&#x27;);o.value=i;o.textContent=(i+1)+&#x27; · &#x27;+c.d;caseSel.appendChild(o);});
+function gateRow(ok,label,msg){return {ok:ok,label:label,msg:msg};}
+function renderCase(){
+  const c=CASES[caseSel.value];
+  caseRaw.textContent=c.r;
+  let ok,note;
+  try{JSON.parse(c.r);ok=true;note=&#x27;语法闸通过&#x27;;}catch(e){ok=false;note=e.message;}
+  const rows=[gateRow(ok,&#x27;语法闸&#x27;,ok?&#x27;json.loads ✓&#x27;:&#x27;✗ &#x27;+note)];
+  if(ok)rows.push(gateRow(false,&#x27;语义闸&#x27;,&#x27;（下一章登场）&#x27;));
+  caseGates.innerHTML=&#x27;&#x27;;
+  for(const g of rows){
+    const d=document.createElement(&#x27;div&#x27;);d.className=&#x27;row&#x27;;
+    d.innerHTML=&#x27;&lt;span class=&quot;badge &#x27;+(g.ok?&#x27;ok&#x27;:&#x27;bad&#x27;)+&#x27;&quot;&gt;&#x27;+g.label+&#x27;&lt;/span&gt;&lt;span class=&quot;txt&quot;&gt;&#x27;+g.msg+&#x27;&lt;/span&gt;&#x27;;
+    caseGates.appendChild(d);}
+  caseNote.textContent=c.n;}
+caseSel.addEventListener(&#x27;change&#x27;,renderCase);
+renderCase();
+
+/* ================= 第 2 章：修复回路剧场 ================= */
+const RP=[
+ {b:&#x27;任务&#x27;,c:&#x27;&#x27;,t:&#x27;描述 Alice，30 岁，心情不错&#x27;,cls:&#x27;&#x27;},
+ {b:&#x27;决策&#x27;,c:&#x27;dec&#x27;,t:&#x27;```json\n{&quot;name&quot;: &quot;Alice&quot;, // 姓名\n &quot;age&quot;: -5, &quot;mood&quot;: &quot;happy&quot;}\n```&#x27;,cls:&#x27;&#x27;},
+ {b:&#x27;语法闸&#x27;,c:&#x27;bad&#x27;,t:&#x27;✗ Expecting value —— 围栏和 // 注释都不是 JSON&#x27;},
+ {b:&#x27;回喂&#x27;,c:&#x27;&#x27;,t:&#x27;输出不是合法 JSON（Expecting value）。只输出 JSON 本体，不要围栏/注释/多余文字。&#x27;,cls:&#x27;&#x27;},
+ {b:&#x27;决策&#x27;,c:&#x27;dec&#x27;,t:&#x27;{&quot;name&quot;: &quot;Alice&quot;, &quot;age&quot;: -5, &quot;mood&quot;: &quot;happy&quot;}&#x27;,cls:&#x27;&#x27;},
+ {b:&#x27;语法闸&#x27;,c:&#x27;ok&#x27;,t:&#x27;✓ json.loads 通过&#x27;},
+ {b:&#x27;语义闸&#x27;,c:&#x27;bad&#x27;,t:&#x27;✗ age：Input should be greater than or equal to 0（Pydantic）—— 注意！模型修了语法，没修语义&#x27;},
+ {b:&#x27;回喂&#x27;,c:&#x27;&#x27;,t:&#x27;JSON 合法但违反约束：age 应 &gt;= 0。修正后重新只输出 JSON。&#x27;,cls:&#x27;&#x27;},
+ {b:&#x27;决策&#x27;,c:&#x27;dec&#x27;,t:&#x27;{&quot;name&quot;: &quot;Alice&quot;, &quot;age&quot;: 30, &quot;mood&quot;: &quot;happy&quot;}&#x27;,cls:&#x27;&#x27;},
+ {b:&#x27;两闸&#x27;,c:&#x27;ok&#x27;,t:&#x27;✓✓ Person(name=Alice, age=30, mood=happy) —— str 终于变成了类型化对象&#x27;}
+];
+const scrollBottom=t=&gt;{const b=t.parentElement;if(b&amp;&amp;b.classList.contains(&#x27;tlbox&#x27;))b.scrollTop=b.scrollHeight;};
+let rpI=0;
+const rpTl=document.getElementById(&#x27;rpTl&#x27;),rpCnt=document.getElementById(&#x27;rpCnt&#x27;);
+function renderRp(){
+  rpTl.innerHTML=&#x27;&#x27;;
+  for(let i=0;i&lt;=rpI&amp;&amp;i&lt;RP.length;i++){
+    const s=RP[i],d=document.createElement(&#x27;div&#x27;);d.className=&#x27;row&#x27;;
+    d.innerHTML=&#x27;&lt;span class=&quot;badge &#x27;+(s.c||&#x27;&#x27;)+&#x27;&quot;&gt;&#x27;+s.b+&#x27;&lt;/span&gt;&lt;span class=&quot;txt&quot;&gt;&#x27;+s.t+&#x27;&lt;/span&gt;&#x27;;
+    rpTl.appendChild(d);}
+  rpCnt.textContent=&#x27;第 &#x27;+(rpI+1)+&#x27; / &#x27;+RP.length+&#x27; 幕&#x27;;
+  document.getElementById(&#x27;rpPrev&#x27;).disabled=rpI===0;
+  document.getElementById(&#x27;rpNext&#x27;).disabled=rpI===RP.length-1;
+  scrollBottom(rpTl);}
+document.getElementById(&#x27;rpPrev&#x27;).addEventListener(&#x27;click&#x27;,()=&gt;{if(rpI&gt;0){rpI--;renderRp();}});
+document.getElementById(&#x27;rpNext&#x27;).addEventListener(&#x27;click&#x27;,()=&gt;{if(rpI&lt;RP.length-1){rpI++;renderRp();}});
+renderRp();
+
+/* ================= 第 4 章：一次工具调用往返的三帧剧场 ================= */
+const FP=[
+ {f:1,b:&#x27;帧 1 · 行动者：你的代码&#x27;,c:&#x27;dec&#x27;,t:
+`POST /chat/completions
+{
+  &quot;messages&quot;: [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;北京现在多少度？&quot;}],
+  &quot;tools&quot;: [{ &quot;function&quot;: {
+      &quot;name&quot;: &quot;get_weather&quot;,
+      &quot;parameters&quot;: {        ← JSON Schema，和第 2 章的 Pydantic 同一种东西
+        &quot;city&quot;: {&quot;type&quot;: &quot;string&quot;},
+        &quot;unit&quot;: {&quot;enum&quot;: [&quot;celsius&quot;, &quot;fahrenheit&quot;]} } } }]
+}`},
+ {f:1,b:&#x27;谁发的&#x27;,c:&#x27;&#x27;,p:1,t:&#x27;这个 POST 由【你的代码】自动发出——用户从未见过它。用户那句话被你的代码转放进 messages；tools 菜单是你的代码背着用户加上去的。&#x27;},
+ {f:1,b:&#x27;读法&#x27;,c:&#x27;&#x27;,p:1,t:&#x27;菜单是【数据】不是 prompt 文本——正因为它结构化，厂商才能在服务端对它做掩码。&#x27;},
+ {f:1,b:&#x27;读法&#x27;,c:&#x27;&#x27;,p:1,t:&#x27;这份 schema 你在客户端还会用它校验模型回传的参数（第 2 章的语义闸）。一份契约，三处消费：给模型看 / 服务端解码用 / 客户端校验用。&#x27;},
+ {f:1,b:&#x27;读法&#x27;,c:&#x27;&#x27;,p:1,t:&#x27;声明式：想让模型会什么就发什么菜单，换工具不用换模型。&#x27;},
+ {f:2,b:&#x27;帧 2 · 行动者：模型&#x27;,c:&#x27;dec&#x27;,t:
+`{
+  &quot;message&quot;: { &quot;content&quot;: null,
+    &quot;tool_calls&quot;: [{ &quot;function&quot;: {
+        &quot;name&quot;: &quot;get_weather&quot;,
+        &quot;arguments&quot;: &quot;{\\&quot;city\\&quot;: \\&quot;北京\\&quot;, \\&quot;unit\\&quot;: \\&quot;celsius\\&quot;}&quot;
+      }                        ↑ 字符串！不是对象 }] },
+  &quot;finish_reason&quot;: &quot;tool_calls&quot;
+}`},
+ {f:2,b:&#x27;给谁的&#x27;,c:&#x27;&#x27;,p:1,t:&#x27;这个响应也是【你的代码】收到的，不会直接展示给用户。content 为 null——模型这轮不聊天，在点菜。&#x27;},
+ {f:2,b:&#x27;读法&#x27;,c:&#x27;&#x27;,p:1,t:&#x27;arguments 是模型在服务端、被掩码逼着逐 token 写出来的【原文】。第 3 章的机制跑在你看不见的地方——这就是&quot;产品化包装&quot;的含义。&#x27;},
+ {f:2,b:&#x27;读法&#x27;,c:&#x27;&#x27;,p:1,t:&#x27;你拿到的已是解析好的结构（包围的特殊 token 剥掉了、名字和参数拆开了），但 arguments 本体仍是 str——json.loads 这一步永远省不掉。&#x27;},
+ {f:2,b:&#x27;读法&#x27;,c:&#x27;&#x27;,p:1,t:&#x27;连&quot;这次停下来是为了等工具&quot;（finish_reason=&quot;tool_calls&quot;）都进了协议——停止原因也是结构化的。&#x27;},
+ {f:3,b:&#x27;帧 3 · 行动者：你的代码&#x27;,c:&#x27;dec&#x27;,t:
+`{
+  &quot;role&quot;: &quot;tool&quot;,
+  &quot;tool_call_id&quot;: &quot;call_0_abc&quot;,
+  &quot;content&quot;: &quot;{\\&quot;temp\\&quot;: 18, \\&quot;condition\\&quot;: \\&quot;晴\\&quot;}&quot;
+}`},
+ {f:3,b:&#x27;做什么&#x27;,c:&#x27;&#x27;,p:1,t:&#x27;你写的普通代码【确定性执行】get_weather（第 5 章），把结果以 role=tool 回喂——模型的输入侧同样是&quot;结构化 → 文本化&quot;。&#x27;},
+ {f:3,b:&#x27;用户看到啥&#x27;,c:&#x27;&#x27;,p:1,t:&#x27;最后模型基于观察说出自然语言答案（&quot;北京现在 18 度，晴&quot;），由你的代码显示给用户——&lt;b&gt;整个往返里，用户只看到这一句&lt;/b&gt;。&#x27;},
+ {f:3,b:&#x27;收尾&#x27;,c:&#x27;&#x27;,p:1,t:&#x27;帧 1 → 2 → 3 连起来转一圈，就是第 5 章的 agent 循环。协议把每一步的格式定死，全生态共用一份训练目标——这是标准化那一半的理由。&#x27;}
+];
+let fpI=0;
+const fpTl=document.getElementById(&#x27;fpTl&#x27;),fpCnt=document.getElementById(&#x27;fpCnt&#x27;);
+function renderFp(){
+  fpTl.innerHTML=&#x27;&#x27;;
+  for(let i=0;i&lt;=fpI&amp;&amp;i&lt;FP.length;i++){
+    const s=FP[i],d=document.createElement(&#x27;div&#x27;);d.className=&#x27;row&#x27;;
+    d.innerHTML=&#x27;&lt;span class=&quot;badge &#x27;+(s.c||&#x27;&#x27;)+&#x27;&quot;&gt;&#x27;+s.b+&#x27;&lt;/span&gt;&lt;span class=&quot;txt&#x27;+(s.p?&#x27; prose&#x27;:&#x27;&#x27;)+&#x27;&quot;&gt;&#x27;+s.t+&#x27;&lt;/span&gt;&#x27;;
+    fpTl.appendChild(d);}
+  fpCnt.textContent=&#x27;帧 &#x27;+FP[fpI].f+&#x27; / 3 · 第 &#x27;+(fpI+1)+&#x27; / &#x27;+FP.length+&#x27; 行&#x27;;
+  document.getElementById(&#x27;fpPrev&#x27;).disabled=fpI===0;
+  document.getElementById(&#x27;fpNext&#x27;).disabled=fpI===FP.length-1;
+  scrollBottom(fpTl);}
+document.getElementById(&#x27;fpPrev&#x27;).addEventListener(&#x27;click&#x27;,()=&gt;{if(fpI&gt;0){fpI--;renderFp();}});
+document.getElementById(&#x27;fpNext&#x27;).addEventListener(&#x27;click&#x27;,()=&gt;{if(fpI&lt;FP.length-1){fpI++;renderFp();}});
+renderFp();
+
+/* ================= 第 3 章：掩码解码实验室 ================= */
+const disp=t=&gt;t===&#x27; &#x27;?&#x27;␣&#x27;:t;
+let run=null,idx=0,timer=null;
+const el=id=&gt;document.getElementById(id);
+
+/* ---- 文法相位机：把 FSM 状态翻译成&quot;你站在文法的哪一段、这段的菜单是什么&quot; ---- */
+const SEGS=[&#x27;{&#x27;,&#x27;&quot;name&quot;&#x27;,&#x27;:&#x27;,&#x27;␣*&#x27;,&#x27;&quot;&#x27;,&#x27;名字[a-z]*&#x27;,&#x27;&quot;&#x27;,&#x27;,&#x27;,&#x27;␣*&#x27;,&#x27;&quot;age&quot;&#x27;,&#x27;:&#x27;,&#x27;␣*&#x27;,&#x27;岁数[0-9]*&#x27;,&#x27;}&#x27;];
+const LOOP_SEGS=[3,5,8,11,12];
+function litPhase(key,lit,nextId,seg){const st={};
+  for(let i=0;i&lt;lit.length;i++)st[key+i]={lit:lit,idx:i,seg:seg,next:i===lit.length-1?nextId:key+(i+1)};
+  return st;}
+const PH={
+  p0:{seg:0,menu:&#x27;菜单只有一项：「{」——对象的开始&#x27;,trans:c=&gt;c===&#x27;{&#x27;?&#x27;K0&#x27;:null},
+  pC1:{seg:2,menu:&#x27;菜单只有一项：「:」——键名写完了，该冒号&#x27;,trans:c=&gt;c===&#x27;:&#x27;?&#x27;S1&#x27;:null},
+  S1:{seg:3,menu:&#x27;菜单：「␣」（再加一个空格）或「\&quot;」（开写名字的引号）——分叉处，模型做选择&#x27;,trans:c=&gt;c===&#x27; &#x27;?&#x27;S1&#x27;:(c===&#x27;&quot;&#x27;?&#x27;N&#x27;:null)},
+  N:{seg:5,menu:&#x27;菜单：a–z（继续写名字）或「\&quot;」（结束名字）——名字多长，模型现场决定&#x27;,trans:c=&gt;/[a-z]/.test(c)?&#x27;N&#x27;:(c===&#x27;&quot;&#x27;?&#x27;CM&#x27;:null)},
+  CM:{seg:7,menu:&#x27;菜单只有一项：「,」——名字写完了，分隔下一个键&#x27;,trans:c=&gt;c===&#x27;,&#x27;?&#x27;S2&#x27;:null},
+  S2:{seg:8,menu:&#x27;菜单：「␣」或「\&quot;」（开写键 age）&#x27;,trans:c=&gt;c===&#x27; &#x27;?&#x27;S2&#x27;:(c===&#x27;&quot;&#x27;?&#x27;A1&#x27;:null)},
+  pC2:{seg:10,menu:&#x27;菜单只有一项：「:」&#x27;,trans:c=&gt;c===&#x27;:&#x27;?&#x27;S3&#x27;:null},
+  S3:{seg:11,menu:&#x27;菜单：「␣」或数字（直接开写岁数）&#x27;,trans:c=&gt;c===&#x27; &#x27;?&#x27;S3&#x27;:(/[0-9]/.test(c)?&#x27;AG&#x27;:null)},
+  AG:{seg:12,menu:&#x27;菜单：数字（继续写）或「}」（收尾）——写几位，模型现场决定&#x27;,trans:c=&gt;/[0-9]/.test(c)?&#x27;AG&#x27;:(c===&#x27;}&#x27;?&#x27;pD&#x27;:null)},
+  pD:{seg:13,menu:&#x27;菜单空了：文法走完，FSM 到达接受态，解码自然终止&#x27;,trans:()=&gt;null}
+};
+Object.assign(PH,litPhase(&#x27;K&#x27;,&#x27;&quot;name&quot;&#x27;,&#x27;pC1&#x27;,1));
+Object.assign(PH,litPhase(&#x27;A&#x27;,&#x27;&quot;age&quot;&#x27;,&#x27;pC2&#x27;,9));
+const SEG_NAMES={p0:&#x27;开括号&#x27;,pC1:&#x27;键后的冒号&#x27;,S1:&#x27;冒号后：空格/开引号&#x27;,N:&#x27;名字字母&#x27;,CM:&#x27;逗号&#x27;,S2:&#x27;逗号后：空格/键引号&#x27;,pC2:&#x27;age 后的冒号&#x27;,S3:&#x27;冒号后：空格/数字&#x27;,AG:&#x27;岁数数字&#x27;,pD:&#x27;完成&#x27;};
+function phaseStep(pid,ch){
+  if(pid===null)return null;
+  const p=PH[pid];
+  if(p.trans)return p.trans(ch);
+  return ch===p.lit[p.idx]?p.next:null;}
+function phaseInfo(pid){
+  if(pid===null)return{name:&#x27;已离开文法&#x27;,menu:&#x27;自动机已跟丢：菜单不存在了，全词表任选——正确性从此只靠模型自己（第 0 章事实三的反面）&#x27;,seg:-1};
+  const p=PH[pid];
+  if(p.lit!==undefined)return{name:&#x27;写键名 &#x27;+p.lit+&#x27;（第 &#x27;+(p.idx+1)+&#x27;/&#x27;+p.lit.length+&#x27; 个字符）&#x27;,menu:&#x27;菜单只有一项：「&#x27;+p.lit[p.idx]+&#x27;」——键名是文法写死的字面量&#x27;,seg:p.seg};
+  return{name:SEG_NAMES[pid]||pid,menu:p.menu,seg:p.seg};}
+
+const HINTS={
+  good:&#x27;观察任务：模型想要的每一步都在菜单里——掩码全程没插手，所以开/关掩码结果一样。这就是基线的含义：约束像栏杆，备而不用，只在模型想越轨的一瞬出手。&#x27;,
+  py:&#x27;观察任务：跑到「岁数」那一步——模型最想要「True」（Python 习惯），但此处菜单只许数字。看它被掩蔽、改选「3」。然后关掉「掩码开启」重跑对比：输出变成 True0，json 失效。&#x27;,
+  ada:&#x27;观察任务：模型想说 &quot;Ada Lovelace&quot;。看「A」「␣」「L」先后被掩蔽后，模型如何在菜单内改道——语法被拯救、名字被改写。掩码保证「能被解析」，不保证「是你想要的」。&#x27;};
+
+function rebuild(){
+  if(timer){clearInterval(timer);timer=null;el(&#x27;dcPlay&#x27;).textContent=&#x27;自动播放&#x27;;}
+  const key=el(&#x27;expSel&#x27;).value,masked=el(&#x27;maskSw&#x27;).checked;
+  el(&#x27;expHint&#x27;).textContent=&#x27;▸ &#x27;+HINTS[key];
+  run=runDecode(SCRIPTS[key].rows,masked);
+  /* 沿着解码轨迹走一遍相位机：给每步标注&quot;站在文法哪里&quot; */
+  let phase=&#x27;p0&#x27;;const segCounts={};
+  const recs=[{type:&#x27;init&#x27;,legal:legalTokens(new Set([NFA.start])),active:NFA.epsClosure(new Set([NFA.start])).size,text:&#x27;&#x27;,phase:&#x27;p0&#x27;}];
+  for(const s of run.steps){
+    if(s.type!==&#x27;step&#x27;){recs.push(Object.assign({phase:phase},s));continue;}
+    const before=phase;
+    for(const ch of s.chosen){
+      if(phase===null)break;
+      const seg=phaseInfo(phase).seg;
+      const nx=phaseStep(phase,ch);
+      if(nx===null){phase=null;break;}
+      segCounts[seg]=(segCounts[seg]||0)+1;
+      phase=nx;}
+    recs.push(Object.assign({},s,{phase:before,leftPhase:phase===null}));}
+  run.recs=recs;run.segCounts=segCounts;idx=0;render();}
+
+function render(){
+  const r=run.recs[idx],isLast=idx===run.recs.length-1;
+  const masked=el(&#x27;maskSw&#x27;).checked;
+  const info=phaseInfo(r.phase);
+  /* 模板条：站在文法哪一段 */
+  const tpl=el(&#x27;dcTpl&#x27;);tpl.innerHTML=&#x27;&#x27;;
+  SEGS.forEach((s,i)=&gt;{
+    const sp=document.createElement(&#x27;span&#x27;);sp.className=&#x27;seg&#x27;;
+    if(run.segCounts[i])sp.classList.add(&#x27;done&#x27;);
+    if(i===info.seg)sp.classList.add(&#x27;cur&#x27;);
+    sp.textContent=s+(LOOP_SEGS.indexOf(i)&gt;=0&amp;&amp;run.segCounts[i]?&#x27;×&#x27;+run.segCounts[i]:&#x27;&#x27;);
+    tpl.appendChild(sp);});
+  /* 输出行 */
+  if(!r.text){el(&#x27;dcOut&#x27;).innerHTML=&#x27;&lt;span class=&quot;text-muted&quot;&gt;（尚未开始）&lt;/span&gt;&#x27;;}
+  else{
+    const cut=r.chosen?r.text.length-r.chosen.length:r.text.length;
+    el(&#x27;dcOut&#x27;).innerHTML=esc(r.text.slice(0,cut))
+      +(r.chosen?&#x27;&lt;span class=&quot;last&quot;&gt;&#x27;+esc(r.chosen)+&#x27;&lt;/span&gt;&#x27;:&#x27;&#x27;);}
+  /* 四行讲解面板 */
+  const panel=el(&#x27;dcPanel&#x27;);panel.innerHTML=&#x27;&#x27;;
+  const addRow=(badge,cls,text)=&gt;{const d=document.createElement(&#x27;div&#x27;);d.className=&#x27;row&#x27;;
+    d.innerHTML=&#x27;&lt;span class=&quot;badge &#x27;+(cls||&#x27;&#x27;)+&#x27;&quot;&gt;&#x27;+badge+&#x27;&lt;/span&gt;&lt;span class=&quot;txt prose&quot;&gt;&#x27;+text+&#x27;&lt;/span&gt;&#x27;;
+    panel.appendChild(d);};
+  if(r.type===&#x27;init&#x27;){
+    addRow(&#x27;① 位置&#x27;,&#x27;&#x27;,&#x27;文法已编译成自动机（正则 → Thompson 构造 → NFA）。此刻站在起点：&#x27;+info.menu);
+    addRow(&#x27;② 模型&#x27;,&#x27;dec&#x27;,&#x27;还没开始打分。点「下一步」，模型会给出它对全词表的排名。&#x27;);
+    addRow(&#x27;③ 掩码&#x27;,&#x27;mask&#x27;,&#x27;待命。掩码不做别的事，只干一件：把不在菜单里的 token 的打分改成 -inf。&#x27;);
+    addRow(&#x27;④ 判决&#x27;,&#x27;ok&#x27;,&#x27;点「下一步」开始。&#x27;);
+  }else if(r.type===&#x27;accept&#x27;){
+    addRow(&#x27;① 位置&#x27;,&#x27;&#x27;,&#x27;菜单空了：14 段文法全部走完，FSM 到达接受态。&#x27;);
+    addRow(&#x27;② 模型&#x27;,&#x27;dec&#x27;,&#x27;（已终止）&#x27;);
+    addRow(&#x27;③ 掩码&#x27;,&#x27;mask&#x27;,&#x27;全程回顾：掩码开启时，非法 token 从未进入采样池——这个保证是&lt;b&gt;构造&lt;/b&gt;出来的，不依赖模型能力。&#x27;);
+    addRow(&#x27;④ 判决&#x27;,&#x27;ok&#x27;,&#x27;输出完整且永远合法：&#x27;+esc(r.text));
+  }else if(r.type===&#x27;eos&#x27;){
+    addRow(&#x27;① 位置&#x27;,&#x27;&#x27;,&#x27;模型表达完了意图，主动发出 EOS。&#x27;);
+    addRow(&#x27;② 模型&#x27;,&#x27;dec&#x27;,&#x27;（已终止）&#x27;);
+    addRow(&#x27;③ 掩码&#x27;,&#x27;mask&#x27;,&#x27;——&#x27;);
+    addRow(&#x27;④ 判决&#x27;,&#x27;ok&#x27;,&#x27;输出：&#x27;+esc(r.text));
+  }else{
+    addRow(&#x27;① 位置&#x27;,&#x27;&#x27;,(r.phase===null?&#x27;已离开文法：&#x27;:&#x27;当前位置：&#x27;+info.name+&#x27;。&#x27;)+info.menu);
+    addRow(&#x27;② 模型&#x27;,&#x27;dec&#x27;,&#x27;它给全词表每个 token 打了分，本步最想要「&#x27;+esc(disp(r.wanted))+&#x27;」（logit &#x27;+r.ws.toFixed(1)+&#x27;）&#x27;+(r.wanted.length&gt;1?&#x27;——一个多字符合并 token，真实分词器的常态&#x27;:&#x27;&#x27;));
+    if(r.maskedPick)
+      addRow(&#x27;③ 掩码&#x27;,&#x27;mask&#x27;,&#x27;「&#x27;+esc(disp(r.wanted))+&#x27;」&lt;b&gt;不在菜单&lt;/b&gt; → 打分作废（-inf）。菜单内最高分是「&#x27;+esc(disp(r.chosen))+&#x27;」（&#x27;+r.cs.toFixed(1)+&#x27;）。&#x27;);
+    else if(r.leftPhase)
+      addRow(&#x27;③ 掩码&#x27;,&#x27;bad&#x27;,&#x27;&lt;b&gt;掩码关着&lt;/b&gt;：没有菜单这回事，「&#x27;+esc(disp(r.chosen))+&#x27;」直接上榜——但它违反文法！自动机从此跟丢。&#x27;);
+    else
+      addRow(&#x27;③ 掩码&#x27;,&#x27;mask&#x27;,&#x27;「&#x27;+esc(disp(r.wanted))+&#x27;」在菜单内 → 掩码没插手，直接采纳。&#x27;);
+    addRow(&#x27;④ 判决&#x27;,&#x27;ok&#x27;,&#x27;本步输出「&#x27;+esc(disp(r.chosen))+&#x27;」&#x27;+(r.leftPhase?&#x27;。⚠ 这就是校验回路致命弱点的现场版：错误发生了，但要到生成结束才被发现（或永远没被发现）&#x27;:&#x27;&#x27;));}
+  /* 状态行 */
+  let maskCnt=0;for(let i=0;i&lt;=idx;i++){const s=run.recs[i];if(s.type===&#x27;step&#x27;&amp;&amp;s.maskedPick)maskCnt++;}
+  el(&#x27;dcStatus&#x27;).innerHTML=&#x27;步 &lt;b&gt;&#x27;+(idx+1)+&#x27; / &#x27;+run.recs.length+&#x27;&lt;/b&gt; · 位置：&lt;b&gt;&#x27;+(r.phase===null?&#x27;已离开文法&#x27;:info.name)+&#x27;&lt;/b&gt; · 掩蔽事件 &lt;b&gt;&#x27;+maskCnt+&#x27;&lt;/b&gt; 次&#x27;
+    +(isLast?&#x27; · 终态：&lt;b&gt;&#x27;+(run.accepted?&#x27;接受 ✓&#x27;:&#x27;不接受 ✗&#x27;)+&#x27;&lt;/b&gt; · &lt;b&gt;&#x27;+(run.jsonOK?&#x27;json ✓&#x27;:&#x27;json ✗&#x27;)+&#x27;&lt;/b&gt;&#x27;:&#x27; ·（解码中…）&#x27;);
+  /* 「现在做什么」动态指引：始终告诉你下一步该干嘛 */
+  const maskOn=el(&#x27;maskSw&#x27;).checked;
+  let now;
+  if(idx===0)now=&#x27;现在：点「下一步 →」开始（或「自动播放」）。盯住每步的 ③掩码 行——看它何时出手。&#x27;;
+  else if(isLast)now=maskOn?&#x27;本实验跑完 ✓ 建议：关掉「掩码开启」重跑同一实验，对比两种命运；或换实验 C 看分布扭曲。&#x27;
+                          :&#x27;本实验跑完 ✓ 建议：打开「掩码开启」重跑，看同一个错误如何被拦下。&#x27;;
+  else if(maskCnt&gt;0&amp;&amp;maskOn)now=&#x27;已看到掩蔽出手 ✓（③掩码 行）继续跑完，然后关掉「掩码开启」重跑对比。&#x27;;
+  else if(!maskOn)now=&#x27;掩码关着：注意 ①位置 行何时变成「已离开文法」——那就是错误发生而无人拦截的瞬间。&#x27;;
+  else now=&#x27;解码中… 看 ④判决 行输出逐 token 长成；模板条高亮你站在文法的哪一段。&#x27;;
+  el(&#x27;dcNow&#x27;).textContent=&#x27;◎ &#x27;+now;
+  /* token 板 + 怎么读 */
+  const legal=r.type===&#x27;step&#x27;||r.type===&#x27;init&#x27;?new Set(r.legal):new Set();
+  let letters=0,digits=0;const others=[];
+  for(const t of legal){if(/^[a-z]$/.test(t))letters++;else if(/^[0-9]$/.test(t))digits++;else others.push(disp(t));}
+  const menuSum=[letters?&#x27;字母×&#x27;+letters:&#x27;&#x27;,digits?&#x27;数字×&#x27;+digits:&#x27;&#x27;,others.length?&#x27;其余：&#x27;+others.join(&#x27; &#x27;):&#x27;&#x27;].filter(Boolean).join(&#x27; · &#x27;)||&#x27;空&#x27;;
+  el(&#x27;dcBoardCap&#x27;).textContent=&#x27;怎么读这块板：全词表 &#x27;+VOCAB.length+&#x27; 个 token 一格。亮=在本步菜单内；红划=模型最想要但不在菜单（被掩蔽）；实心=本步实际选中；灰=非法。本步菜单：&#x27;+menuSum;
+  const bd=el(&#x27;dcBoard&#x27;);bd.innerHTML=&#x27;&#x27;;
+  for(const tok of VOCAB){
+    const c=document.createElement(&#x27;span&#x27;);c.className=&#x27;chip&#x27;;
+    if(r.type===&#x27;step&#x27;&amp;&amp;tok===r.chosen)c.classList.add(&#x27;chosen&#x27;);
+    else if(legal.has(tok))c.classList.add(&#x27;legal&#x27;);
+    if(r.type===&#x27;step&#x27;&amp;&amp;tok===r.wanted&amp;&amp;r.maskedPick)c.classList.add(&#x27;masked&#x27;);
+    c.textContent=disp(tok);
+    if(tok===&#x27; &#x27;)c.setAttribute(&#x27;data-tooltip&#x27;,&#x27;空格&#x27;);
+    bd.appendChild(c);}
+  el(&#x27;dcPrev&#x27;).disabled=idx===0;
+  el(&#x27;dcNext&#x27;).disabled=isLast;
+  el(&#x27;dcPlay&#x27;).disabled=isLast;}
+function esc(s){return String(s).replace(/&amp;/g,&#x27;&amp;amp;&#x27;).replace(/&lt;/g,&#x27;&amp;lt;&#x27;).replace(/&gt;/g,&#x27;&amp;gt;&#x27;);}
+el(&#x27;dcNext&#x27;).addEventListener(&#x27;click&#x27;,()=&gt;{if(idx&lt;run.recs.length-1){idx++;render();}});
+el(&#x27;dcPrev&#x27;).addEventListener(&#x27;click&#x27;,()=&gt;{if(idx&gt;0){idx--;render();}});
+el(&#x27;dcReset&#x27;).addEventListener(&#x27;click&#x27;,rebuild);
+el(&#x27;expSel&#x27;).addEventListener(&#x27;change&#x27;,rebuild);
+el(&#x27;maskSw&#x27;).addEventListener(&#x27;change&#x27;,rebuild);
+el(&#x27;dcPlay&#x27;).addEventListener(&#x27;click&#x27;,()=&gt;{
+  if(timer){clearInterval(timer);timer=null;el(&#x27;dcPlay&#x27;).textContent=&#x27;自动播放&#x27;;return;}
+  if(idx&gt;=run.recs.length-1)return;
+  el(&#x27;dcPlay&#x27;).textContent=&#x27;停止&#x27;;
+  timer=setInterval(()=&gt;{
+    if(idx&gt;=run.recs.length-1){clearInterval(timer);timer=null;el(&#x27;dcPlay&#x27;).textContent=&#x27;自动播放&#x27;;render();return;}
+    idx++;render();},700);});
+rebuild();
+
+/* ================= 第 5 章：Agent 闭环剧场 ================= */
+const AG_ON=[
+ {b:&#x27;任务&#x27;,c:&#x27;&#x27;,t:&#x27;北京天气如何？把结果发给 boss&#x27;},
+ {b:&#x27;决策&#x27;,c:&#x27;dec&#x27;,t:&#x27;{&quot;action&quot;:&quot;call_tool&quot;,&quot;tool&quot;:&quot;get_weather&quot;,&quot;arguments&quot;:{&quot;city&quot;:&quot;北京&quot;,&quot;unit&quot;:&quot;摄氏度&quot;}}&#x27;},
+ {b:&#x27;语义闸&#x27;,c:&#x27;bad&#x27;,t:&#x27;✗ unit：Input should be \&#x27;celsius\&#x27; or \&#x27;fahrenheit\&#x27;（枚举外）→ 报错回喂&#x27;},
+ {b:&#x27;决策&#x27;,c:&#x27;dec&#x27;,t:&#x27;{&quot;action&quot;:&quot;call_tool&quot;,&quot;tool&quot;:&quot;get_weather&quot;,&quot;arguments&quot;:{&quot;city&quot;:&quot;北京&quot;,&quot;unit&quot;:&quot;celsius&quot;}}&#x27;},
+ {b:&#x27;校验✓&#x27;,c:&#x27;ok&#x27;,t:&#x27;参数合法 → 执行 get_weather（确定性代码）&#x27;},
+ {b:&#x27;观察&#x27;,c:&#x27;&#x27;,t:&#x27;{&quot;city&quot;:&quot;北京&quot;,&quot;temp&quot;:&quot;18°C&quot;,&quot;condition&quot;:&quot;晴&quot;} —— 结构化观察回喂&#x27;},
+ {b:&#x27;决策&#x27;,c:&#x27;dec&#x27;,t:&#x27;{&quot;action&quot;:&quot;call_tool&quot;,&quot;tool&quot;:&quot;send_report&quot;,&quot;arguments&quot;:{&quot;to&quot;:&quot;boss&quot;,&quot;summary&quot;:&quot;北京 18°C 晴&quot;}}&#x27;},
+ {b:&#x27;校验✓&#x27;,c:&#x27;ok&#x27;,t:&#x27;参数合法 → 执行 send_report → {&quot;sent&quot;:true}&#x27;},
+ {b:&#x27;最终&#x27;,c:&#x27;ok&#x27;,t:&#x27;{&quot;action&quot;:&quot;final&quot;,&quot;answer&quot;:&quot;北京今天 18°C，晴。报告已发给 boss。&quot;} —— str 进，类型化对象出，循环闭合&#x27;}
+];
+const AG_OFF=[
+ {b:&#x27;任务&#x27;,c:&#x27;&#x27;,t:&#x27;北京天气如何？（同样的第一条决策，闸门关闭）&#x27;},
+ {b:&#x27;决策&#x27;,c:&#x27;dec&#x27;,t:&#x27;{&quot;action&quot;:&quot;call_tool&quot;,&quot;tool&quot;:&quot;get_weather&quot;,&quot;arguments&quot;:{&quot;city&quot;:&quot;北京&quot;,&quot;unit&quot;:&quot;摄氏度&quot;}}&#x27;},
+ {b:&#x27;直通&#x27;,c:&#x27;bad&#x27;,t:&#x27;闸门关闭：namespace(city=北京, unit=摄氏度) 原样放行&#x27;},
+ {b:&#x27;执行&#x27;,c:&#x27;bad&#x27;,t:&#x27;💥 KeyError: \&#x27;摄氏度\&#x27; —— 确定性代码被概率世界的脏数据击穿，循环中断。契约是解释器敢于信任输入的前提。&#x27;}
+];
+let agI=0;
+const agTl=el(&#x27;agTl&#x27;),agCnt=el(&#x27;agCnt&#x27;);
+function agScenes(){return el(&#x27;ctSw&#x27;).checked?AG_ON:AG_OFF;}
+function renderAg(){
+  const S=agScenes();agTl.innerHTML=&#x27;&#x27;;
+  for(let i=0;i&lt;=agI&amp;&amp;i&lt;S.length;i++){
+    const s=S[i],d=document.createElement(&#x27;div&#x27;);d.className=&#x27;row&#x27;;
+    d.innerHTML=&#x27;&lt;span class=&quot;badge &#x27;+(s.c||&#x27;&#x27;)+&#x27;&quot;&gt;&#x27;+s.b+&#x27;&lt;/span&gt;&lt;span class=&quot;txt&quot;&gt;&#x27;+s.t+&#x27;&lt;/span&gt;&#x27;;
+    agTl.appendChild(d);}
+  agCnt.textContent=&#x27;第 &#x27;+(agI+1)+&#x27; / &#x27;+S.length+&#x27; 步&#x27;;
+  el(&#x27;agPrev&#x27;).disabled=agI===0;
+  el(&#x27;agNext&#x27;).disabled=agI===S.length-1;
+  scrollBottom(agTl);}
+el(&#x27;agPrev&#x27;).addEventListener(&#x27;click&#x27;,()=&gt;{if(agI&gt;0){agI--;renderAg();}});
+el(&#x27;agNext&#x27;).addEventListener(&#x27;click&#x27;,()=&gt;{if(agI&lt;agScenes().length-1){agI++;renderAg();}});
+el(&#x27;ctSw&#x27;).addEventListener(&#x27;change&#x27;,()=&gt;{agI=0;renderAg();});
+renderAg();
+
+/* ================= 第 0 章：拒绝采样成本计算器 ================= */
+const pl=document.getElementById(&#x27;pLegal&#x27;),plv=document.getElementById(&#x27;pLegalVal&#x27;),rc=document.getElementById(&#x27;rejCost&#x27;);
+function renderPl(){
+  const P=pl.value/100;
+  const exp=1/P;
+  rc.textContent=exp&gt;=100?Math.round(exp).toString()+&#x27;×&#x27;:(exp&gt;=10?exp.toFixed(1)+&#x27;×&#x27;:exp.toFixed(2)+&#x27;×&#x27;);
+  const waste=(1-P)*100;
+  plv.textContent=&#x27;P(合法) = &#x27;+pl.value+&#x27;%（拖到 5% 和 99% 各看一次）&#x27;;
+  plv.setAttribute(&#x27;data-tooltip&#x27;,&#x27;每生成 &#x27;+exp.toFixed(2)+&#x27; 次才有 1 次可用；平均浪费 &#x27;+waste.toFixed(0)+&#x27;% 的推理算力&#x27;);
+}
+pl.addEventListener(&#x27;input&#x27;,renderPl);
+renderPl();
+
+/* ================= 全景地图：点按钮跳章（切章自动滚到标签页处） ================= */
+Array.prototype.forEach.call(document.querySelectorAll(&#x27;#sio-lab .jump, #sio-lab .nav-link&#x27;),b=&gt;{
+  b.addEventListener(&#x27;click&#x27;,()=&gt;{
+    const t=document.getElementById(b.getAttribute(&#x27;aria-controls&#x27;)||b.getAttribute(&#x27;data-go&#x27;));
+    if(t)t.click();
+    const nav=document.querySelector(&#x27;#sio-lab .nav-pills&#x27;);
+    if(nav)nav.scrollIntoView({block:&#x27;start&#x27;});});});
+
+/* ================= pele 流程图（Mermaid→SVG，Obsidian 出品；离线时 HTML 版兜底） ================= */
+const MM=&#x27;flowchart TD\n&#x27;+
+&#x27;  A[&quot;起点｜模型输出＝概率文本，程序接口＝确定性结构&quot;] --&gt; B[&quot;根本问题｜P(合法) 永远小于 1 且不可预测&lt;br/&gt;语法可判定 · 语义不可判定&quot;]\n&#x27;+
+&#x27;  B --&gt; R1[&quot;路线一｜事后否决（校验回路＝拒绝采样）&lt;br/&gt;缺陷：期望成本 1/P · 因果时间差&quot;]\n&#x27;+
+&#x27;  R1 -. 缺陷逼出：把检查移进解码 .-&gt; R2[&quot;路线二｜事前条件化（掩码解码）&lt;br/&gt;前提：碰得到 logits&quot;]\n&#x27;+
+&#x27;  R2 -. 远程拿不到 logits：让厂商做 .-&gt; P1[&quot;产品化｜Function Calling&lt;br/&gt;训练＋服务端掩码＋解析&quot;]\n&#x27;+
+&#x27;  P1 --&gt; Z[&quot;汇合｜模型生成数据 · 代码解释执行&lt;br/&gt;语义不可判定 → 校验回路永远保留&quot;]\n&#x27;+
+&#x27;  B -. 亲眼所见 .-&gt; C1[&quot;第 1 章 裸接口&quot;]\n&#x27;+
+&#x27;  R1 -. 展开 .-&gt; C2[&quot;第 2 章 两道闸门&quot;]\n&#x27;+
+&#x27;  R2 -. 亲手实现 .-&gt; C3[&quot;第 3 章 掩码解码 ★&quot;]\n&#x27;+
+&#x27;  P1 -. 三帧往返 .-&gt; C4[&quot;第 4 章 工具协议&quot;]\n&#x27;+
+&#x27;  Z -. 闭环验证 .-&gt; C5[&quot;第 5 章 Agent 闭环&quot;]&#x27;;
+const SQ=&#x27;sequenceDiagram\n&#x27;+
+&#x27;  participant U as 用户\n&#x27;+
+&#x27;  participant A as 你的应用（代码）\n&#x27;+
+&#x27;  participant M as 模型 API\n&#x27;+
+&#x27;  U-&gt;&gt;A: ① 北京现在多少度？\n&#x27;+
+&#x27;  A-&gt;&gt;M: ② POST：messages ＋ tools 菜单（帧 1）\n&#x27;+
+&#x27;  M--&gt;&gt;A: ③ tool_calls 点菜 get_weather(北京, celsius)（帧 2）\n&#x27;+
+&#x27;  A-&gt;&gt;A: ④ 确定性执行函数（帧 3）\n&#x27;+
+&#x27;  A-&gt;&gt;M: ⑤ role=tool 回喂观察（帧 3）\n&#x27;+
+&#x27;  M--&gt;&gt;A: ⑥ 自然语言最终答案\n&#x27;+
+&#x27;  A--&gt;&gt;U: 展示给用户：北京现在 18 度，晴&#x27;;
+const LP=&#x27;flowchart LR\n&#x27;+
+&#x27;  D[&quot;结构化决策&quot;] --&gt; V{&quot;校验｜契约闸门&quot;}\n&#x27;+
+&#x27;  V -- 不合法，报错回喂 --&gt; D\n&#x27;+
+&#x27;  V -- 合法 --&gt; E[&quot;确定性执行&quot;]\n&#x27;+
+&#x27;  E --&gt; O[&quot;结构化观察&quot;]\n&#x27;+
+&#x27;  O -- 继续 --&gt; D\n&#x27;+
+&#x27;  O -- 够了 --&gt; F[&quot;最终答案&quot;]&#x27;;
+(async()=&gt;{
+  try{
+    const pele=await import(&#x27;https://esm.sh/pele@1.7.0&#x27;);
+    const jobs=[[&#x27;mmDia&#x27;,MM],[&#x27;sqDia&#x27;,SQ],[&#x27;lpDia&#x27;,LP]];
+    for(const pair of jobs){
+      const host=document.getElementById(pair[0]);
+      if(!host)continue;
+      const mounted=pele.mount(host,pair[1],{responsive:true,fontSize:13});
+      if(mounted&amp;&amp;mounted.error)throw mounted.error;
+      const fb=document.getElementById(pair[0]+&#x27;Fb&#x27;);
+      if(fb)fb.hidden=true;}
+  }catch(e){/* pele 不可用（如离线环境）：HTML 版流程图自动兜底，无需处理 */}
+})();
+})();
+&lt;/script&gt;
+&lt;/div&gt;
+
+&lt;script src=&quot;data:text/javascript;base64,IWZ1bmN0aW9uKHQsZSl7Im9iamVjdCI9PXR5cGVvZiBleHBvcnRzJiYidW5kZWZpbmVkIiE9dHlwZW9mIG1vZHVsZT9lKGV4cG9ydHMpOiJmdW5jdGlvbiI9PXR5cGVvZiBkZWZpbmUmJmRlZmluZS5hbWQ/ZGVmaW5lKFsiZXhwb3J0cyJdLGUpOmUoKHQ9InVuZGVmaW5lZCIhPXR5cGVvZiBnbG9iYWxUaGlzP2dsb2JhbFRoaXM6dHx8c2VsZikuRmxvYXRpbmdVSUNvcmU9e30pfSh0aGlzLChmdW5jdGlvbih0KXsidXNlIHN0cmljdCI7Y29uc3QgZT1bInRvcCIsInJpZ2h0IiwiYm90dG9tIiwibGVmdCJdLG49WyJzdGFydCIsImVuZCJdLGk9ZS5yZWR1Y2UoKCh0LGUpPT50LmNvbmNhdChlLGUrIi0iK25bMF0sZSsiLSIrblsxXSkpLFtdKSxvPU1hdGgubWluLHI9TWF0aC5tYXgsYT17bGVmdDoicmlnaHQiLHJpZ2h0OiJsZWZ0Iixib3R0b206InRvcCIsdG9wOiJib3R0b20ifSxsPXtzdGFydDoiZW5kIixlbmQ6InN0YXJ0In07ZnVuY3Rpb24gcyh0LGUsbil7cmV0dXJuIHIodCxvKGUsbikpfWZ1bmN0aW9uIGYodCxlKXtyZXR1cm4iZnVuY3Rpb24iPT10eXBlb2YgdD90KGUpOnR9ZnVuY3Rpb24gYyh0KXtyZXR1cm4gdC5zcGxpdCgiLSIpWzBdfWZ1bmN0aW9uIG0odCl7cmV0dXJuIHQuc3BsaXQoIi0iKVsxXX1mdW5jdGlvbiB1KHQpe3JldHVybiJ4Ij09PXQ/InkiOiJ4In1mdW5jdGlvbiBkKHQpe3JldHVybiJ5Ij09PXQ/ImhlaWdodCI6IndpZHRoIn1jb25zdCBnPW5ldyBTZXQoWyJ0b3AiLCJib3R0b20iXSk7ZnVuY3Rpb24gcCh0KXtyZXR1cm4gZy5oYXMoYyh0KSk/InkiOiJ4In1mdW5jdGlvbiBoKHQpe3JldHVybiB1KHAodCkpfWZ1bmN0aW9uIHkodCxlLG4pe3ZvaWQgMD09PW4mJihuPSExKTtjb25zdCBpPW0odCksbz1oKHQpLHI9ZChvKTtsZXQgYT0ieCI9PT1vP2k9PT0obj8iZW5kIjoic3RhcnQiKT8icmlnaHQiOiJsZWZ0Ijoic3RhcnQiPT09aT8iYm90dG9tIjoidG9wIjtyZXR1cm4gZS5yZWZlcmVuY2Vbcl0+ZS5mbG9hdGluZ1tyXSYmKGE9UChhKSksW2EsUChhKV19ZnVuY3Rpb24gdyh0KXtyZXR1cm4gdC5yZXBsYWNlKC9zdGFydHxlbmQvZywodD0+bFt0XSkpfWNvbnN0IHg9WyJsZWZ0IiwicmlnaHQiXSx2PVsicmlnaHQiLCJsZWZ0Il0sYj1bInRvcCIsImJvdHRvbSJdLEE9WyJib3R0b20iLCJ0b3AiXTtmdW5jdGlvbiBSKHQsZSxuLGkpe2NvbnN0IG89bSh0KTtsZXQgcj1mdW5jdGlvbih0LGUsbil7c3dpdGNoKHQpe2Nhc2UidG9wIjpjYXNlImJvdHRvbSI6cmV0dXJuIG4/ZT92Ong6ZT94OnY7Y2FzZSJsZWZ0IjpjYXNlInJpZ2h0IjpyZXR1cm4gZT9iOkE7ZGVmYXVsdDpyZXR1cm5bXX19KGModCksInN0YXJ0Ij09PW4saSk7cmV0dXJuIG8mJihyPXIubWFwKCh0PT50KyItIitvKSksZSYmKHI9ci5jb25jYXQoci5tYXAodykpKSkscn1mdW5jdGlvbiBQKHQpe3JldHVybiB0LnJlcGxhY2UoL2xlZnR8cmlnaHR8Ym90dG9tfHRvcC9nLCh0PT5hW3RdKSl9ZnVuY3Rpb24gRCh0KXtyZXR1cm4ibnVtYmVyIiE9dHlwZW9mIHQ/ZnVuY3Rpb24odCl7cmV0dXJue3RvcDowLHJpZ2h0OjAsYm90dG9tOjAsbGVmdDowLC4uLnR9fSh0KTp7dG9wOnQscmlnaHQ6dCxib3R0b206dCxsZWZ0OnR9fWZ1bmN0aW9uIFQodCl7Y29uc3R7eDplLHk6bix3aWR0aDppLGhlaWdodDpvfT10O3JldHVybnt3aWR0aDppLGhlaWdodDpvLHRvcDpuLGxlZnQ6ZSxyaWdodDplK2ksYm90dG9tOm4rbyx4OmUseTpufX1mdW5jdGlvbiBPKHQsZSxuKXtsZXR7cmVmZXJlbmNlOmksZmxvYXRpbmc6b309dDtjb25zdCByPXAoZSksYT1oKGUpLGw9ZChhKSxzPWMoZSksZj0ieSI9PT1yLHU9aS54K2kud2lkdGgvMi1vLndpZHRoLzIsZz1pLnkraS5oZWlnaHQvMi1vLmhlaWdodC8yLHk9aVtsXS8yLW9bbF0vMjtsZXQgdztzd2l0Y2gocyl7Y2FzZSJ0b3AiOnc9e3g6dSx5OmkueS1vLmhlaWdodH07YnJlYWs7Y2FzZSJib3R0b20iOnc9e3g6dSx5OmkueStpLmhlaWdodH07YnJlYWs7Y2FzZSJyaWdodCI6dz17eDppLngraS53aWR0aCx5Omd9O2JyZWFrO2Nhc2UibGVmdCI6dz17eDppLngtby53aWR0aCx5Omd9O2JyZWFrO2RlZmF1bHQ6dz17eDppLngseTppLnl9fXN3aXRjaChtKGUpKXtjYXNlInN0YXJ0Ijp3W2FdLT15KihuJiZmPy0xOjEpO2JyZWFrO2Nhc2UiZW5kIjp3W2FdKz15KihuJiZmPy0xOjEpfXJldHVybiB3fWFzeW5jIGZ1bmN0aW9uIEUodCxlKXt2YXIgbjt2b2lkIDA9PT1lJiYoZT17fSk7Y29uc3R7eDppLHk6byxwbGF0Zm9ybTpyLHJlY3RzOmEsZWxlbWVudHM6bCxzdHJhdGVneTpzfT10LHtib3VuZGFyeTpjPSJjbGlwcGluZ0FuY2VzdG9ycyIscm9vdEJvdW5kYXJ5Om09InZpZXdwb3J0IixlbGVtZW50Q29udGV4dDp1PSJmbG9hdGluZyIsYWx0Qm91bmRhcnk6ZD0hMSxwYWRkaW5nOmc9MH09ZihlLHQpLHA9RChnKSxoPWxbZD8iZmxvYXRpbmciPT09dT8icmVmZXJlbmNlIjoiZmxvYXRpbmciOnVdLHk9VChhd2FpdCByLmdldENsaXBwaW5nUmVjdCh7ZWxlbWVudDpudWxsPT0obj1hd2FpdChudWxsPT1yLmlzRWxlbWVudD92b2lkIDA6ci5pc0VsZW1lbnQoaCkpKXx8bj9oOmguY29udGV4dEVsZW1lbnR8fGF3YWl0KG51bGw9PXIuZ2V0RG9jdW1lbnRFbGVtZW50P3ZvaWQgMDpyLmdldERvY3VtZW50RWxlbWVudChsLmZsb2F0aW5nKSksYm91bmRhcnk6Yyxyb290Qm91bmRhcnk6bSxzdHJhdGVneTpzfSkpLHc9ImZsb2F0aW5nIj09PXU/e3g6aSx5Om8sd2lkdGg6YS5mbG9hdGluZy53aWR0aCxoZWlnaHQ6YS5mbG9hdGluZy5oZWlnaHR9OmEucmVmZXJlbmNlLHg9YXdhaXQobnVsbD09ci5nZXRPZmZzZXRQYXJlbnQ/dm9pZCAwOnIuZ2V0T2Zmc2V0UGFyZW50KGwuZmxvYXRpbmcpKSx2PWF3YWl0KG51bGw9PXIuaXNFbGVtZW50P3ZvaWQgMDpyLmlzRWxlbWVudCh4KSkmJmF3YWl0KG51bGw9PXIuZ2V0U2NhbGU/dm9pZCAwOnIuZ2V0U2NhbGUoeCkpfHx7eDoxLHk6MX0sYj1UKHIuY29udmVydE9mZnNldFBhcmVudFJlbGF0aXZlUmVjdFRvVmlld3BvcnRSZWxhdGl2ZVJlY3Q/YXdhaXQgci5jb252ZXJ0T2Zmc2V0UGFyZW50UmVsYXRpdmVSZWN0VG9WaWV3cG9ydFJlbGF0aXZlUmVjdCh7ZWxlbWVudHM6bCxyZWN0Oncsb2Zmc2V0UGFyZW50Ongsc3RyYXRlZ3k6c30pOncpO3JldHVybnt0b3A6KHkudG9wLWIudG9wK3AudG9wKS92LnksYm90dG9tOihiLmJvdHRvbS15LmJvdHRvbStwLmJvdHRvbSkvdi55LGxlZnQ6KHkubGVmdC1iLmxlZnQrcC5sZWZ0KS92LngscmlnaHQ6KGIucmlnaHQteS5yaWdodCtwLnJpZ2h0KS92Lnh9fWZ1bmN0aW9uIEwodCxlKXtyZXR1cm57dG9wOnQudG9wLWUuaGVpZ2h0LHJpZ2h0OnQucmlnaHQtZS53aWR0aCxib3R0b206dC5ib3R0b20tZS5oZWlnaHQsbGVmdDp0LmxlZnQtZS53aWR0aH19ZnVuY3Rpb24gayh0KXtyZXR1cm4gZS5zb21lKChlPT50W2VdPj0wKSl9ZnVuY3Rpb24gQyh0KXtjb25zdCBlPW8oLi4udC5tYXAoKHQ9PnQubGVmdCkpKSxuPW8oLi4udC5tYXAoKHQ9PnQudG9wKSkpO3JldHVybnt4OmUseTpuLHdpZHRoOnIoLi4udC5tYXAoKHQ9PnQucmlnaHQpKSktZSxoZWlnaHQ6ciguLi50Lm1hcCgodD0+dC5ib3R0b20pKSktbn19Y29uc3QgUz1uZXcgU2V0KFsibGVmdCIsInRvcCJdKTt0LmFycm93PXQ9Pih7bmFtZToiYXJyb3ciLG9wdGlvbnM6dCxhc3luYyBmbihlKXtjb25zdHt4Om4seTppLHBsYWNlbWVudDpyLHJlY3RzOmEscGxhdGZvcm06bCxlbGVtZW50czpjLG1pZGRsZXdhcmVEYXRhOnV9PWUse2VsZW1lbnQ6ZyxwYWRkaW5nOnA9MH09Zih0LGUpfHx7fTtpZihudWxsPT1nKXJldHVybnt9O2NvbnN0IHk9RChwKSx3PXt4Om4seTppfSx4PWgociksdj1kKHgpLGI9YXdhaXQgbC5nZXREaW1lbnNpb25zKGcpLEE9InkiPT09eCxSPUE/InRvcCI6ImxlZnQiLFA9QT8iYm90dG9tIjoicmlnaHQiLFQ9QT8iY2xpZW50SGVpZ2h0IjoiY2xpZW50V2lkdGgiLE89YS5yZWZlcmVuY2Vbdl0rYS5yZWZlcmVuY2VbeF0td1t4XS1hLmZsb2F0aW5nW3ZdLEU9d1t4XS1hLnJlZmVyZW5jZVt4XSxMPWF3YWl0KG51bGw9PWwuZ2V0T2Zmc2V0UGFyZW50P3ZvaWQgMDpsLmdldE9mZnNldFBhcmVudChnKSk7bGV0IGs9TD9MW1RdOjA7ayYmYXdhaXQobnVsbD09bC5pc0VsZW1lbnQ/dm9pZCAwOmwuaXNFbGVtZW50KEwpKXx8KGs9Yy5mbG9hdGluZ1tUXXx8YS5mbG9hdGluZ1t2XSk7Y29uc3QgQz1PLzItRS8yLFM9ay8yLWJbdl0vMi0xLEI9byh5W1JdLFMpLEg9byh5W1BdLFMpLEY9QixqPWstYlt2XS1ILHo9ay8yLWJbdl0vMitDLE09cyhGLHosaiksVj0hdS5hcnJvdyYmbnVsbCE9bShyKSYmeiE9PU0mJmEucmVmZXJlbmNlW3ZdLzItKHo8Rj9COkgpLWJbdl0vMjwwLFc9Vj96PEY/ei1GOnotajowO3JldHVybntbeF06d1t4XStXLGRhdGE6e1t4XTpNLGNlbnRlck9mZnNldDp6LU0tVywuLi5WJiZ7YWxpZ25tZW50T2Zmc2V0Old9fSxyZXNldDpWfX19KSx0LmF1dG9QbGFjZW1lbnQ9ZnVuY3Rpb24odCl7cmV0dXJuIHZvaWQgMD09PXQmJih0PXt9KSx7bmFtZToiYXV0b1BsYWNlbWVudCIsb3B0aW9uczp0LGFzeW5jIGZuKGUpe3ZhciBuLG8scjtjb25zdHtyZWN0czphLG1pZGRsZXdhcmVEYXRhOmwscGxhY2VtZW50OnMscGxhdGZvcm06dSxlbGVtZW50czpkfT1lLHtjcm9zc0F4aXM6Zz0hMSxhbGlnbm1lbnQ6cCxhbGxvd2VkUGxhY2VtZW50czpoPWksYXV0b0FsaWdubWVudDp4PSEwLC4uLnZ9PWYodCxlKSxiPXZvaWQgMCE9PXB8fGg9PT1pP2Z1bmN0aW9uKHQsZSxuKXtyZXR1cm4odD9bLi4ubi5maWx0ZXIoKGU9Pm0oZSk9PT10KSksLi4ubi5maWx0ZXIoKGU9Pm0oZSkhPT10KSldOm4uZmlsdGVyKCh0PT5jKHQpPT09dCkpKS5maWx0ZXIoKG49PiF0fHxtKG4pPT09dHx8ISFlJiZ3KG4pIT09bikpfShwfHxudWxsLHgsaCk6aCxBPWF3YWl0IEUoZSx2KSxSPShudWxsPT0obj1sLmF1dG9QbGFjZW1lbnQpP3ZvaWQgMDpuLmluZGV4KXx8MCxQPWJbUl07aWYobnVsbD09UClyZXR1cm57fTtjb25zdCBEPXkoUCxhLGF3YWl0KG51bGw9PXUuaXNSVEw/dm9pZCAwOnUuaXNSVEwoZC5mbG9hdGluZykpKTtpZihzIT09UClyZXR1cm57cmVzZXQ6e3BsYWNlbWVudDpiWzBdfX07Y29uc3QgVD1bQVtjKFApXSxBW0RbMF1dLEFbRFsxXV1dLE89Wy4uLihudWxsPT0obz1sLmF1dG9QbGFjZW1lbnQpP3ZvaWQgMDpvLm92ZXJmbG93cyl8fFtdLHtwbGFjZW1lbnQ6UCxvdmVyZmxvd3M6VH1dLEw9YltSKzFdO2lmKEwpcmV0dXJue2RhdGE6e2luZGV4OlIrMSxvdmVyZmxvd3M6T30scmVzZXQ6e3BsYWNlbWVudDpMfX07Y29uc3Qgaz1PLm1hcCgodD0+e2NvbnN0IGU9bSh0LnBsYWNlbWVudCk7cmV0dXJuW3QucGxhY2VtZW50LGUmJmc/dC5vdmVyZmxvd3Muc2xpY2UoMCwyKS5yZWR1Y2UoKCh0LGUpPT50K2UpLDApOnQub3ZlcmZsb3dzWzBdLHQub3ZlcmZsb3dzXX0pKS5zb3J0KCgodCxlKT0+dFsxXS1lWzFdKSksQz0obnVsbD09KHI9ay5maWx0ZXIoKHQ9PnRbMl0uc2xpY2UoMCxtKHRbMF0pPzI6MykuZXZlcnkoKHQ9PnQ8PTApKSkpWzBdKT92b2lkIDA6clswXSl8fGtbMF1bMF07cmV0dXJuIEMhPT1zP3tkYXRhOntpbmRleDpSKzEsb3ZlcmZsb3dzOk99LHJlc2V0OntwbGFjZW1lbnQ6Q319Ont9fX19LHQuY29tcHV0ZVBvc2l0aW9uPWFzeW5jKHQsZSxuKT0+e2NvbnN0e3BsYWNlbWVudDppPSJib3R0b20iLHN0cmF0ZWd5Om89ImFic29sdXRlIixtaWRkbGV3YXJlOnI9W10scGxhdGZvcm06YX09bixsPXIuZmlsdGVyKEJvb2xlYW4pLHM9YXdhaXQobnVsbD09YS5pc1JUTD92b2lkIDA6YS5pc1JUTChlKSk7bGV0IGY9YXdhaXQgYS5nZXRFbGVtZW50UmVjdHMoe3JlZmVyZW5jZTp0LGZsb2F0aW5nOmUsc3RyYXRlZ3k6b30pLHt4OmMseTptfT1PKGYsaSxzKSx1PWksZD17fSxnPTA7Zm9yKGxldCBuPTA7bjxsLmxlbmd0aDtuKyspe2NvbnN0e25hbWU6cixmbjpwfT1sW25dLHt4OmgseTp5LGRhdGE6dyxyZXNldDp4fT1hd2FpdCBwKHt4OmMseTptLGluaXRpYWxQbGFjZW1lbnQ6aSxwbGFjZW1lbnQ6dSxzdHJhdGVneTpvLG1pZGRsZXdhcmVEYXRhOmQscmVjdHM6ZixwbGF0Zm9ybTphLGVsZW1lbnRzOntyZWZlcmVuY2U6dCxmbG9hdGluZzplfX0pO2M9bnVsbCE9aD9oOmMsbT1udWxsIT15P3k6bSxkPXsuLi5kLFtyXTp7Li4uZFtyXSwuLi53fX0seCYmZzw9NTAmJihnKyssIm9iamVjdCI9PXR5cGVvZiB4JiYoeC5wbGFjZW1lbnQmJih1PXgucGxhY2VtZW50KSx4LnJlY3RzJiYoZj0hMD09PXgucmVjdHM/YXdhaXQgYS5nZXRFbGVtZW50UmVjdHMoe3JlZmVyZW5jZTp0LGZsb2F0aW5nOmUsc3RyYXRlZ3k6b30pOngucmVjdHMpLCh7eDpjLHk6bX09TyhmLHUscykpKSxuPS0xKX1yZXR1cm57eDpjLHk6bSxwbGFjZW1lbnQ6dSxzdHJhdGVneTpvLG1pZGRsZXdhcmVEYXRhOmR9fSx0LmRldGVjdE92ZXJmbG93PUUsdC5mbGlwPWZ1bmN0aW9uKHQpe3JldHVybiB2b2lkIDA9PT10JiYodD17fSkse25hbWU6ImZsaXAiLG9wdGlvbnM6dCxhc3luYyBmbihlKXt2YXIgbixpO2NvbnN0e3BsYWNlbWVudDpvLG1pZGRsZXdhcmVEYXRhOnIscmVjdHM6YSxpbml0aWFsUGxhY2VtZW50OmwscGxhdGZvcm06cyxlbGVtZW50czptfT1lLHttYWluQXhpczp1PSEwLGNyb3NzQXhpczpkPSEwLGZhbGxiYWNrUGxhY2VtZW50czpnLGZhbGxiYWNrU3RyYXRlZ3k6aD0iYmVzdEZpdCIsZmFsbGJhY2tBeGlzU2lkZURpcmVjdGlvbjp4PSJub25lIixmbGlwQWxpZ25tZW50OnY9ITAsLi4uYn09Zih0LGUpO2lmKG51bGwhPShuPXIuYXJyb3cpJiZuLmFsaWdubWVudE9mZnNldClyZXR1cm57fTtjb25zdCBBPWMobyksRD1wKGwpLFQ9YyhsKT09PWwsTz1hd2FpdChudWxsPT1zLmlzUlRMP3ZvaWQgMDpzLmlzUlRMKG0uZmxvYXRpbmcpKSxMPWd8fChUfHwhdj9bUChsKV06ZnVuY3Rpb24odCl7Y29uc3QgZT1QKHQpO3JldHVyblt3KHQpLGUsdyhlKV19KGwpKSxrPSJub25lIiE9PXg7IWcmJmsmJkwucHVzaCguLi5SKGwsdix4LE8pKTtjb25zdCBDPVtsLC4uLkxdLFM9YXdhaXQgRShlLGIpLEI9W107bGV0IEg9KG51bGw9PShpPXIuZmxpcCk/dm9pZCAwOmkub3ZlcmZsb3dzKXx8W107aWYodSYmQi5wdXNoKFNbQV0pLGQpe2NvbnN0IHQ9eShvLGEsTyk7Qi5wdXNoKFNbdFswXV0sU1t0WzFdXSl9aWYoSD1bLi4uSCx7cGxhY2VtZW50Om8sb3ZlcmZsb3dzOkJ9XSwhQi5ldmVyeSgodD0+dDw9MCkpKXt2YXIgRixqO2NvbnN0IHQ9KChudWxsPT0oRj1yLmZsaXApP3ZvaWQgMDpGLmluZGV4KXx8MCkrMSxlPUNbdF07aWYoZSl7aWYoISgiYWxpZ25tZW50Ij09PWQmJkQhPT1wKGUpKXx8SC5ldmVyeSgodD0+cCh0LnBsYWNlbWVudCkhPT1EfHx0Lm92ZXJmbG93c1swXT4wKSkpcmV0dXJue2RhdGE6e2luZGV4OnQsb3ZlcmZsb3dzOkh9LHJlc2V0OntwbGFjZW1lbnQ6ZX19fWxldCBuPW51bGw9PShqPUguZmlsdGVyKCh0PT50Lm92ZXJmbG93c1swXTw9MCkpLnNvcnQoKCh0LGUpPT50Lm92ZXJmbG93c1sxXS1lLm92ZXJmbG93c1sxXSkpWzBdKT92b2lkIDA6ai5wbGFjZW1lbnQ7aWYoIW4pc3dpdGNoKGgpe2Nhc2UiYmVzdEZpdCI6e3ZhciB6O2NvbnN0IHQ9bnVsbD09KHo9SC5maWx0ZXIoKHQ9PntpZihrKXtjb25zdCBlPXAodC5wbGFjZW1lbnQpO3JldHVybiBlPT09RHx8InkiPT09ZX1yZXR1cm4hMH0pKS5tYXAoKHQ9Plt0LnBsYWNlbWVudCx0Lm92ZXJmbG93cy5maWx0ZXIoKHQ9PnQ+MCkpLnJlZHVjZSgoKHQsZSk9PnQrZSksMCldKSkuc29ydCgoKHQsZSk9PnRbMV0tZVsxXSkpWzBdKT92b2lkIDA6elswXTt0JiYobj10KTticmVha31jYXNlImluaXRpYWxQbGFjZW1lbnQiOm49bH1pZihvIT09bilyZXR1cm57cmVzZXQ6e3BsYWNlbWVudDpufX19cmV0dXJue319fX0sdC5oaWRlPWZ1bmN0aW9uKHQpe3JldHVybiB2b2lkIDA9PT10JiYodD17fSkse25hbWU6ImhpZGUiLG9wdGlvbnM6dCxhc3luYyBmbihlKXtjb25zdHtyZWN0czpufT1lLHtzdHJhdGVneTppPSJyZWZlcmVuY2VIaWRkZW4iLC4uLm99PWYodCxlKTtzd2l0Y2goaSl7Y2FzZSJyZWZlcmVuY2VIaWRkZW4iOntjb25zdCB0PUwoYXdhaXQgRShlLHsuLi5vLGVsZW1lbnRDb250ZXh0OiJyZWZlcmVuY2UifSksbi5yZWZlcmVuY2UpO3JldHVybntkYXRhOntyZWZlcmVuY2VIaWRkZW5PZmZzZXRzOnQscmVmZXJlbmNlSGlkZGVuOmsodCl9fX1jYXNlImVzY2FwZWQiOntjb25zdCB0PUwoYXdhaXQgRShlLHsuLi5vLGFsdEJvdW5kYXJ5OiEwfSksbi5mbG9hdGluZyk7cmV0dXJue2RhdGE6e2VzY2FwZWRPZmZzZXRzOnQsZXNjYXBlZDprKHQpfX19ZGVmYXVsdDpyZXR1cm57fX19fX0sdC5pbmxpbmU9ZnVuY3Rpb24odCl7cmV0dXJuIHZvaWQgMD09PXQmJih0PXt9KSx7bmFtZToiaW5saW5lIixvcHRpb25zOnQsYXN5bmMgZm4oZSl7Y29uc3R7cGxhY2VtZW50Om4sZWxlbWVudHM6aSxyZWN0czphLHBsYXRmb3JtOmwsc3RyYXRlZ3k6c309ZSx7cGFkZGluZzptPTIseDp1LHk6ZH09Zih0LGUpLGc9QXJyYXkuZnJvbShhd2FpdChudWxsPT1sLmdldENsaWVudFJlY3RzP3ZvaWQgMDpsLmdldENsaWVudFJlY3RzKGkucmVmZXJlbmNlKSl8fFtdKSxoPWZ1bmN0aW9uKHQpe2NvbnN0IGU9dC5zbGljZSgpLnNvcnQoKCh0LGUpPT50LnktZS55KSksbj1bXTtsZXQgaT1udWxsO2ZvcihsZXQgdD0wO3Q8ZS5sZW5ndGg7dCsrKXtjb25zdCBvPWVbdF07IWl8fG8ueS1pLnk+aS5oZWlnaHQvMj9uLnB1c2goW29dKTpuW24ubGVuZ3RoLTFdLnB1c2gobyksaT1vfXJldHVybiBuLm1hcCgodD0+VChDKHQpKSkpfShnKSx5PVQoQyhnKSksdz1EKG0pO2NvbnN0IHg9YXdhaXQgbC5nZXRFbGVtZW50UmVjdHMoe3JlZmVyZW5jZTp7Z2V0Qm91bmRpbmdDbGllbnRSZWN0OmZ1bmN0aW9uKCl7aWYoMj09PWgubGVuZ3RoJiZoWzBdLmxlZnQ+aFsxXS5yaWdodCYmbnVsbCE9dSYmbnVsbCE9ZClyZXR1cm4gaC5maW5kKCh0PT51PnQubGVmdC13LmxlZnQmJnU8dC5yaWdodCt3LnJpZ2h0JiZkPnQudG9wLXcudG9wJiZkPHQuYm90dG9tK3cuYm90dG9tKSl8fHk7aWYoaC5sZW5ndGg+PTIpe2lmKCJ5Ij09PXAobikpe2NvbnN0IHQ9aFswXSxlPWhbaC5sZW5ndGgtMV0saT0idG9wIj09PWMobiksbz10LnRvcCxyPWUuYm90dG9tLGE9aT90LmxlZnQ6ZS5sZWZ0LGw9aT90LnJpZ2h0OmUucmlnaHQ7cmV0dXJue3RvcDpvLGJvdHRvbTpyLGxlZnQ6YSxyaWdodDpsLHdpZHRoOmwtYSxoZWlnaHQ6ci1vLHg6YSx5Om99fWNvbnN0IHQ9ImxlZnQiPT09YyhuKSxlPXIoLi4uaC5tYXAoKHQ9PnQucmlnaHQpKSksaT1vKC4uLmgubWFwKCh0PT50LmxlZnQpKSksYT1oLmZpbHRlcigobj0+dD9uLmxlZnQ9PT1pOm4ucmlnaHQ9PT1lKSksbD1hWzBdLnRvcCxzPWFbYS5sZW5ndGgtMV0uYm90dG9tO3JldHVybnt0b3A6bCxib3R0b206cyxsZWZ0OmkscmlnaHQ6ZSx3aWR0aDplLWksaGVpZ2h0OnMtbCx4OmkseTpsfX1yZXR1cm4geX19LGZsb2F0aW5nOmkuZmxvYXRpbmcsc3RyYXRlZ3k6c30pO3JldHVybiBhLnJlZmVyZW5jZS54IT09eC5yZWZlcmVuY2UueHx8YS5yZWZlcmVuY2UueSE9PXgucmVmZXJlbmNlLnl8fGEucmVmZXJlbmNlLndpZHRoIT09eC5yZWZlcmVuY2Uud2lkdGh8fGEucmVmZXJlbmNlLmhlaWdodCE9PXgucmVmZXJlbmNlLmhlaWdodD97cmVzZXQ6e3JlY3RzOnh9fTp7fX19fSx0LmxpbWl0U2hpZnQ9ZnVuY3Rpb24odCl7cmV0dXJuIHZvaWQgMD09PXQmJih0PXt9KSx7b3B0aW9uczp0LGZuKGUpe2NvbnN0e3g6bix5OmkscGxhY2VtZW50Om8scmVjdHM6cixtaWRkbGV3YXJlRGF0YTphfT1lLHtvZmZzZXQ6bD0wLG1haW5BeGlzOnM9ITAsY3Jvc3NBeGlzOm09ITB9PWYodCxlKSxkPXt4Om4seTppfSxnPXAobyksaD11KGcpO2xldCB5PWRbaF0sdz1kW2ddO2NvbnN0IHg9ZihsLGUpLHY9Im51bWJlciI9PXR5cGVvZiB4P3ttYWluQXhpczp4LGNyb3NzQXhpczowfTp7bWFpbkF4aXM6MCxjcm9zc0F4aXM6MCwuLi54fTtpZihzKXtjb25zdCB0PSJ5Ij09PWg/ImhlaWdodCI6IndpZHRoIixlPXIucmVmZXJlbmNlW2hdLXIuZmxvYXRpbmdbdF0rdi5tYWluQXhpcyxuPXIucmVmZXJlbmNlW2hdK3IucmVmZXJlbmNlW3RdLXYubWFpbkF4aXM7eTxlP3k9ZTp5Pm4mJih5PW4pfWlmKG0pe3ZhciBiLEE7Y29uc3QgdD0ieSI9PT1oPyJ3aWR0aCI6ImhlaWdodCIsZT1TLmhhcyhjKG8pKSxuPXIucmVmZXJlbmNlW2ddLXIuZmxvYXRpbmdbdF0rKGUmJihudWxsPT0oYj1hLm9mZnNldCk/dm9pZCAwOmJbZ10pfHwwKSsoZT8wOnYuY3Jvc3NBeGlzKSxpPXIucmVmZXJlbmNlW2ddK3IucmVmZXJlbmNlW3RdKyhlPzA6KG51bGw9PShBPWEub2Zmc2V0KT92b2lkIDA6QVtnXSl8fDApLShlP3YuY3Jvc3NBeGlzOjApO3c8bj93PW46dz5pJiYodz1pKX1yZXR1cm57W2hdOnksW2ddOnd9fX19LHQub2Zmc2V0PWZ1bmN0aW9uKHQpe3JldHVybiB2b2lkIDA9PT10JiYodD0wKSx7bmFtZToib2Zmc2V0IixvcHRpb25zOnQsYXN5bmMgZm4oZSl7dmFyIG4saTtjb25zdHt4Om8seTpyLHBsYWNlbWVudDphLG1pZGRsZXdhcmVEYXRhOmx9PWUscz1hd2FpdCBhc3luYyBmdW5jdGlvbih0LGUpe2NvbnN0e3BsYWNlbWVudDpuLHBsYXRmb3JtOmksZWxlbWVudHM6b309dCxyPWF3YWl0KG51bGw9PWkuaXNSVEw/dm9pZCAwOmkuaXNSVEwoby5mbG9hdGluZykpLGE9YyhuKSxsPW0obikscz0ieSI9PT1wKG4pLHU9Uy5oYXMoYSk/LTE6MSxkPXImJnM/LTE6MSxnPWYoZSx0KTtsZXR7bWFpbkF4aXM6aCxjcm9zc0F4aXM6eSxhbGlnbm1lbnRBeGlzOnd9PSJudW1iZXIiPT10eXBlb2YgZz97bWFpbkF4aXM6Zyxjcm9zc0F4aXM6MCxhbGlnbm1lbnRBeGlzOm51bGx9OnttYWluQXhpczpnLm1haW5BeGlzfHwwLGNyb3NzQXhpczpnLmNyb3NzQXhpc3x8MCxhbGlnbm1lbnRBeGlzOmcuYWxpZ25tZW50QXhpc307cmV0dXJuIGwmJiJudW1iZXIiPT10eXBlb2YgdyYmKHk9ImVuZCI9PT1sPy0xKnc6dykscz97eDp5KmQseTpoKnV9Ont4OmgqdSx5OnkqZH19KGUsdCk7cmV0dXJuIGE9PT0obnVsbD09KG49bC5vZmZzZXQpP3ZvaWQgMDpuLnBsYWNlbWVudCkmJm51bGwhPShpPWwuYXJyb3cpJiZpLmFsaWdubWVudE9mZnNldD97fTp7eDpvK3MueCx5OnIrcy55LGRhdGE6ey4uLnMscGxhY2VtZW50OmF9fX19fSx0LnJlY3RUb0NsaWVudFJlY3Q9VCx0LnNoaWZ0PWZ1bmN0aW9uKHQpe3JldHVybiB2b2lkIDA9PT10JiYodD17fSkse25hbWU6InNoaWZ0IixvcHRpb25zOnQsYXN5bmMgZm4oZSl7Y29uc3R7eDpuLHk6aSxwbGFjZW1lbnQ6b309ZSx7bWFpbkF4aXM6cj0hMCxjcm9zc0F4aXM6YT0hMSxsaW1pdGVyOmw9e2ZuOnQ9PntsZXR7eDplLHk6bn09dDtyZXR1cm57eDplLHk6bn19fSwuLi5tfT1mKHQsZSksZD17eDpuLHk6aX0sZz1hd2FpdCBFKGUsbSksaD1wKGMobykpLHk9dShoKTtsZXQgdz1kW3ldLHg9ZFtoXTtpZihyKXtjb25zdCB0PSJ5Ij09PXk/ImJvdHRvbSI6InJpZ2h0Ijt3PXModytnWyJ5Ij09PXk/InRvcCI6ImxlZnQiXSx3LHctZ1t0XSl9aWYoYSl7Y29uc3QgdD0ieSI9PT1oPyJib3R0b20iOiJyaWdodCI7eD1zKHgrZ1sieSI9PT1oPyJ0b3AiOiJsZWZ0Il0seCx4LWdbdF0pfWNvbnN0IHY9bC5mbih7Li4uZSxbeV06dyxbaF06eH0pO3JldHVybnsuLi52LGRhdGE6e3g6di54LW4seTp2LnktaSxlbmFibGVkOntbeV06cixbaF06YX19fX19fSx0LnNpemU9ZnVuY3Rpb24odCl7cmV0dXJuIHZvaWQgMD09PXQmJih0PXt9KSx7bmFtZToic2l6ZSIsb3B0aW9uczp0LGFzeW5jIGZuKGUpe3ZhciBuLGk7Y29uc3R7cGxhY2VtZW50OmEscmVjdHM6bCxwbGF0Zm9ybTpzLGVsZW1lbnRzOnV9PWUse2FwcGx5OmQ9KCk9Pnt9LC4uLmd9PWYodCxlKSxoPWF3YWl0IEUoZSxnKSx5PWMoYSksdz1tKGEpLHg9InkiPT09cChhKSx7d2lkdGg6dixoZWlnaHQ6Yn09bC5mbG9hdGluZztsZXQgQSxSOyJ0b3AiPT09eXx8ImJvdHRvbSI9PT15PyhBPXksUj13PT09KGF3YWl0KG51bGw9PXMuaXNSVEw/dm9pZCAwOnMuaXNSVEwodS5mbG9hdGluZykpPyJzdGFydCI6ImVuZCIpPyJsZWZ0IjoicmlnaHQiKTooUj15LEE9ImVuZCI9PT13PyJ0b3AiOiJib3R0b20iKTtjb25zdCBQPWItaC50b3AtaC5ib3R0b20sRD12LWgubGVmdC1oLnJpZ2h0LFQ9byhiLWhbQV0sUCksTz1vKHYtaFtSXSxEKSxMPSFlLm1pZGRsZXdhcmVEYXRhLnNoaWZ0O2xldCBrPVQsQz1PO2lmKG51bGwhPShuPWUubWlkZGxld2FyZURhdGEuc2hpZnQpJiZuLmVuYWJsZWQueCYmKEM9RCksbnVsbCE9KGk9ZS5taWRkbGV3YXJlRGF0YS5zaGlmdCkmJmkuZW5hYmxlZC55JiYoaz1QKSxMJiYhdyl7Y29uc3QgdD1yKGgubGVmdCwwKSxlPXIoaC5yaWdodCwwKSxuPXIoaC50b3AsMCksaT1yKGguYm90dG9tLDApO3g/Qz12LTIqKDAhPT10fHwwIT09ZT90K2U6cihoLmxlZnQsaC5yaWdodCkpOms9Yi0yKigwIT09bnx8MCE9PWk/bitpOnIoaC50b3AsaC5ib3R0b20pKX1hd2FpdCBkKHsuLi5lLGF2YWlsYWJsZVdpZHRoOkMsYXZhaWxhYmxlSGVpZ2h0Omt9KTtjb25zdCBTPWF3YWl0IHMuZ2V0RGltZW5zaW9ucyh1LmZsb2F0aW5nKTtyZXR1cm4gdiE9PVMud2lkdGh8fGIhPT1TLmhlaWdodD97cmVzZXQ6e3JlY3RzOiEwfX06e319fX19KSk7Cg==&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;data:text/javascript;base64,IWZ1bmN0aW9uKHQsZSl7Im9iamVjdCI9PXR5cGVvZiBleHBvcnRzJiYidW5kZWZpbmVkIiE9dHlwZW9mIG1vZHVsZT9lKGV4cG9ydHMscmVxdWlyZSgiQGZsb2F0aW5nLXVpL2NvcmUiKSk6ImZ1bmN0aW9uIj09dHlwZW9mIGRlZmluZSYmZGVmaW5lLmFtZD9kZWZpbmUoWyJleHBvcnRzIiwiQGZsb2F0aW5nLXVpL2NvcmUiXSxlKTplKCh0PSJ1bmRlZmluZWQiIT10eXBlb2YgZ2xvYmFsVGhpcz9nbG9iYWxUaGlzOnR8fHNlbGYpLkZsb2F0aW5nVUlET009e30sdC5GbG9hdGluZ1VJQ29yZSl9KHRoaXMsKGZ1bmN0aW9uKHQsZSl7InVzZSBzdHJpY3QiO2NvbnN0IG49TWF0aC5taW4sbz1NYXRoLm1heCxpPU1hdGgucm91bmQscj1NYXRoLmZsb29yLGM9dD0+KHt4OnQseTp0fSk7ZnVuY3Rpb24gbCgpe3JldHVybiJ1bmRlZmluZWQiIT10eXBlb2Ygd2luZG93fWZ1bmN0aW9uIHModCl7cmV0dXJuIGEodCk/KHQubm9kZU5hbWV8fCIiKS50b0xvd2VyQ2FzZSgpOiIjZG9jdW1lbnQifWZ1bmN0aW9uIGYodCl7dmFyIGU7cmV0dXJuKG51bGw9PXR8fG51bGw9PShlPXQub3duZXJEb2N1bWVudCk/dm9pZCAwOmUuZGVmYXVsdFZpZXcpfHx3aW5kb3d9ZnVuY3Rpb24gdSh0KXt2YXIgZTtyZXR1cm4gbnVsbD09KGU9KGEodCk/dC5vd25lckRvY3VtZW50OnQuZG9jdW1lbnQpfHx3aW5kb3cuZG9jdW1lbnQpP3ZvaWQgMDplLmRvY3VtZW50RWxlbWVudH1mdW5jdGlvbiBhKHQpe3JldHVybiEhbCgpJiYodCBpbnN0YW5jZW9mIE5vZGV8fHQgaW5zdGFuY2VvZiBmKHQpLk5vZGUpfWZ1bmN0aW9uIGQodCl7cmV0dXJuISFsKCkmJih0IGluc3RhbmNlb2YgRWxlbWVudHx8dCBpbnN0YW5jZW9mIGYodCkuRWxlbWVudCl9ZnVuY3Rpb24gaCh0KXtyZXR1cm4hIWwoKSYmKHQgaW5zdGFuY2VvZiBIVE1MRWxlbWVudHx8dCBpbnN0YW5jZW9mIGYodCkuSFRNTEVsZW1lbnQpfWZ1bmN0aW9uIHAodCl7cmV0dXJuISghbCgpfHwidW5kZWZpbmVkIj09dHlwZW9mIFNoYWRvd1Jvb3QpJiYodCBpbnN0YW5jZW9mIFNoYWRvd1Jvb3R8fHQgaW5zdGFuY2VvZiBmKHQpLlNoYWRvd1Jvb3QpfWNvbnN0IGc9bmV3IFNldChbImlubGluZSIsImNvbnRlbnRzIl0pO2Z1bmN0aW9uIG0odCl7Y29uc3R7b3ZlcmZsb3c6ZSxvdmVyZmxvd1g6bixvdmVyZmxvd1k6byxkaXNwbGF5Oml9PUUodCk7cmV0dXJuL2F1dG98c2Nyb2xsfG92ZXJsYXl8aGlkZGVufGNsaXAvLnRlc3QoZStvK24pJiYhZy5oYXMoaSl9Y29uc3QgeT1uZXcgU2V0KFsidGFibGUiLCJ0ZCIsInRoIl0pO2Z1bmN0aW9uIHcodCl7cmV0dXJuIHkuaGFzKHModCkpfWNvbnN0IHg9WyI6cG9wb3Zlci1vcGVuIiwiOm1vZGFsIl07ZnVuY3Rpb24gdih0KXtyZXR1cm4geC5zb21lKChlPT57dHJ5e3JldHVybiB0Lm1hdGNoZXMoZSl9Y2F0Y2godCl7cmV0dXJuITF9fSkpfWNvbnN0IGI9WyJ0cmFuc2Zvcm0iLCJ0cmFuc2xhdGUiLCJzY2FsZSIsInJvdGF0ZSIsInBlcnNwZWN0aXZlIl0sVD1bInRyYW5zZm9ybSIsInRyYW5zbGF0ZSIsInNjYWxlIiwicm90YXRlIiwicGVyc3BlY3RpdmUiLCJmaWx0ZXIiXSxMPVsicGFpbnQiLCJsYXlvdXQiLCJzdHJpY3QiLCJjb250ZW50Il07ZnVuY3Rpb24gUih0KXtjb25zdCBlPVMoKSxuPWQodCk/RSh0KTp0O3JldHVybiBiLnNvbWUoKHQ9PiEhblt0XSYmIm5vbmUiIT09blt0XSkpfHwhIW4uY29udGFpbmVyVHlwZSYmIm5vcm1hbCIhPT1uLmNvbnRhaW5lclR5cGV8fCFlJiYhIW4uYmFja2Ryb3BGaWx0ZXImJiJub25lIiE9PW4uYmFja2Ryb3BGaWx0ZXJ8fCFlJiYhIW4uZmlsdGVyJiYibm9uZSIhPT1uLmZpbHRlcnx8VC5zb21lKCh0PT4obi53aWxsQ2hhbmdlfHwiIikuaW5jbHVkZXModCkpKXx8TC5zb21lKCh0PT4obi5jb250YWlufHwiIikuaW5jbHVkZXModCkpKX1mdW5jdGlvbiBTKCl7cmV0dXJuISgidW5kZWZpbmVkIj09dHlwZW9mIENTU3x8IUNTUy5zdXBwb3J0cykmJkNTUy5zdXBwb3J0cygiLXdlYmtpdC1iYWNrZHJvcC1maWx0ZXIiLCJub25lIil9Y29uc3QgQz1uZXcgU2V0KFsiaHRtbCIsImJvZHkiLCIjZG9jdW1lbnQiXSk7ZnVuY3Rpb24gRih0KXtyZXR1cm4gQy5oYXMocyh0KSl9ZnVuY3Rpb24gRSh0KXtyZXR1cm4gZih0KS5nZXRDb21wdXRlZFN0eWxlKHQpfWZ1bmN0aW9uIE8odCl7cmV0dXJuIGQodCk/e3Njcm9sbExlZnQ6dC5zY3JvbGxMZWZ0LHNjcm9sbFRvcDp0LnNjcm9sbFRvcH06e3Njcm9sbExlZnQ6dC5zY3JvbGxYLHNjcm9sbFRvcDp0LnNjcm9sbFl9fWZ1bmN0aW9uIEQodCl7aWYoImh0bWwiPT09cyh0KSlyZXR1cm4gdDtjb25zdCBlPXQuYXNzaWduZWRTbG90fHx0LnBhcmVudE5vZGV8fHAodCkmJnQuaG9zdHx8dSh0KTtyZXR1cm4gcChlKT9lLmhvc3Q6ZX1mdW5jdGlvbiBXKHQpe2NvbnN0IGU9RCh0KTtyZXR1cm4gRihlKT90Lm93bmVyRG9jdW1lbnQ/dC5vd25lckRvY3VtZW50LmJvZHk6dC5ib2R5OmgoZSkmJm0oZSk/ZTpXKGUpfWZ1bmN0aW9uIE0odCxlLG4pe3ZhciBvO3ZvaWQgMD09PWUmJihlPVtdKSx2b2lkIDA9PT1uJiYobj0hMCk7Y29uc3QgaT1XKHQpLHI9aT09PShudWxsPT0obz10Lm93bmVyRG9jdW1lbnQpP3ZvaWQgMDpvLmJvZHkpLGM9ZihpKTtpZihyKXtjb25zdCB0PUgoYyk7cmV0dXJuIGUuY29uY2F0KGMsYy52aXN1YWxWaWV3cG9ydHx8W10sbShpKT9pOltdLHQmJm4/TSh0KTpbXSl9cmV0dXJuIGUuY29uY2F0KGksTShpLFtdLG4pKX1mdW5jdGlvbiBIKHQpe3JldHVybiB0LnBhcmVudCYmT2JqZWN0LmdldFByb3RvdHlwZU9mKHQucGFyZW50KT90LmZyYW1lRWxlbWVudDpudWxsfWZ1bmN0aW9uIFAodCl7Y29uc3QgZT1FKHQpO2xldCBuPXBhcnNlRmxvYXQoZS53aWR0aCl8fDAsbz1wYXJzZUZsb2F0KGUuaGVpZ2h0KXx8MDtjb25zdCByPWgodCksYz1yP3Qub2Zmc2V0V2lkdGg6bixsPXI/dC5vZmZzZXRIZWlnaHQ6byxzPWkobikhPT1jfHxpKG8pIT09bDtyZXR1cm4gcyYmKG49YyxvPWwpLHt3aWR0aDpuLGhlaWdodDpvLCQ6c319ZnVuY3Rpb24geih0KXtyZXR1cm4gZCh0KT90OnQuY29udGV4dEVsZW1lbnR9ZnVuY3Rpb24gQSh0KXtjb25zdCBlPXoodCk7aWYoIWgoZSkpcmV0dXJuIGMoMSk7Y29uc3Qgbj1lLmdldEJvdW5kaW5nQ2xpZW50UmVjdCgpLHt3aWR0aDpvLGhlaWdodDpyLCQ6bH09UChlKTtsZXQgcz0obD9pKG4ud2lkdGgpOm4ud2lkdGgpL28sZj0obD9pKG4uaGVpZ2h0KTpuLmhlaWdodCkvcjtyZXR1cm4gcyYmTnVtYmVyLmlzRmluaXRlKHMpfHwocz0xKSxmJiZOdW1iZXIuaXNGaW5pdGUoZil8fChmPTEpLHt4OnMseTpmfX1jb25zdCBCPWMoMCk7ZnVuY3Rpb24gVih0KXtjb25zdCBlPWYodCk7cmV0dXJuIFMoKSYmZS52aXN1YWxWaWV3cG9ydD97eDplLnZpc3VhbFZpZXdwb3J0Lm9mZnNldExlZnQseTplLnZpc3VhbFZpZXdwb3J0Lm9mZnNldFRvcH06Qn1mdW5jdGlvbiBOKHQsbixvLGkpe3ZvaWQgMD09PW4mJihuPSExKSx2b2lkIDA9PT1vJiYobz0hMSk7Y29uc3Qgcj10LmdldEJvdW5kaW5nQ2xpZW50UmVjdCgpLGw9eih0KTtsZXQgcz1jKDEpO24mJihpP2QoaSkmJihzPUEoaSkpOnM9QSh0KSk7Y29uc3QgdT1mdW5jdGlvbih0LGUsbil7cmV0dXJuIHZvaWQgMD09PWUmJihlPSExKSwhKCFufHxlJiZuIT09Zih0KSkmJmV9KGwsbyxpKT9WKGwpOmMoMCk7bGV0IGE9KHIubGVmdCt1LngpL3MueCxoPShyLnRvcCt1LnkpL3MueSxwPXIud2lkdGgvcy54LGc9ci5oZWlnaHQvcy55O2lmKGwpe2NvbnN0IHQ9ZihsKSxlPWkmJmQoaSk/ZihpKTppO2xldCBuPXQsbz1IKG4pO2Zvcig7byYmaSYmZSE9PW47KXtjb25zdCB0PUEobyksZT1vLmdldEJvdW5kaW5nQ2xpZW50UmVjdCgpLGk9RShvKSxyPWUubGVmdCsoby5jbGllbnRMZWZ0K3BhcnNlRmxvYXQoaS5wYWRkaW5nTGVmdCkpKnQueCxjPWUudG9wKyhvLmNsaWVudFRvcCtwYXJzZUZsb2F0KGkucGFkZGluZ1RvcCkpKnQueTthKj10LngsaCo9dC55LHAqPXQueCxnKj10LnksYSs9cixoKz1jLG49ZihvKSxvPUgobil9fXJldHVybiBlLnJlY3RUb0NsaWVudFJlY3Qoe3dpZHRoOnAsaGVpZ2h0OmcseDphLHk6aH0pfWZ1bmN0aW9uIEkodCxlKXtjb25zdCBuPU8odCkuc2Nyb2xsTGVmdDtyZXR1cm4gZT9lLmxlZnQrbjpOKHUodCkpLmxlZnQrbn1mdW5jdGlvbiBrKHQsZSl7Y29uc3Qgbj10LmdldEJvdW5kaW5nQ2xpZW50UmVjdCgpO3JldHVybnt4Om4ubGVmdCtlLnNjcm9sbExlZnQtSSh0LG4pLHk6bi50b3ArZS5zY3JvbGxUb3B9fWNvbnN0IHE9bmV3IFNldChbImFic29sdXRlIiwiZml4ZWQiXSk7ZnVuY3Rpb24gVSh0LG4saSl7bGV0IHI7aWYoInZpZXdwb3J0Ij09PW4pcj1mdW5jdGlvbih0LGUpe2NvbnN0IG49Zih0KSxvPXUodCksaT1uLnZpc3VhbFZpZXdwb3J0O2xldCByPW8uY2xpZW50V2lkdGgsYz1vLmNsaWVudEhlaWdodCxsPTAscz0wO2lmKGkpe3I9aS53aWR0aCxjPWkuaGVpZ2h0O2NvbnN0IHQ9UygpOyghdHx8dCYmImZpeGVkIj09PWUpJiYobD1pLm9mZnNldExlZnQscz1pLm9mZnNldFRvcCl9Y29uc3QgYT1JKG8pO2lmKGE8PTApe2NvbnN0IHQ9by5vd25lckRvY3VtZW50LGU9dC5ib2R5LG49Z2V0Q29tcHV0ZWRTdHlsZShlKSxpPSJDU1MxQ29tcGF0Ij09PXQuY29tcGF0TW9kZSYmcGFyc2VGbG9hdChuLm1hcmdpbkxlZnQpK3BhcnNlRmxvYXQobi5tYXJnaW5SaWdodCl8fDAsYz1NYXRoLmFicyhvLmNsaWVudFdpZHRoLWUuY2xpZW50V2lkdGgtaSk7Yzw9MjUmJihyLT1jKX1lbHNlIGE8PTI1JiYocis9YSk7cmV0dXJue3dpZHRoOnIsaGVpZ2h0OmMseDpsLHk6c319KHQsaSk7ZWxzZSBpZigiZG9jdW1lbnQiPT09bilyPWZ1bmN0aW9uKHQpe2NvbnN0IGU9dSh0KSxuPU8odCksaT10Lm93bmVyRG9jdW1lbnQuYm9keSxyPW8oZS5zY3JvbGxXaWR0aCxlLmNsaWVudFdpZHRoLGkuc2Nyb2xsV2lkdGgsaS5jbGllbnRXaWR0aCksYz1vKGUuc2Nyb2xsSGVpZ2h0LGUuY2xpZW50SGVpZ2h0LGkuc2Nyb2xsSGVpZ2h0LGkuY2xpZW50SGVpZ2h0KTtsZXQgbD0tbi5zY3JvbGxMZWZ0K0kodCk7Y29uc3Qgcz0tbi5zY3JvbGxUb3A7cmV0dXJuInJ0bCI9PT1FKGkpLmRpcmVjdGlvbiYmKGwrPW8oZS5jbGllbnRXaWR0aCxpLmNsaWVudFdpZHRoKS1yKSx7d2lkdGg6cixoZWlnaHQ6Yyx4OmwseTpzfX0odSh0KSk7ZWxzZSBpZihkKG4pKXI9ZnVuY3Rpb24odCxlKXtjb25zdCBuPU4odCwhMCwiZml4ZWQiPT09ZSksbz1uLnRvcCt0LmNsaWVudFRvcCxpPW4ubGVmdCt0LmNsaWVudExlZnQscj1oKHQpP0EodCk6YygxKTtyZXR1cm57d2lkdGg6dC5jbGllbnRXaWR0aCpyLngsaGVpZ2h0OnQuY2xpZW50SGVpZ2h0KnIueSx4Omkqci54LHk6bypyLnl9fShuLGkpO2Vsc2V7Y29uc3QgZT1WKHQpO3I9e3g6bi54LWUueCx5Om4ueS1lLnksd2lkdGg6bi53aWR0aCxoZWlnaHQ6bi5oZWlnaHR9fXJldHVybiBlLnJlY3RUb0NsaWVudFJlY3Qocil9ZnVuY3Rpb24gaih0LGUpe2NvbnN0IG49RCh0KTtyZXR1cm4hKG49PT1lfHwhZChuKXx8RihuKSkmJigiZml4ZWQiPT09RShuKS5wb3NpdGlvbnx8aihuLGUpKX1mdW5jdGlvbiBYKHQsZSxuKXtjb25zdCBvPWgoZSksaT11KGUpLHI9ImZpeGVkIj09PW4sbD1OKHQsITAscixlKTtsZXQgZj17c2Nyb2xsTGVmdDowLHNjcm9sbFRvcDowfTtjb25zdCBhPWMoMCk7ZnVuY3Rpb24gZCgpe2EueD1JKGkpfWlmKG98fCFvJiYhcilpZigoImJvZHkiIT09cyhlKXx8bShpKSkmJihmPU8oZSkpLG8pe2NvbnN0IHQ9TihlLCEwLHIsZSk7YS54PXQueCtlLmNsaWVudExlZnQsYS55PXQueStlLmNsaWVudFRvcH1lbHNlIGkmJmQoKTtyJiYhbyYmaSYmZCgpO2NvbnN0IHA9IWl8fG98fHI/YygwKTprKGksZik7cmV0dXJue3g6bC5sZWZ0K2Yuc2Nyb2xsTGVmdC1hLngtcC54LHk6bC50b3ArZi5zY3JvbGxUb3AtYS55LXAueSx3aWR0aDpsLndpZHRoLGhlaWdodDpsLmhlaWdodH19ZnVuY3Rpb24gWSh0KXtyZXR1cm4ic3RhdGljIj09PUUodCkucG9zaXRpb259ZnVuY3Rpb24gJCh0LGUpe2lmKCFoKHQpfHwiZml4ZWQiPT09RSh0KS5wb3NpdGlvbilyZXR1cm4gbnVsbDtpZihlKXJldHVybiBlKHQpO2xldCBuPXQub2Zmc2V0UGFyZW50O3JldHVybiB1KHQpPT09biYmKG49bi5vd25lckRvY3VtZW50LmJvZHkpLG59ZnVuY3Rpb24gXyh0LGUpe2NvbnN0IG49Zih0KTtpZih2KHQpKXJldHVybiBuO2lmKCFoKHQpKXtsZXQgZT1EKHQpO2Zvcig7ZSYmIUYoZSk7KXtpZihkKGUpJiYhWShlKSlyZXR1cm4gZTtlPUQoZSl9cmV0dXJuIG59bGV0IG89JCh0LGUpO2Zvcig7byYmdyhvKSYmWShvKTspbz0kKG8sZSk7cmV0dXJuIG8mJkYobykmJlkobykmJiFSKG8pP246b3x8ZnVuY3Rpb24odCl7bGV0IGU9RCh0KTtmb3IoO2goZSkmJiFGKGUpOyl7aWYoUihlKSlyZXR1cm4gZTtpZih2KGUpKXJldHVybiBudWxsO2U9RChlKX1yZXR1cm4gbnVsbH0odCl8fG59Y29uc3QgRz17Y29udmVydE9mZnNldFBhcmVudFJlbGF0aXZlUmVjdFRvVmlld3BvcnRSZWxhdGl2ZVJlY3Q6ZnVuY3Rpb24odCl7bGV0e2VsZW1lbnRzOmUscmVjdDpuLG9mZnNldFBhcmVudDpvLHN0cmF0ZWd5Oml9PXQ7Y29uc3Qgcj0iZml4ZWQiPT09aSxsPXUobyksZj0hIWUmJnYoZS5mbG9hdGluZyk7aWYobz09PWx8fGYmJnIpcmV0dXJuIG47bGV0IGE9e3Njcm9sbExlZnQ6MCxzY3JvbGxUb3A6MH0sZD1jKDEpO2NvbnN0IHA9YygwKSxnPWgobyk7aWYoKGd8fCFnJiYhcikmJigoImJvZHkiIT09cyhvKXx8bShsKSkmJihhPU8obykpLGgobykpKXtjb25zdCB0PU4obyk7ZD1BKG8pLHAueD10Lngrby5jbGllbnRMZWZ0LHAueT10Lnkrby5jbGllbnRUb3B9Y29uc3QgeT0hbHx8Z3x8cj9jKDApOmsobCxhKTtyZXR1cm57d2lkdGg6bi53aWR0aCpkLngsaGVpZ2h0Om4uaGVpZ2h0KmQueSx4Om4ueCpkLngtYS5zY3JvbGxMZWZ0KmQueCtwLngreS54LHk6bi55KmQueS1hLnNjcm9sbFRvcCpkLnkrcC55K3kueX19LGdldERvY3VtZW50RWxlbWVudDp1LGdldENsaXBwaW5nUmVjdDpmdW5jdGlvbih0KXtsZXR7ZWxlbWVudDplLGJvdW5kYXJ5Omkscm9vdEJvdW5kYXJ5OnIsc3RyYXRlZ3k6Y309dDtjb25zdCBsPVsuLi4iY2xpcHBpbmdBbmNlc3RvcnMiPT09aT92KGUpP1tdOmZ1bmN0aW9uKHQsZSl7Y29uc3Qgbj1lLmdldCh0KTtpZihuKXJldHVybiBuO2xldCBvPU0odCxbXSwhMSkuZmlsdGVyKCh0PT5kKHQpJiYiYm9keSIhPT1zKHQpKSksaT1udWxsO2NvbnN0IHI9ImZpeGVkIj09PUUodCkucG9zaXRpb247bGV0IGM9cj9EKHQpOnQ7Zm9yKDtkKGMpJiYhRihjKTspe2NvbnN0IGU9RShjKSxuPVIoYyk7bnx8ImZpeGVkIiE9PWUucG9zaXRpb258fChpPW51bGwpLChyPyFuJiYhaTohbiYmInN0YXRpYyI9PT1lLnBvc2l0aW9uJiZpJiZxLmhhcyhpLnBvc2l0aW9uKXx8bShjKSYmIW4mJmoodCxjKSk/bz1vLmZpbHRlcigodD0+dCE9PWMpKTppPWUsYz1EKGMpfXJldHVybiBlLnNldCh0LG8pLG99KGUsdGhpcy5fYyk6W10uY29uY2F0KGkpLHJdLGY9bFswXSx1PWwucmVkdWNlKCgodCxpKT0+e2NvbnN0IHI9VShlLGksYyk7cmV0dXJuIHQudG9wPW8oci50b3AsdC50b3ApLHQucmlnaHQ9bihyLnJpZ2h0LHQucmlnaHQpLHQuYm90dG9tPW4oci5ib3R0b20sdC5ib3R0b20pLHQubGVmdD1vKHIubGVmdCx0LmxlZnQpLHR9KSxVKGUsZixjKSk7cmV0dXJue3dpZHRoOnUucmlnaHQtdS5sZWZ0LGhlaWdodDp1LmJvdHRvbS11LnRvcCx4OnUubGVmdCx5OnUudG9wfX0sZ2V0T2Zmc2V0UGFyZW50Ol8sZ2V0RWxlbWVudFJlY3RzOmFzeW5jIGZ1bmN0aW9uKHQpe2NvbnN0IGU9dGhpcy5nZXRPZmZzZXRQYXJlbnR8fF8sbj10aGlzLmdldERpbWVuc2lvbnMsbz1hd2FpdCBuKHQuZmxvYXRpbmcpO3JldHVybntyZWZlcmVuY2U6WCh0LnJlZmVyZW5jZSxhd2FpdCBlKHQuZmxvYXRpbmcpLHQuc3RyYXRlZ3kpLGZsb2F0aW5nOnt4OjAseTowLHdpZHRoOm8ud2lkdGgsaGVpZ2h0Om8uaGVpZ2h0fX19LGdldENsaWVudFJlY3RzOmZ1bmN0aW9uKHQpe3JldHVybiBBcnJheS5mcm9tKHQuZ2V0Q2xpZW50UmVjdHMoKSl9LGdldERpbWVuc2lvbnM6ZnVuY3Rpb24odCl7Y29uc3R7d2lkdGg6ZSxoZWlnaHQ6bn09UCh0KTtyZXR1cm57d2lkdGg6ZSxoZWlnaHQ6bn19LGdldFNjYWxlOkEsaXNFbGVtZW50OmQsaXNSVEw6ZnVuY3Rpb24odCl7cmV0dXJuInJ0bCI9PT1FKHQpLmRpcmVjdGlvbn19O2Z1bmN0aW9uIEoodCxlKXtyZXR1cm4gdC54PT09ZS54JiZ0Lnk9PT1lLnkmJnQud2lkdGg9PT1lLndpZHRoJiZ0LmhlaWdodD09PWUuaGVpZ2h0fWNvbnN0IEs9ZS5kZXRlY3RPdmVyZmxvdyxRPWUub2Zmc2V0LFo9ZS5hdXRvUGxhY2VtZW50LHR0PWUuc2hpZnQsZXQ9ZS5mbGlwLG50PWUuc2l6ZSxvdD1lLmhpZGUsaXQ9ZS5hcnJvdyxydD1lLmlubGluZSxjdD1lLmxpbWl0U2hpZnQ7dC5hcnJvdz1pdCx0LmF1dG9QbGFjZW1lbnQ9Wix0LmF1dG9VcGRhdGU9ZnVuY3Rpb24odCxlLGksYyl7dm9pZCAwPT09YyYmKGM9e30pO2NvbnN0e2FuY2VzdG9yU2Nyb2xsOmw9ITAsYW5jZXN0b3JSZXNpemU6cz0hMCxlbGVtZW50UmVzaXplOmY9ImZ1bmN0aW9uIj09dHlwZW9mIFJlc2l6ZU9ic2VydmVyLGxheW91dFNoaWZ0OmE9ImZ1bmN0aW9uIj09dHlwZW9mIEludGVyc2VjdGlvbk9ic2VydmVyLGFuaW1hdGlvbkZyYW1lOmQ9ITF9PWMsaD16KHQpLHA9bHx8cz9bLi4uaD9NKGgpOltdLC4uLk0oZSldOltdO3AuZm9yRWFjaCgodD0+e2wmJnQuYWRkRXZlbnRMaXN0ZW5lcigic2Nyb2xsIixpLHtwYXNzaXZlOiEwfSkscyYmdC5hZGRFdmVudExpc3RlbmVyKCJyZXNpemUiLGkpfSkpO2NvbnN0IGc9aCYmYT9mdW5jdGlvbih0LGUpe2xldCBpLGM9bnVsbDtjb25zdCBsPXUodCk7ZnVuY3Rpb24gcygpe3ZhciB0O2NsZWFyVGltZW91dChpKSxudWxsPT0odD1jKXx8dC5kaXNjb25uZWN0KCksYz1udWxsfXJldHVybiBmdW5jdGlvbiBmKHUsYSl7dm9pZCAwPT09dSYmKHU9ITEpLHZvaWQgMD09PWEmJihhPTEpLHMoKTtjb25zdCBkPXQuZ2V0Qm91bmRpbmdDbGllbnRSZWN0KCkse2xlZnQ6aCx0b3A6cCx3aWR0aDpnLGhlaWdodDptfT1kO2lmKHV8fGUoKSwhZ3x8IW0pcmV0dXJuO2NvbnN0IHk9e3Jvb3RNYXJnaW46LXIocCkrInB4ICIrLXIobC5jbGllbnRXaWR0aC0oaCtnKSkrInB4ICIrLXIobC5jbGllbnRIZWlnaHQtKHArbSkpKyJweCAiKy1yKGgpKyJweCIsdGhyZXNob2xkOm8oMCxuKDEsYSkpfHwxfTtsZXQgdz0hMDtmdW5jdGlvbiB4KGUpe2NvbnN0IG49ZVswXS5pbnRlcnNlY3Rpb25SYXRpbztpZihuIT09YSl7aWYoIXcpcmV0dXJuIGYoKTtuP2YoITEsbik6aT1zZXRUaW1lb3V0KCgoKT0+e2YoITEsMWUtNyl9KSwxZTMpfTEhPT1ufHxKKGQsdC5nZXRCb3VuZGluZ0NsaWVudFJlY3QoKSl8fGYoKSx3PSExfXRyeXtjPW5ldyBJbnRlcnNlY3Rpb25PYnNlcnZlcih4LHsuLi55LHJvb3Q6bC5vd25lckRvY3VtZW50fSl9Y2F0Y2godCl7Yz1uZXcgSW50ZXJzZWN0aW9uT2JzZXJ2ZXIoeCx5KX1jLm9ic2VydmUodCl9KCEwKSxzfShoLGkpOm51bGw7bGV0IG0seT0tMSx3PW51bGw7ZiYmKHc9bmV3IFJlc2l6ZU9ic2VydmVyKCh0PT57bGV0W25dPXQ7biYmbi50YXJnZXQ9PT1oJiZ3JiYody51bm9ic2VydmUoZSksY2FuY2VsQW5pbWF0aW9uRnJhbWUoeSkseT1yZXF1ZXN0QW5pbWF0aW9uRnJhbWUoKCgpPT57dmFyIHQ7bnVsbD09KHQ9dyl8fHQub2JzZXJ2ZShlKX0pKSksaSgpfSkpLGgmJiFkJiZ3Lm9ic2VydmUoaCksdy5vYnNlcnZlKGUpKTtsZXQgeD1kP04odCk6bnVsbDtyZXR1cm4gZCYmZnVuY3Rpb24gZSgpe2NvbnN0IG49Tih0KTt4JiYhSih4LG4pJiZpKCk7eD1uLG09cmVxdWVzdEFuaW1hdGlvbkZyYW1lKGUpfSgpLGkoKSwoKT0+e3ZhciB0O3AuZm9yRWFjaCgodD0+e2wmJnQucmVtb3ZlRXZlbnRMaXN0ZW5lcigic2Nyb2xsIixpKSxzJiZ0LnJlbW92ZUV2ZW50TGlzdGVuZXIoInJlc2l6ZSIsaSl9KSksbnVsbD09Z3x8ZygpLG51bGw9PSh0PXcpfHx0LmRpc2Nvbm5lY3QoKSx3PW51bGwsZCYmY2FuY2VsQW5pbWF0aW9uRnJhbWUobSl9fSx0LmNvbXB1dGVQb3NpdGlvbj0odCxuLG8pPT57Y29uc3QgaT1uZXcgTWFwLHI9e3BsYXRmb3JtOkcsLi4ub30sYz17Li4uci5wbGF0Zm9ybSxfYzppfTtyZXR1cm4gZS5jb21wdXRlUG9zaXRpb24odCxuLHsuLi5yLHBsYXRmb3JtOmN9KX0sdC5kZXRlY3RPdmVyZmxvdz1LLHQuZmxpcD1ldCx0LmdldE92ZXJmbG93QW5jZXN0b3JzPU0sdC5oaWRlPW90LHQuaW5saW5lPXJ0LHQubGltaXRTaGlmdD1jdCx0Lm9mZnNldD1RLHQucGxhdGZvcm09Ryx0LnNoaWZ0PXR0LHQuc2l6ZT1udH0pKTsK&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+(() =&gt; {
+  if (window.FloatingUIDOM == null) {
+    return;
+  }
+  const { autoUpdate, computePosition, flip, offset, shift, size } =
+    window.FloatingUIDOM;
+  const tooltipPlacements = new Set([&quot;top&quot;, &quot;right&quot;, &quot;bottom&quot;, &quot;left&quot;]);
+  const tooltipId = `zcode-visualization-tooltip-${
+    window.crypto?.randomUUID?.() ?? Date.now().toString(36)
+  }`;
+  const tooltipGap = 5;
+  const hoverDelay = 700;
+  const skipDelay = 300;
+  let activeTrigger = null;
+  let pendingTrigger = null;
+  let tooltip = null;
+  let openTimeout = null;
+  let autoUpdateCleanup = null;
+  let positionRequest = 0;
+  let skipDelayUntil = 0;
+  let lastPointerWasTouch = false;
+  let pinnedByTouch = false;
+
+  const getTrigger = (event) =&gt; {
+    for (const target of event.composedPath()) {
+      if (target?.nodeType === Node.ELEMENT_NODE) {
+        const trigger = target.closest(&quot;[data-tooltip]&quot;);
+        if (trigger) return trigger;
+      }
+    }
+    return null;
+  };
+  const containsTarget = (trigger, target) =&gt;
+    target?.nodeType != null &amp;&amp; trigger.contains(target);
+  const getContent = (trigger) =&gt;
+    trigger.getAttribute(&quot;data-tooltip&quot;)?.trim() ?? &quot;&quot;;
+  const getPlacement = (trigger) =&gt; {
+    const placement = trigger.getAttribute(&quot;data-tooltip-placement&quot;);
+    return tooltipPlacements.has(placement) ? placement : &quot;top&quot;;
+  };
+  const getTooltip = () =&gt; {
+    if (tooltip == null) {
+      tooltip = document.createElement(&quot;div&quot;);
+      tooltip.id = tooltipId;
+      tooltip.className = &quot;tooltip&quot;;
+      tooltip.setAttribute(&quot;role&quot;, &quot;tooltip&quot;);
+    }
+    return tooltip;
+  };
+  const setDescribedBy = (trigger, described) =&gt; {
+    const ids = new Set(
+      (trigger.getAttribute(&quot;aria-describedby&quot;) ?? &quot;&quot;)
+        .split(/\s+/)
+        .filter(Boolean),
+    );
+    if (described) {
+      ids.add(tooltipId);
+    } else {
+      ids.delete(tooltipId);
+    }
+    if (ids.size === 0) {
+      trigger.removeAttribute(&quot;aria-describedby&quot;);
+    } else {
+      trigger.setAttribute(&quot;aria-describedby&quot;, [...ids].join(&quot; &quot;));
+    }
+  };
+  const clearOpenTimeout = () =&gt; {
+    if (openTimeout != null) {
+      window.clearTimeout(openTimeout);
+      openTimeout = null;
+    }
+    pendingTrigger = null;
+  };
+  const closeTooltip = (activateSkipDelay = true) =&gt; {
+    clearOpenTimeout();
+    pinnedByTouch = false;
+    positionRequest += 1;
+    autoUpdateCleanup?.();
+    autoUpdateCleanup = null;
+    if (activeTrigger == null) {
+      return;
+    }
+    setDescribedBy(activeTrigger, false);
+    activeTrigger = null;
+    tooltip?.remove();
+    if (activateSkipDelay) {
+      skipDelayUntil = Date.now() + skipDelay;
+    }
+  };
+  const updatePosition = (trigger, floating) =&gt; {
+    const request = ++positionRequest;
+    void computePosition(trigger, floating, {
+      middleware: [
+        offset(tooltipGap),
+        flip({ padding: tooltipGap }),
+        shift({ padding: tooltipGap }),
+        size({
+          padding: tooltipGap,
+          apply({ availableHeight, availableWidth, elements }) {
+            elements.floating.style.setProperty(
+              &quot;--tooltip-available-width&quot;,
+              `${Math.max(0, availableWidth)}px`,
+            );
+            elements.floating.style.setProperty(
+              &quot;--tooltip-available-height&quot;,
+              `${Math.max(0, availableHeight)}px`,
+            );
+          },
+        }),
+      ],
+      placement: getPlacement(trigger),
+      strategy: &quot;fixed&quot;,
+    })
+      .then(({ x, y }) =&gt; {
+        if (activeTrigger !== trigger || request !== positionRequest) {
+          return;
+        }
+        const scale = window.devicePixelRatio || 1;
+        floating.style.transform = `translate(${Math.round(x * scale) / scale}px, ${Math.round(y * scale) / scale}px)`;
+        floating.style.visibility = &quot;visible&quot;;
+      })
+      .catch(() =&gt; {
+        if (activeTrigger === trigger &amp;&amp; request === positionRequest) {
+          closeTooltip(false);
+        }
+      });
+  };
+  const openTooltip = (trigger) =&gt; {
+    const content = getContent(trigger);
+    if (!trigger.isConnected || content.length === 0) {
+      return;
+    }
+    clearOpenTimeout();
+    if (activeTrigger === trigger) {
+      return;
+    }
+    closeTooltip();
+    const floating = getTooltip();
+    floating.textContent = content;
+    floating.style.visibility = &quot;hidden&quot;;
+    floating.style.transform = &quot;translate(0, 0)&quot;;
+    document.body.appendChild(floating);
+    activeTrigger = trigger;
+    setDescribedBy(trigger, true);
+    autoUpdateCleanup = autoUpdate(trigger, floating, () =&gt; {
+      updatePosition(trigger, floating);
+    });
+  };
+  const requestOpen = (trigger, immediate = false) =&gt; {
+    if (
+      getContent(trigger).length === 0 ||
+      activeTrigger === trigger ||
+      pendingTrigger === trigger
+    ) {
+      return;
+    }
+    clearOpenTimeout();
+    pendingTrigger = trigger;
+    const delay =
+      immediate || activeTrigger != null || Date.now() &lt; skipDelayUntil
+        ? 0
+        : hoverDelay;
+    if (delay === 0) {
+      openTooltip(trigger);
+      return;
+    }
+    openTimeout = window.setTimeout(() =&gt; {
+      openTimeout = null;
+      pendingTrigger = null;
+      openTooltip(trigger);
+    }, delay);
+  };
+  const handlePointerOpen = (event) =&gt; {
+    if (event.pointerType === &quot;touch&quot;) {
+      return;
+    }
+    const trigger = getTrigger(event);
+    if (trigger == null || containsTarget(trigger, event.relatedTarget)) {
+      return;
+    }
+    requestOpen(trigger);
+  };
+  const handlePointer = (event) =&gt; {
+    lastPointerWasTouch =
+      event.type === &quot;pointerdown&quot; &amp;&amp; event.pointerType === &quot;touch&quot;;
+  };
+  const handleTouchClick = (event) =&gt; {
+    const isTouch = event.pointerType === &quot;touch&quot; || lastPointerWasTouch;
+    lastPointerWasTouch = false;
+    if (!isTouch || event.detail === 0) {
+      return;
+    }
+    const trigger = getTrigger(event);
+    if (
+      trigger == null ||
+      !trigger.isConnected ||
+      getContent(trigger).length === 0 ||
+      (pinnedByTouch &amp;&amp; activeTrigger === trigger)
+    ) {
+      if (pinnedByTouch) {
+        closeTooltip();
+      }
+      return;
+    }
+    openTooltip(trigger);
+    pinnedByTouch = activeTrigger === trigger;
+    window.setTimeout(() =&gt; {
+      if (activeTrigger === trigger &amp;&amp; !trigger.isConnected) {
+        closeTooltip(false);
+      }
+    }, 0);
+  };
+  const handleLeave = (event) =&gt; {
+    if (pinnedByTouch) {
+      return;
+    }
+    const trigger = getTrigger(event);
+    if (trigger == null || containsTarget(trigger, event.relatedTarget)) {
+      return;
+    }
+    if (activeTrigger === trigger || pendingTrigger === trigger) {
+      closeTooltip();
+    }
+  };
+  const handleFocusIn = (event) =&gt; {
+    const trigger = getTrigger(event);
+    if (trigger?.matches(&quot;:focus-visible&quot;)) {
+      requestOpen(trigger, true);
+    }
+  };
+  const handleKeyDown = (event) =&gt; {
+    if (event.key === &quot;Escape&quot;) {
+      closeTooltip();
+    }
+  };
+  const handleContextMenu = (event) =&gt; {
+    lastPointerWasTouch = false;
+    const trigger = getTrigger(event);
+    if (activeTrigger === trigger || pendingTrigger === trigger) {
+      closeTooltip();
+    }
+  };
+  const handlers = {
+    pointerover: handlePointerOpen,
+    pointerdown: handlePointer,
+    pointercancel: handlePointer,
+    click: handleTouchClick,
+    pointerout: handleLeave,
+    focusin: handleFocusIn,
+    focusout: handleLeave,
+    keydown: handleKeyDown,
+    contextmenu: handleContextMenu,
+  };
+  const roots = new Map();
+  const handledEvents = new WeakSet();
+  const handleEvent = (event) =&gt; {
+    if (handledEvents.has(event)) return;
+    handledEvents.add(event);
+    handlers[event.type](event);
+  };
+  const discoverRoots = (node) =&gt; {
+    if (node.shadowRoot) listen(node.shadowRoot);
+    for (const element of node.querySelectorAll(&quot;*&quot;)) {
+      if (element.shadowRoot) listen(element.shadowRoot);
+    }
+  };
+  const listen = (root) =&gt; {
+    if (roots.has(root)) return;
+    for (const type of Object.keys(handlers)) root.addEventListener(type, handleEvent);
+    const observer = new window.MutationObserver((records) =&gt; {
+      for (const { addedNodes } of records) {
+        for (const node of addedNodes) {
+          if (node.nodeType === Node.ELEMENT_NODE) discoverRoots(node);
+        }
+      }
+      for (const [root, cleanup] of roots) {
+        if (root.host &amp;&amp; !root.host.isConnected) {
+          cleanup();
+          roots.delete(root);
+        }
+      }
+      if (activeTrigger &amp;&amp; !activeTrigger.isConnected) closeTooltip(false);
+    });
+    observer.observe(root, { childList: true, subtree: true });
+    roots.set(root, () =&gt; {
+      observer.disconnect();
+      for (const type of Object.keys(handlers)) root.removeEventListener(type, handleEvent);
+    });
+    discoverRoots(root);
+  };
+  const destroy = () =&gt; {
+    closeTooltip(false);
+    lastPointerWasTouch = false;
+    for (const cleanup of roots.values()) cleanup();
+    roots.clear();
+    tooltip = null;
+  };
+
+  // Events between children of one shadow root never reach the document.
+  listen(document);
+  window.addEventListener(&quot;pagehide&quot;, destroy, { once: true });
+})();
+&lt;/script&gt;
+&lt;script id=&quot;zcode-visualization-tabs&quot;&gt;
+(() =&gt; {
+  const selector = &#x27;.nav[role=&quot;tablist&quot;] [role=&quot;tab&quot;]&#x27;;
+  const disabled = &#x27;:disabled,[aria-disabled=&quot;true&quot;]&#x27;;
+  const selectTab = (selected) =&gt; {
+    const panelId = selected.getAttribute(&quot;aria-controls&quot;);
+    for (const tab of selected.closest(&#x27;[role=&quot;tablist&quot;]&#x27;).querySelectorAll(&#x27;[role=&quot;tab&quot;]&#x27;)) {
+      const active = tab === selected;
+      tab.classList.toggle(&quot;active&quot;, active);
+      tab.setAttribute(&quot;aria-selected&quot;, String(active));
+      const id = tab.getAttribute(&quot;aria-controls&quot;);
+      const panel = id &amp;&amp; document.getElementById(id);
+      if (panel != null) {
+        panel.hidden = id !== panelId;
+        if (!panel.hidden &amp;&amp; selected.id) {
+          panel.setAttribute(&quot;aria-labelledby&quot;, selected.id);
+        }
+      }
+    }
+  };
+  const interact = (event) =&gt; {
+    const tab = event.target?.closest?.(selector);
+    if (event.defaultPrevented || tab == null || tab.matches(disabled)) {
+      return;
+    }
+    if (event.type === &quot;click&quot;) {
+      selectTab(tab);
+      return;
+    }
+    const tabs = Array.from(
+      tab.closest(&#x27;[role=&quot;tablist&quot;]&#x27;).querySelectorAll(&#x27;[role=&quot;tab&quot;]&#x27;),
+    ).filter((candidate) =&gt; !candidate.matches(disabled));
+    const current = tabs.indexOf(tab);
+    let next;
+    if (event.key === &quot;ArrowRight&quot; || event.key === &quot;ArrowDown&quot;) {
+      next = (current + 1) % tabs.length;
+    } else if (event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowUp&quot;) {
+      next = (current + tabs.length - 1) % tabs.length;
+    } else if (event.key === &quot;Home&quot;) {
+      next = 0;
+    } else if (event.key === &quot;End&quot;) {
+      next = tabs.length - 1;
+    } else {
+      return;
+    }
+    event.preventDefault();
+    tabs[next].focus();
+    selectTab(tabs[next]);
+  };
+
+  for (const list of document.querySelectorAll(&#x27;.nav[role=&quot;tablist&quot;]&#x27;)) {
+    const selected =
+      list.querySelector(&#x27;[role=&quot;tab&quot;][aria-selected=&quot;true&quot;]&#x27;) ??
+      list.querySelector(&#x27;[role=&quot;tab&quot;].active&#x27;) ??
+      list.querySelector(&#x27;[role=&quot;tab&quot;]&#x27;);
+    if (selected != null) {
+      selectTab(selected);
+    }
+  }
+  document.addEventListener(&quot;click&quot;, interact);
+  document.addEventListener(&quot;keydown&quot;, interact);
+  window.addEventListener(&quot;pagehide&quot;, () =&gt; {
+    document.removeEventListener(&quot;click&quot;, interact);
+    document.removeEventListener(&quot;keydown&quot;, interact);
+  }, { once: true });
+})();
+&lt;/script&gt;
+&lt;script id=&quot;zcode-visualization-carousel&quot;&gt;
+  (() =&gt; {
+    for (const root of document.querySelectorAll(&quot;.viz-carousel&quot;)) {
+      const panels = Array.from(
+        root.querySelectorAll(&quot;:scope &gt; [data-variant]&quot;),
+      );
+      if (panels.length === 0) {
+        continue;
+      }
+      root.setAttribute(&quot;role&quot;, &quot;group&quot;);
+      panels.forEach((panel, index) =&gt; {
+        panel.hidden = index !== 0;
+        panel.setAttribute(&quot;role&quot;, &quot;group&quot;);
+        if (!panel.hasAttribute(&quot;aria-label&quot;)) {
+          panel.setAttribute(&quot;aria-label&quot;, panel.dataset.variant);
+        }
+      });
+      root.dataset.activeVariant = panels[0].dataset.variant;
+      if (panels.length === 1) {
+        continue;
+      }
+
+      const controls = document.createElement(&quot;div&quot;);
+      controls.className = &quot;viz-carousel-controls&quot;;
+      // Portable copy of the settings dropdown&#x27;s legacy glyph; no 14px icon-package preset matches it.
+      // https://github.com/zcode/zcode/blob/master/zcode/zcode-apps/webview/src/icons/chevron.svg
+      controls.innerHTML = `
+      &lt;button type=&quot;button&quot; class=&quot;viz-carousel-previous cursor-interaction&quot;&gt;&lt;i data-lucide=&quot;chevron-left&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+      &lt;details class=&quot;viz-carousel-picker&quot;&gt;
+        &lt;summary class=&quot;cursor-interaction&quot;&gt;
+          &lt;span class=&quot;viz-carousel-count tabular-nums&quot;&gt;&lt;/span&gt;
+          &lt;span class=&quot;viz-carousel-name&quot;&gt;&lt;/span&gt;
+          &lt;svg class=&quot;viz-carousel-caret&quot; width=&quot;14&quot; height=&quot;14&quot; viewBox=&quot;0 0 20 21&quot; fill=&quot;none&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;
+            &lt;path d=&quot;M15.2793 7.71101C15.539 7.45131 15.961 7.45131 16.2207 7.71101C16.4804 7.97071 16.4804 8.39272 16.2207 8.65242L10.4707 14.4024C10.211 14.6621 9.78902 14.6621 9.52932 14.4024L3.77932 8.65242L3.69436 8.54792C3.52385 8.28979 3.55205 7.93828 3.77932 7.71101C4.00659 7.48374 4.3581 7.45554 4.61623 7.62605L4.72073 7.71101L10 12.9903L15.2793 7.71101Z&quot; fill=&quot;currentColor&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;0.6&quot; /&gt;
+          &lt;/svg&gt;
+        &lt;/summary&gt;
+        &lt;div class=&quot;viz-carousel-options&quot;&gt;&lt;/div&gt;
+      &lt;/details&gt;
+      &lt;button type=&quot;button&quot; class=&quot;viz-carousel-next cursor-interaction&quot;&gt;&lt;i data-lucide=&quot;chevron-right&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/button&gt;`;
+      const previous = controls.querySelector(&quot;.viz-carousel-previous&quot;);
+      const next = controls.querySelector(&quot;.viz-carousel-next&quot;);
+      const picker = controls.querySelector(&quot;.viz-carousel-picker&quot;);
+      const summary = picker.querySelector(&quot;summary&quot;);
+      const count = controls.querySelector(&quot;.viz-carousel-count&quot;);
+      const name = controls.querySelector(&quot;.viz-carousel-name&quot;);
+      const options = controls.querySelector(&quot;.viz-carousel-options&quot;);
+      const status = document.createElement(&quot;span&quot;);
+      status.className = &quot;sr-only&quot;;
+      status.setAttribute(&quot;role&quot;, &quot;status&quot;);
+      status.setAttribute(&quot;aria-live&quot;, &quot;polite&quot;);
+      status.setAttribute(&quot;aria-atomic&quot;, &quot;true&quot;);
+      previous.setAttribute(
+        &quot;aria-label&quot;,
+        root.dataset.previousLabel ?? &quot;Previous variant&quot;,
+      );
+      next.setAttribute(&quot;aria-label&quot;, root.dataset.nextLabel ?? &quot;Next variant&quot;);
+
+      let active = 0;
+      const choices = panels.map((panel, index) =&gt; {
+        const choice = document.createElement(&quot;button&quot;);
+        choice.type = &quot;button&quot;;
+        choice.className = &quot;cursor-interaction&quot;;
+        choice.textContent = panel.dataset.variant;
+        choice.addEventListener(&quot;click&quot;, () =&gt; {
+          select(index);
+          summary.focus();
+        });
+        options.appendChild(choice);
+        return choice;
+      });
+      const select = (index) =&gt; {
+        const changed = active !== index;
+        active = index;
+        panels.forEach((panel, position) =&gt; {
+          panel.hidden = position !== active;
+          choices[position].setAttribute(
+            &quot;aria-current&quot;,
+            String(position === active),
+          );
+        });
+        root.dataset.activeVariant = panels[active].dataset.variant;
+        count.textContent = `${active + 1} / ${panels.length}`;
+        name.textContent = panels[active].dataset.variant;
+        picker.open = false;
+        if (changed) {
+          status.textContent = `${count.textContent}: ${name.textContent}`;
+        }
+      };
+      previous.addEventListener(&quot;click&quot;, () =&gt;
+        select((active + panels.length - 1) % panels.length),
+      );
+      next.addEventListener(&quot;click&quot;, () =&gt;
+        select((active + 1) % panels.length),
+      );
+      picker.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+        if (event.key === &quot;Escape&quot; &amp;&amp; picker.open) {
+          event.preventDefault();
+          picker.open = false;
+          summary.focus();
+        }
+      });
+      const dismiss = (event) =&gt; {
+        if (!picker.contains(event.target)) {
+          picker.open = false;
+        }
+      };
+      const sizePicker = () =&gt; {
+        root.style.setProperty(
+          &quot;--viz-carousel-picker-height&quot;,
+          `${picker.open ? options.offsetHeight : 0}px`,
+        );
+      };
+      picker.addEventListener(&quot;toggle&quot;, sizePicker);
+      window.addEventListener(&quot;resize&quot;, sizePicker);
+      document.addEventListener(&quot;pointerdown&quot;, dismiss);
+      window.addEventListener(
+        &quot;pagehide&quot;,
+        () =&gt; {
+          document.removeEventListener(&quot;pointerdown&quot;, dismiss);
+          window.removeEventListener(&quot;resize&quot;, sizePicker);
+        },
+        { once: true },
+      );
+      root.append(controls, status);
+      select(0);
+    }
+  })();
+&lt;/script&gt;
+&lt;script id=&quot;zcode-visualization-lucide&quot; async src=&quot;https://unpkg.com/lucide@1.17.0/dist/umd/lucide.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+(() =&gt; {
+  const initialize = () =&gt; {
+    globalThis.lucide?.createIcons({ attrs: { width: 16, height: 16 } });
+  };
+  if (globalThis.lucide != null) {
+    initialize();
+    return;
+  }
+  document
+    .getElementById(&quot;zcode-visualization-lucide&quot;)
+    ?.addEventListener(&quot;load&quot;, initialize, { once: true });
+})();
+&lt;/script&gt;
+&lt;/body&gt;&lt;/html&gt;"></iframe>
+<script>(() => {
+  const frame = document.getElementById("zcode-visualization");
+  if (!(frame instanceof HTMLIFrameElement)) {
+    return;
+  }
+  let viewportHeight = globalThis.innerHeight;
+  const storageKey = `zcode:visualization-widget-state-v2:${JSON.stringify([
+    globalThis.location.pathname,
+    globalThis.location.search,
+  ])}`;
+  const parseState = (serializedState) => {
+    if (
+      typeof serializedState !== "string" ||
+      new TextEncoder().encode(serializedState).length > 16 * 1024
+    ) {
+      throw new TypeError("Widget state must be a JSON object of at most 16 KiB");
+    }
+    /** @type {unknown} */
+    const state = JSON.parse(serializedState);
+    if (
+      state == null ||
+      typeof state !== "object" ||
+      Array.isArray(state) ||
+      ("imageIds" in state && (!Array.isArray(state.imageIds) || state.imageIds.length > 0))
+    ) {
+      throw new TypeError("Widget state must be a JSON object");
+    }
+    const storedState = { modelContent: null, privateContent: null, ...state };
+    const canonicalState = JSON.stringify(storedState, (_key, /** @type {unknown} */ value) => {
+      if (typeof value === "number" && !Number.isFinite(value)) {
+        throw new TypeError("Widget state must contain finite numbers");
+      }
+      return value;
+    });
+    if (new TextEncoder().encode(canonicalState).length > 16 * 1024) {
+      throw new TypeError("Widget state must be a JSON object of at most 16 KiB");
+    }
+    return storedState;
+  };
+  let storage = null;
+  let state = null;
+  try {
+    const localStorage = globalThis.localStorage;
+    const probeKey = `${storageKey}:probe`;
+    localStorage.setItem(probeKey, "1");
+    localStorage.removeItem(probeKey);
+    storage = localStorage;
+    const savedState = storage.getItem(storageKey);
+    if (savedState != null) {
+      try {
+        state = parseState(savedState);
+      } catch {
+        // Invalid saved state does not disable future writes.
+      }
+    }
+  } catch {
+    storage = null;
+  }
+  const initialGlobals = {
+    widgetState: state,
+    statePersistence: storage == null ? "none" : "local",
+  };
+
+  const channel = new MessageChannel();
+  channel.port1.addEventListener("message", (event) => {
+    const data = event.data;
+    if (typeof data !== "object" || data == null) {
+      return;
+    }
+    if (data.type === "widget-state-write") {
+      if (!Number.isSafeInteger(data.id) || data.id <= 0) {
+        return;
+      }
+      let ok = false;
+      try {
+        if (storage != null) {
+          const state = parseState(data.state);
+          storage.setItem(storageKey, JSON.stringify(state));
+          ok = true;
+        }
+      } catch {
+        // Storage denial, quota limits, and invalid state return a failed receipt.
+      }
+      channel.port1.postMessage({
+        type: "widget-state-result",
+        id: data.id,
+        ok,
+      });
+      return;
+    }
+    if (data.type === "height") {
+      const height = data.height;
+      if (
+        typeof height === "number" &&
+        Number.isFinite(height) &&
+        height >= 0 &&
+        height <= 10_000
+      ) {
+        frame.style.height = Math.ceil(height) + "px";
+      }
+      return;
+    }
+    if (data.type === "scroll-to") {
+      const top = data.top;
+      if (
+        typeof top === "number" &&
+        Number.isFinite(top) &&
+        top >= 0 &&
+        globalThis.navigator.userActivation?.isActive === true
+      ) {
+        globalThis.scrollTo({
+          top: Math.ceil(globalThis.scrollY + frame.getBoundingClientRect().top + top),
+        });
+      }
+      return;
+    }
+    if (data.type === "open-external") {
+      const rawHref = data.href;
+      if (typeof rawHref !== "string") {
+        return;
+      }
+      let href;
+      try {
+        const url = new URL(rawHref, document.baseURI);
+        if (url.protocol !== "https:") {
+          return;
+        }
+        href = url.href;
+      } catch {
+        return;
+      }
+      if (globalThis.navigator.userActivation?.isActive === true) {
+        const anchor = document.createElement("a");
+        anchor.href = href;
+        anchor.rel = "noopener noreferrer";
+        anchor.target = "_blank";
+        document.body.appendChild(anchor);
+        anchor.click();
+        anchor.remove();
+      }
+      return;
+    }
+    if (data.type === "follow-up") {
+      const prompt = data.prompt;
+      if (typeof prompt !== "string" || globalThis.navigator.userActivation?.isActive !== true) {
+        return;
+      }
+      const title = data.title;
+      globalThis.prompt(typeof title === "string" ? title : prompt, prompt);
+    }
+  });
+  channel.port1.start();
+  const srcdoc = frame.dataset.srcdoc;
+  if (srcdoc == null) {
+    return;
+  }
+  globalThis.addEventListener("resize", () => {
+    const height = Number.parseFloat(frame.style.height);
+    if (!Number.isFinite(height) || height <= viewportHeight) {
+      frame.style.removeProperty("height");
+    }
+    viewportHeight = globalThis.innerHeight;
+    channel.port1.postMessage({ type: "measure" });
+  });
+  frame.addEventListener(
+    "load",
+    () => {
+      frame.contentWindow?.postMessage({ type: "zcode-visualization-initialize" }, "*", [
+        channel.port2,
+      ]);
+    },
+    { once: true },
+  );
+  // Match the trusted bootstrap element, not the same text in an authored title.
+  frame.srcdoc = srcdoc.replace(
+    '<script type="application/json" id="zcode-visualization-widget-state">__ZCODE_VISUALIZATION_WIDGET_STATE__<\/script>',
+    () =>
+      '<script type="application/json" id="zcode-visualization-widget-state">' +
+      JSON.stringify(initialGlobals).replaceAll("<", "\\u003c") +
+      "<\/script>",
+  );
+  delete frame.dataset.srcdoc;
+})();
+</script>
+</body></html>
