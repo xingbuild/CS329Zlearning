@@ -29,6 +29,8 @@ import Lab01Gates from './components/Lab01Gates.vue'
 import Lab01MaskLab from './components/Lab01MaskLab.vue'
 import Lab01Protocol from './components/Lab01Protocol.vue'
 import Lab01Loop from './components/Lab01Loop.vue'
+import CodingLoopLab from './components/CodingLoopLab.vue'
+import PassKSim from './components/PassKSim.vue'
 import './custom.css'
 
 export default {
@@ -63,5 +65,7 @@ export default {
     app.component('Lab01MaskLab', Lab01MaskLab)
     app.component('Lab01Protocol', Lab01Protocol)
     app.component('Lab01Loop', Lab01Loop)
+    app.component('CodingLoopLab', CodingLoopLab)
+    app.component('PassKSim', PassKSim)
   },
 } satisfies Theme
