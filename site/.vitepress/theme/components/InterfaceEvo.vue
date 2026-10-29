@@ -74,8 +74,10 @@ function switchGen(g: Gen) {
       <span class="meta">第 {{ idx + 1 }} / {{ cur.steps.length }} 步</span>
     </div>
     <div class="stage">
-      <div class="step-title">{{ step.title }}</div>
-      <pre class="step-body" :class="step.kind">{{ step.body }}</pre>
+      <div v-for="(s2, i) in cur.steps.slice(0, idx + 1)" :key="i" class="steprow" :class="{ cur: i === idx }">
+        <div class="step-title">{{ s2.title }}</div>
+        <pre class="step-body" :class="s2.kind">{{ s2.body }}</pre>
+      </div>
     </div>
     <div class="hint"><span class="k">这一代的本质 · </span>{{ cur.verdict }}</div>
   </div>
@@ -91,4 +93,6 @@ function switchGen(g: Gen) {
 .step-body { margin: 0; white-space: pre-wrap; font-size: 13px; line-height: 1.65; font-family: var(--vp-font-family-mono, monospace); color: var(--vp-c-text-2); }
 .step-body.req { color: var(--vp-c-brand-1); }
 .step-body.res { color: #16a34a; }
+.steprow { opacity: .55; padding: 6px 0; }
+.steprow.cur { opacity: 1; }
 </style>

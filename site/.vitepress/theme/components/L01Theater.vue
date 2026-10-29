@@ -74,6 +74,7 @@ const frames = computed(() => MODES[mode.value].frames)
 const cur = computed(() => frames.value[idx.value])
 const envCount = computed(() => frames.value.slice(0, idx.value + 1).filter((f) => f.k === 'obs').length)
 const visible = computed(() => frames.value.slice(0, idx.value + 1))
+const round = computed(() => visible.value.filter((f) => f.k === 'thought').length)
 
 function stopPlay() {
   if (timer) clearInterval(timer)
@@ -127,6 +128,13 @@ onUnmounted(stopPlay)
     <div class="row wrap">
       <span v-for="ch in CHIPS" :key="ch.id" class="chip" :class="{ on: cur.c.includes(ch.id) }">{{ ch.label }}</span>
     </div>
+    <div class="row wrap cyc">
+      <span class="cyl">循环相位：</span>
+      <span class="cy" :class="{ on: cur.k === 'thought' }">思考</span><span class="ca">→</span>
+      <span class="cy" :class="{ on: cur.k === 'act' }">行动</span><span class="ca">→</span>
+      <span class="cy" :class="{ on: cur.k === 'obs' }">观察</span><span class="ca">↺</span>
+      <span class="meta">当前轮次 {{ round }} —— 循环是结构，轨迹只是它的展开</span>
+    </div>
     <div class="hint"><span class="k">现在看什么 · </span>{{ cur.h }}</div>
     <div class="trace">
       <div v-for="(f, i) in visible" :key="mode + i" class="trow" :class="[('k-' + f.k), { cur: i === idx, verdict: f.k === 'verdict', ok: f.k === 'verdict' && f.t.startsWith('✅'), bad: f.k === 'verdict' && !f.t.startsWith('✅') }]">
@@ -156,4 +164,8 @@ onUnmounted(stopPlay)
 .verdict .text { font-weight: 600; }
 .verdict.ok .text { color: #16a34a; }
 .verdict.bad .text { color: #dc2626; }
+.cyc .cy { font-size: 12.5px; padding: 2px 11px; border-radius: 999px; background: var(--vp-c-default-soft); color: var(--vp-c-text-2); }
+.cyc .cy.on { background: var(--vp-c-brand-soft); color: var(--vp-c-brand-1); font-weight: 700; }
+.cyc .ca { color: var(--vp-c-text-3); font-size: 12px; }
+.cyc .cyl { font-size: 12.5px; color: var(--vp-c-text-3); }
 </style>

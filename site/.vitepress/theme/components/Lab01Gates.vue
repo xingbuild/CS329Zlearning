@@ -46,10 +46,14 @@ function sw(m: Mode) { mode.value = m; idx.value = 0 }
       <button type="button" class="wbtn primary" :disabled="idx === frames.length - 1" @click="idx++">下一步 ▶</button>
       <span class="meta">{{ idx + 1 }} / {{ frames.length }}</span>
     </div>
-    <div v-if="isFeed" class="feedmark">↺ 报错回喂：控制流回到第 1 次生成——不是下一帧，是回路</div>
-    <div class="stage" :class="cur.tone">
-      <div class="st">{{ cur.t }}</div>
-      <div class="sb">{{ cur.body }}</div>
+    <div class="stagelist">
+      <template v-for="(f, i) in frames.slice(0, idx + 1)" :key="i">
+        <div v-if="f.t.includes('回喂')" class="feedmark">↺ 报错回喂：控制流回到第 1 次生成——不是下一帧，是回路</div>
+        <div class="stage" :class="[f.tone, { cur: i === idx }]">
+          <div class="st">{{ f.t }}</div>
+          <div class="sb">{{ f.body }}</div>
+        </div>
+      </template>
     </div>
   </div>
 </template>
@@ -67,4 +71,7 @@ function sw(m: Mode) { mode.value = m; idx.value = 0 }
 .stage.dim { background: var(--vp-c-default-soft); }
 .st { font-weight: 650; font-size: 15px; margin-bottom: 6px; }
 .sb { font-size: 14.5px; line-height: 1.7; }
+.stagelist { display: flex; flex-direction: column; gap: 8px; }
+.stagelist .stage { opacity: .55; }
+.stagelist .stage.cur { opacity: 1; border-color: var(--vp-c-brand-1); }
 </style>
