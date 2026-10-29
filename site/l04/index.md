@@ -153,4 +153,14 @@ pass@k（抽 k 次至少一次成功）是研究口径的乐观指标；pass^k�
 - Yao et al., *τ-bench: Tool-Agent-User Interaction*（arXiv:2406.12045）· [BFCL 排行榜](https://gorilla.cs.berkeley.edu/leaderboard.html) · [MCP 文档](https://modelcontextprotocol.io)
 - 动手：**[Lab 01 · Structured I/O 实验室](/labs/)**——本讲全部主线的亲手版
 
+### 外部资源 · 交互与视频
+
+**[→ 精选外部资源与视频页](/l04/resources/)**：14 条逐链验证可达的文档、课程与榜单（Anthropic 工具设计哲学、Outlines/Instructor、FastMCP、BFCL 在线演示、τ-bench Pass^1–4、工具投毒实测……），按本讲五幕对位。
+
+先带走三个动手任务（详见资源页顶部）：
+
+1. [BFCL 在线演示](https://gorilla.cs.berkeley.edu/leaderboard.html)里输入 `What is 2*3?` 只给 `add`——**亲手考相关性检测**（思考题 4）；
+2. 对照 [OpenAI Structured Outputs 指南](https://developers.openai.com/api/docs/guides/structured-outputs)与 [Lab 01 第 3 站](/l04/lab/)——**"保证"从哪来**；
+3. 看 [Invariant 工具投毒](https://invariantlabs.ai/blog/mcp-security-notification-tool-poisoning-attacks.html)——**两道闸为什么挡不住语义注入**。
+
 <LessonDone id="l04" />

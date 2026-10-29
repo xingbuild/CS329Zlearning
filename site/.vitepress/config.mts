@@ -72,6 +72,7 @@ export default defineConfig({
           { text: '课文', link: '/l04/' },
           { text: '交互实验室 · Lab 01', link: '/l04/lab/' },
           { text: 'Coding 闭环 · Lab 03', link: '/l04/lab2/' },
+          { text: '外部资源与视频', link: '/l04/resources/' },
         ],
       },
       {
