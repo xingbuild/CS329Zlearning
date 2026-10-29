@@ -31,6 +31,7 @@ const mode = ref<Mode>('both')
 const idx = ref(0)
 const frames = computed(() => FRAMES[mode.value])
 const cur = computed(() => frames.value[idx.value])
+const isFeed = computed(() => cur.value.t.includes('回喂'))
 function sw(m: Mode) { mode.value = m; idx.value = 0 }
 </script>
 
@@ -45,6 +46,7 @@ function sw(m: Mode) { mode.value = m; idx.value = 0 }
       <button type="button" class="wbtn primary" :disabled="idx === frames.length - 1" @click="idx++">下一步 ▶</button>
       <span class="meta">{{ idx + 1 }} / {{ frames.length }}</span>
     </div>
+    <div v-if="isFeed" class="feedmark">↺ 报错回喂：控制流回到第 1 次生成——不是下一帧，是回路</div>
     <div class="stage" :class="cur.tone">
       <div class="st">{{ cur.t }}</div>
       <div class="sb">{{ cur.body }}</div>
@@ -57,6 +59,7 @@ function sw(m: Mode) { mode.value = m; idx.value = 0 }
 .row { display: flex; align-items: center; gap: 8px; }
 .row.wrap { flex-wrap: wrap; }
 .meta { color: var(--vp-c-text-3); font-size: 12.5px; }
+.feedmark { font-size: 13px; color: var(--vp-c-brand-1); font-weight: 650; }
 .stage { border-radius: 10px; padding: 14px 18px; border: 1px solid var(--vp-c-divider); }
 .stage.bad { background: rgba(220,38,38,.08); }
 .stage.warn { background: rgba(217,119,6,.09); }
