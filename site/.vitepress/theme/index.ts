@@ -24,6 +24,11 @@ import TransformerFlow from './components/TransformerFlow.vue'
 import RagPipeline from './components/RagPipeline.vue'
 import ToolCallAnatomy from './components/ToolCallAnatomy.vue'
 import RagLab from './components/RagLab.vue'
+import Lab01FailZoo from './components/Lab01FailZoo.vue'
+import Lab01Gates from './components/Lab01Gates.vue'
+import Lab01MaskLab from './components/Lab01MaskLab.vue'
+import Lab01Protocol from './components/Lab01Protocol.vue'
+import Lab01Loop from './components/Lab01Loop.vue'
 import './custom.css'
 
 export default {
@@ -53,5 +58,10 @@ export default {
     app.component('RagPipeline', RagPipeline)
     app.component('ToolCallAnatomy', ToolCallAnatomy)
     app.component('RagLab', RagLab)
+    app.component('Lab01FailZoo', Lab01FailZoo)
+    app.component('Lab01Gates', Lab01Gates)
+    app.component('Lab01MaskLab', Lab01MaskLab)
+    app.component('Lab01Protocol', Lab01Protocol)
+    app.component('Lab01Loop', Lab01Loop)
   },
 } satisfies Theme

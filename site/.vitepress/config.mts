@@ -70,7 +70,7 @@ export default defineConfig({
         text: 'L04 · 工具使用：从会说到会做',
         items: [
           { text: '课文', link: '/l04/' },
-          { text: '配套实验 · Lab 01', link: '/labs/' },
+          { text: '交互实验室 · Lab 01', link: '/l04/lab/' },
         ],
       },
       {

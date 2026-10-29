@@ -164,7 +164,7 @@ Agent 专属训练：如 SWE-Smith 造软件工程数据（p.117–118）
 - *Large Language Monkeys: Scaling Inference Compute with Repeated Sampling*（arXiv:2407.21787）
 - Wang et al., *Self-Consistency Improves CoT Reasoning*（arXiv:2203.11171）
 - Anthropic：[Effective Context Engineering for AI Agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)
-- 动手：[Lab 01 · Structured I/O 实验室](/labs/)——把本讲的"约束解码"亲手写一遍
+- 动手：**[Lab 01 · Structured I/O 实验室](/l04/lab/)**——第 3 站掩码解码就是本讲"约束解码"的硬核版
 
 ### 外部资源 · 交互与视频
 

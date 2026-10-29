@@ -91,6 +91,6 @@ L05 教你看穿框架；这一讲给你框架之下真正的复用资产——*
 - Shinn et al., *Reflexion*（arXiv:2303.11366）· Huang et al., *LLMs Cannot Self-Correct Reasoning Yet*（arXiv:2310.01798）
 - Wang et al., *CodeAct*（arXiv:2402.01030）· Xu et al., *ReWOO*（arXiv:2305.18323）· Kim et al., *LLMCompiler*（arXiv:2312.04511）
 - Anthropic：[Effective Context Engineering](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) · LangChain：[Context Engineering for Agents](https://www.langchain.com/blog/context-engineering-for-agents)
-- [Pi 文档](https://pi.dev/docs/latest) · 动手：[Lab 01 第 6 步](/labs/)——手写最小 ReAct
+- [Pi 文档](https://pi.dev/docs/latest) · 动手：[Lab 01 · 第 5 站闭环剧场](/l04/lab/)——手写最小 ReAct 的产品化版
 
 <LessonDone id="l06" />

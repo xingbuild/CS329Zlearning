@@ -118,6 +118,7 @@ engineeringaiagents/
 
 ## 7. 当前状态（每讲/每次迭代后更新）
 
+- 2026-10-29（二）：**实验室归属架构修正 + Lab 01 站内化完成**（用户定调："实验=课程的学习方式，非独立产品；服务化=内聚手段非拆分理由"）：Lab 01 六章节迁移为 `site/l04/lab/` 站内页（失败动物园/两道闸剧场/掩码解码实验室/协议解剖/闭环剧场五个 Vue 组件，主挂 L04、L02/L06 交叉链接）；`/labs/` 重写为课程实验总览（定性"讲次子模块"，零新标签跳出）；侧栏 L04 组挂载。交互级验证全绿。独立 HTML 降为离线备用（`labs/`，非产品入口）。
 - 2026-10-29：**公开发布上线** 🎉 `https://xingbuild.github.io/CS329Zlearning/`——GitHub 仓库 xingbuild/CS329Zlearning（public）+ Actions 自动部署 Pages + `pub` 发布命令实战首跑（v0.5.1）。**关键排障记录**：①gh 被假象挡住——`~/.local/bin/gh` 是写死 7897 的包装脚本（已改为动态读系统代理端口）；②**用户 GitHub 账号已由 Chizheng4 改名 xingbuild**（旧名 404、token 实际身份 xingbuild、旧 noreply 邮箱仍归属），钥匙串旧条目经 `gh auth logout` + 重新设备流登录修正，token 补齐 workflow scope；③ReAct 精读页已切**线上摘录模式**（六段关键摘录 + 表 1/2 + 思考题；全文版 `full.md` 本地保留、gitignore 不入库），git 历史重写为单一干净初始提交（092934d），全文与 PDF 均不在公开历史中。线上验证：首页/深层页 200、摘录模式生效、页脚版本号显示。
 - 2026-10-28（三）：**发布体系建成**（§8.2）：CHANGELOG.md（回填 v0.1.0–v0.5.0 五个里程碑）+ VERSION（0.5.0，页脚自动显示）+ `pub` 发布命令（publish.sh + zshrc 别名）+ GitHub Actions 自动部署（deploy.yml，CI 侧 BASE=/CS329Zlearning/，本地 base 不变——双 base 构建已分别验证）。协作约定新增：迭代后必本地提交。
 - 2026-10-28（二）：**git 化完成**——`main @ 0a5cbc2` 初始提交（67 文件，v2 全量存档），工作树干净；仓库局部身份 `Chizheng4 <10253303+Chizheng4@users.noreply.github.com>`（沿用既有仓库身份，未动全局）。`.gitignore` 红线：**lecture PDF 不入库**、node_modules/dist/cache/`__pycache__` 不入库。
