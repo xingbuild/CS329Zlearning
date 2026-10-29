@@ -146,5 +146,5 @@ engineeringaiagents/
 - **每次迭代后必须本地提交**，保持工作树干净（"每完成一讲或一次迭代更新当前状态"的孪生规则）。
 - 版本记录：仓库根 `VERSION`（语义化 0.x.y）+ `CHANGELOG.md`（每次发布一条：版本号 · 日期 · 说明）；站点页脚自动显示版本号。
 - **发布 = `pub`**（别名 → 仓库根 `publish.sh`）：收编未提交变更 → 升版本 → 写 CHANGELOG → commit → push；**GitHub Actions（`.github/workflows/deploy.yml`）随后自动构建并部署 Pages**（CI 里 `BASE=/CS329Zlearning/`，本地 base 仍为 `/`）。
-- 远程仓库名：**CS329Zlearning**；Pages 地址：`https://chizheng4.github.io/CS329Zlearning/`。
+- 远程仓库名：**CS329Zlearning**（账号 **xingbuild**，由 Chizheng4 改名而来——2026-10-28 确证）；Pages 地址：`https://xingbuild.github.io/CS329Zlearning/`。
 - 讲义 PDF 永不入库（.gitignore）；精读页公开部署的红线处理见 §4.1（摘录开关）。

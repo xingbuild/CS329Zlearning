@@ -19,7 +19,7 @@ fi
 NOTE="$*"
 [ -z "$NOTE" ] && NOTE="例行发布"
 DATE=$(date +%F)
-SITE_URL="https://chizheng4.github.io/CS329Zlearning/"
+SITE_URL="https://xingbuild.github.io/CS329Zlearning/"
 
 # ---- 前置检查 ----
 if ! git remote get-url origin >/dev/null 2>&1; then
