@@ -16,10 +16,16 @@ export default defineConfig({
   title: 'Engineering AI Agents',
   description:
     '把「会用 AI」变成「会工程化 AI」——以斯坦福 CS329Z 讲义为底本的交互式课程',
-  head: [['meta', { name: 'viewport', content: 'width=device-width, initial-scale=1' }]],
+  head: [
+    ['meta', { name: 'viewport', content: 'width=device-width, initial-scale=1' }],
+    ['meta', { property: 'og:site_name', content: 'AI Engineering Learning' }],
+    ['meta', { property: 'og:title', content: 'Engineering AI Agents · 交互式课程' }],
+    ['meta', { property: 'og:description', content: 'AI Engineering Learning 系列第一门课：以斯坦福 CS329Z 讲义为底本的中文交互式课程——概率大脑 × 确定性边界。' }],
+  ],
   markdown: { math: true },
 
   themeConfig: {
+    siteTitle: 'AI Engineering Learning',
     nav: [
       { text: '课程地图', link: '/' },
       { text: '技术谱系', link: '/lineage/' },
@@ -126,7 +132,7 @@ export default defineConfig({
     footer: {
       message:
         `本课程是斯坦福 CS329Z 讲义的学习笔记式原创演绎，讲义版权归原作者；文本与交互组件为原创。v${ver}`,
-      copyright: 'Learning in public · 持续迭代中',
+      copyright: 'AI Engineering Learning 系列 · Learning in public · 持续迭代中',
     },
   },
 })

@@ -125,6 +125,9 @@ engineeringaiagents/
 
 ## 7. 当前状态（每讲/每次迭代后更新）
 
+- 2026-10-30（七）：**品牌落地 + ROADMAP 100% 清零**（v0.5.26）——用户拍板：系列品牌 **AI Engineering Learning**（本课程系列名），当前课名保持 Engineering AI Agents。品牌挂三处：导航栏 siteTitle、页脚版权行、og:site_name 分享卡。至此 R1–R6 全部完成，产品进入"学习反馈驱动"阶段。
+
+
 - 2026-10-30（六）：**自主推进批次完成——ROADMAP 全部工单清零（v0.5.17–v0.5.25，仅品牌命名挂起）**。本批交付：① R3 资源页 L05–L08 四讲 + L01（全站资源页八讲集齐，检索 session handoff 材料工程化 + L01 自检索）；② R3+R4 四个新实验室——**Lab 04 选型工作台**（六卡定档/Optimizer 蒙特卡洛/事件溯源重放）、**Lab 05 模式组装台**（七积木三场景/自评 vs 外反馈对照）、**Lab 06 记忆系统模拟器**（三因子检索拨权重/FIFO 淘汰与写入对照）、**Lab 07 MAS 成本账本**（四拓扑 DAG 成本/交接丢失超几何）——全部真计算 + IAB 实测 + 390px 无溢出，D2/D6 关闭；③ R6-1 精读双态构建（scripts/build.sh 默认摘录安全侧、FULL=1 全文、eaia 切全文）；④ R5 四篇精读（CoT/Toolformer/MemGPT/MAST，短引+直译+要点式，五篇精读覆盖五讲，进度聚合 20 单元）；⑤ R6 收官（uptime.yml 每日监控/五张结构图 390px 横滑/hero CTA 三态联动）。**修复遗留 bug 一个**：L07/L08 课文 LessonPack 此前 python replace 静默 miss（Lab 06/07 未进学习包卡）——已修并确立"脚本 patch 必查 MISS"纪律。坑+1：IAB 点击对首屏外元素会 actionability 超时，测交互先 scrollIntoView 或用结构选择器；后台标签页 setTimeout 被节流，动画类测试要轮询而非固定等待。
 
 
