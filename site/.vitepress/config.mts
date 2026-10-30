@@ -22,6 +22,7 @@ export default defineConfig({
   themeConfig: {
     nav: [
       { text: '课程地图', link: '/' },
+      { text: '技术谱系', link: '/lineage/' },
       { text: 'L01 · 全景', link: '/l01/' },
       { text: '实验室', link: '/labs/' },
     ],

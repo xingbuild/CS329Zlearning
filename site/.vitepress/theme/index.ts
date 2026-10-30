@@ -31,6 +31,9 @@ import Lab01Protocol from './components/Lab01Protocol.vue'
 import Lab01Loop from './components/Lab01Loop.vue'
 import CodingLoopLab from './components/CodingLoopLab.vue'
 import PassKSim from './components/PassKSim.vue'
+import EvoChain from './components/EvoChain.vue'
+import TermCard from './components/TermCard.vue'
+import LineageMap from './components/LineageMap.vue'
 import './custom.css'
 
 export default {
@@ -67,5 +70,8 @@ export default {
     app.component('Lab01Loop', Lab01Loop)
     app.component('CodingLoopLab', CodingLoopLab)
     app.component('PassKSim', PassKSim)
+    app.component('EvoChain', EvoChain)
+    app.component('TermCard', TermCard)
+    app.component('LineageMap', LineageMap)
   },
 } satisfies Theme
