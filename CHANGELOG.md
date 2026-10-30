@@ -16,6 +16,9 @@
 
 
 
+
+## v0.5.15 · 2026-10-30 · R2 继续：L07 MemGPT/G-Memory 深度
+
 ## v0.5.14 · 2026-10-30 · R2 继续：L03 RAPTOR/GraphRAG/LateChunking 深度
 
 ## v0.5.13 · 2026-10-30 · R2 继续：L06 CodeAct/ReWOO/LLMCompiler 深度
