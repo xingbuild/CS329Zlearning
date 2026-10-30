@@ -14,6 +14,9 @@
 
 
 
+
+## v0.5.13 · 2026-10-30 · R2 继续：L06 CodeAct/ReWOO/LLMCompiler 深度
+
 ## v0.5.12 · 2026-10-30 · R2 继续：L02 RLVR/midtraining 深度
 
 ## v0.5.11 · 2026-10-30 · R2 开始：L05 深度升级（DSPy/Temporal/Harness 从知道到能造）
