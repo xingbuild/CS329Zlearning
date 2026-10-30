@@ -18,7 +18,8 @@ if [ ! -d node_modules ]; then
 fi
 
 echo "构建最新内容…"
-npm run build >/dev/null 2>&1 || { echo "✗ 构建失败：cd site && npm run build 查看错误"; exit 1; }
+# 本地全文模式（有 full.md 的精读页构建全文版；无则同普通构建）——公网部署仍走 CI 的摘录模式
+npm run build:full >/dev/null 2>&1 || { echo "✗ 构建失败：cd site && npm run build 查看错误"; exit 1; }
 
 echo ""
 echo "✓ 课程站运行中：$URL （Ctrl+C 停止）"

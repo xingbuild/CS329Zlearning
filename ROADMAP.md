@@ -25,7 +25,7 @@
 | 3 | R3+R4 · L07 实验室 | `site/l07/lab/`：三因子记忆检索实验（拨权重看排序 + 写入/淘汰） | 🔲 |
 | 4 | R3+R4 · L08 实验室 | `site/l08/lab/`：协调成本计算器（DAG 真执行）+ 交接丢失实验 | ✅ 2026-10-30 |
 | 5 | R3 · L01 资源页 | `site/l01/resources/`：8 条框架文/一手出处（自检索验证） | ✅ 2026-10-30 |
-| 6 | R6-1 · 精读摘录开关 | `BUILD_MODE=public` 构建切换，ReAct 页改造为同源双态验证 | 🔲 |
+| 6 | R6-1 · 精读摘录开关 | `site/scripts/build.sh`：默认摘录 / `FULL=1` 全文，eaia 切全文 | ✅ 2026-10-30 |
 | 7 | R5 · L02 精读 | Chain-of-Thought（Wei 2022） | 🔲 |
 | 8 | R5 · L04 精读 | Toolformer（Schick 2023） | 🔲 |
 | 9 | R5 · L07 精读 | MemGPT（Packer 2024） | 🔲 |
@@ -101,7 +101,7 @@
 
 ## R6 · 长线优化
 
-- [ ] 精读页公开部署摘录开关的构建实现（`BUILD_MODE=public` 环境变量切换）
+- [x] 精读摘录开关 ✓ 2026-10-30（scripts/build.sh：默认摘录=安全侧、FULL=1 全文临时替换构建后还原；eaia → build:full；实测摘录 47.5KB / 全文 111KB、git 零残留）
 - [ ] 部署监控（UptimeRobot 或 GitHub Actions 周期检查 Pages 200）
 - [ ] 课程品牌命名（当前用课程名，用户可自定义）
 - [ ] 移动端细节打磨（长 SVG 横向滚动体验）

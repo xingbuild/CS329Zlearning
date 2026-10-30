@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "vitepress dev",
-    "build": "vitepress build",
+    "build": "bash scripts/build.sh",
+    "build:full": "FULL=1 bash scripts/build.sh",
     "preview": "vitepress preview"
   },
   "devDependencies": {
