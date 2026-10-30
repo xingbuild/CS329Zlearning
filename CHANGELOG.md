@@ -27,6 +27,9 @@
 
 
 
+
+## v0.5.26 · 2026-10-30 · 品牌落地：AI Engineering Learning 系列 × Engineering AI Agents 课程——ROADMAP 100% 完成
+
 ## v0.5.25 · 2026-10-30 · R6 收官：监控/移动端/hero 联动——ROADMAP 全清（品牌命名待用户）
 
 ## v0.5.24 · 2026-10-30 · R5 精读四篇齐备：CoT/Toolformer/MemGPT/MAST，五篇精读覆盖五个讲次
