@@ -23,7 +23,7 @@
 | 1 | R3+R4 · L05 实验室 | `site/l05/lab/`：光谱定档决策器 + Optimizer 浏览器复刻（真计算）+ 持久执行重放机 | ✅ 2026-10-30 |
 | 2 | R3+R4 · L06 实验室 | `site/l06/lab/`：模式组装器（七积木三场景）+ 反思对照实验 | ✅ 2026-10-30 |
 | 3 | R3+R4 · L07 实验室 | `site/l07/lab/`：三因子记忆检索实验（拨权重看排序 + 写入/淘汰） | 🔲 |
-| 4 | R3+R4 · L08 实验室 | `site/l08/lab/`：拓扑切换器 + 协调成本账单 | 🔲 |
+| 4 | R3+R4 · L08 实验室 | `site/l08/lab/`：协调成本计算器（DAG 真执行）+ 交接丢失实验 | ✅ 2026-10-30 |
 | 5 | R3 · L01 资源页 | `site/l01/resources/`（主 session 自检索 + 逐链验证） | 🔲 |
 | 6 | R6-1 · 精读摘录开关 | `BUILD_MODE=public` 构建切换，ReAct 页改造为同源双态验证 | 🔲 |
 | 7 | R5 · L02 精读 | Chain-of-Thought（Wei 2022） | 🔲 |
@@ -78,7 +78,7 @@
 - [x] L05 实验室设计 ✓ 2026-10-30（Lab 04 · Agent 选型工作台：六卡定档决策台 / Optimizer 评估回路蒙特卡洛真算 + Bootstrap 注入 / Temporal 事件溯源崩溃恢复重放，IAB 实测三站全绿）
 - [x] L06 实验室设计 ✓ 2026-10-30（Lab 05 · 模式组装台：七积木拼三场景逐槽判定 + 自评 vs 外反馈蒙特卡洛对照）
 - [x] L07 实验室设计 ✓ 2026-10-30（Lab 06 · 记忆系统模拟器：三因子检索真算 + RAM FIFO 淘汰 × core_memory_write 对照）
-- [ ] L08 实验室设计（候选：拓扑切换器——同一任务换四种拓扑看成本/质量差异）
+- [x] L08 实验室设计 ✓ 2026-10-30（Lab 07 · MAS 成本账本：四拓扑 DAG 真执行成本对比 + Handoff/挑上下文超几何实验，判据翻转实测）
 - [ ] L01 资源页（补齐，当前缺；L01 现为课文内链形式）
 
 ## R4 · D6 L05–L08 交互密度补齐（随 R3 同步）
@@ -88,7 +88,7 @@
 - [x] L05 交互密度 ✓ 2026-10-30（Lab 04 三组件：TaskSizingDesk / MiniOptimizer / DurableReplay）
 - [x] L06 交互密度 ✓ 2026-10-30（PatternAssembler / ReflectionLab）
 - [x] L07 交互密度 ✓ 2026-10-30（MemoryRetrievalLab / MemoryLossTheater）
-- [ ] L08：候选 = 协调成本计算器（并行度×通信量×冲突率的动态账单）
+- [x] L08 交互密度 ✓ 2026-10-30（MasCostCalc / HandoffLossLab）
 
 ## R5 · 精读扩充
 

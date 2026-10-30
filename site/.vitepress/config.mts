@@ -108,6 +108,7 @@ export default defineConfig({
         text: 'L08 · 多智能体系统',
         items: [{ text: '课文', link: '/l08/' },
           { text: '术语与复刻', link: '/l08/guide/' },
+          { text: 'MAS 实验室 · Lab 07', link: '/l08/lab/' },
           { text: '外部资源与视频', link: '/l08/resources/' }],
       },
       // 未上线的讲次不进侧栏；上线时在此追加（AGENTS.md §6 流程）

@@ -42,6 +42,8 @@ import PatternAssembler from './components/PatternAssembler.vue'
 import ReflectionLab from './components/ReflectionLab.vue'
 import MemoryRetrievalLab from './components/MemoryRetrievalLab.vue'
 import MemoryLossTheater from './components/MemoryLossTheater.vue'
+import MasCostCalc from './components/MasCostCalc.vue'
+import HandoffLossLab from './components/HandoffLossLab.vue'
 import './custom.css'
 
 export default {
@@ -89,5 +91,7 @@ export default {
     app.component('ReflectionLab', ReflectionLab)
     app.component('MemoryRetrievalLab', MemoryRetrievalLab)
     app.component('MemoryLossTheater', MemoryLossTheater)
+    app.component('MasCostCalc', MasCostCalc)
+    app.component('HandoffLossLab', HandoffLossLab)
   },
 } satisfies Theme

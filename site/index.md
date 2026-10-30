@@ -48,7 +48,7 @@ features:
     link: /l08/
 ---
 
-<HomeProgress :ids="['l01', 'l02', 'l03', 'l04', 'l05', 'l06', 'l07', 'l08', 'l01-r-react', 'l03-lab02', 'l04-lab01', 'l04-lab03', 'l05-lab04', 'l06-lab05', 'l07-lab06']" />
+<HomeProgress :ids="['l01', 'l02', 'l03', 'l04', 'l05', 'l06', 'l07', 'l08', 'l01-r-react', 'l03-lab02', 'l04-lab01', 'l04-lab03', 'l05-lab04', 'l06-lab05', 'l07-lab06', 'l08-lab07']" />
 
 ## 一张图看懂这门课
 
