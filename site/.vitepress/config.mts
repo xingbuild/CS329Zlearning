@@ -49,6 +49,7 @@ export default defineConfig({
         text: 'L01 · Agent 是什么：一个循环的五十年',
         items: [
           { text: '课文', link: '/l01/' },
+          { text: '术语与复刻', link: '/l01/guide/' },
           { text: '论文精读 · ReAct', link: '/l01/readings/react/' },
         ],
       },
@@ -56,6 +57,7 @@ export default defineConfig({
         text: 'L02 · LLM 作为建筑材料',
         items: [
           { text: '课文', link: '/l02/' },
+          { text: '术语与复刻', link: '/l02/guide/' },
           { text: '外部资源与视频', link: '/l02/resources/' },
         ],
       },
@@ -63,6 +65,7 @@ export default defineConfig({
         text: 'L03 · RAG：外挂知识器官',
         items: [
           { text: '课文', link: '/l03/' },
+          { text: '术语与复刻', link: '/l03/guide/' },
           { text: '交互实验室 · Lab 02', link: '/l03/lab/' },
           { text: '外部资源与视频', link: '/l03/resources/' },
         ],
@@ -71,6 +74,7 @@ export default defineConfig({
         text: 'L04 · 工具使用：从会说到会做',
         items: [
           { text: '课文', link: '/l04/' },
+          { text: '术语与复刻', link: '/l04/guide/' },
           { text: '交互实验室 · Lab 01', link: '/l04/lab/' },
           { text: 'Coding 闭环 · Lab 03', link: '/l04/lab2/' },
           { text: '外部资源与视频', link: '/l04/resources/' },
@@ -78,22 +82,26 @@ export default defineConfig({
       },
       {
         text: 'L05 · 框架与编排：看穿打包术',
-        items: [{ text: '课文', link: '/l05/' }],
+        items: [{ text: '课文', link: '/l05/' },
+          { text: '术语与复刻', link: '/l05/guide/' }],
       },
       {
         text: 'L06 · 设计模式与脚手架',
         items: [
           { text: '课文', link: '/l06/' },
+          { text: '术语与复刻', link: '/l06/guide/' },
           { text: '配套实验 · Lab 01', link: '/labs/' },
         ],
       },
       {
         text: 'L07 · 记忆架构',
-        items: [{ text: '课文', link: '/l07/' }],
+        items: [{ text: '课文', link: '/l07/' },
+          { text: '术语与复刻', link: '/l07/guide/' }],
       },
       {
         text: 'L08 · 多智能体系统',
-        items: [{ text: '课文', link: '/l08/' }],
+        items: [{ text: '课文', link: '/l08/' },
+          { text: '术语与复刻', link: '/l08/guide/' }],
       },
       // 未上线的讲次不进侧栏；上线时在此追加（AGENTS.md §6 流程）
       {
