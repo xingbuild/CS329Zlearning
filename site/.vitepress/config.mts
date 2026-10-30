@@ -84,6 +84,7 @@ export default defineConfig({
         text: 'L05 · 框架与编排：看穿打包术',
         items: [{ text: '课文', link: '/l05/' },
           { text: '术语与复刻', link: '/l05/guide/' },
+          { text: '选型实验室 · Lab 04', link: '/l05/lab/' },
           { text: '外部资源与视频', link: '/l05/resources/' }],
       },
       {
