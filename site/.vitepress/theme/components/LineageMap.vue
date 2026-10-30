@@ -49,4 +49,8 @@ function go(p: string) { router.go(p) }
 .nt { font-size: 12px; fill: var(--vp-c-brand-1); font-weight: 600; }
 .nc { font-size: 11.5px; fill: var(--vp-c-text-3); }
 .foot { font-size: 12px; fill: var(--vp-c-text-3); }
+
+/* 窄屏横向滚动查看：桌面容器足够宽不受影响（R6-4） */
+.lm { overflow-x: auto; }
+.lm svg { min-width: 560px; }
 </style>

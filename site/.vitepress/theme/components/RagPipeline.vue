@@ -84,4 +84,8 @@
 .al { font-size: 12.5px; fill: var(--vp-c-text-2); }
 .note { font-size: 12px; fill: var(--vp-c-text-3); }
 .cap { font-size: 13.5px; line-height: 1.75; color: var(--vp-c-text-2); margin-top: 6px; }
+
+/* 窄屏横向滚动查看：桌面容器足够宽不受影响（R6-4） */
+.rp { overflow-x: auto; }
+.rp svg { min-width: 640px; }
 </style>

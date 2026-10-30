@@ -1,0 +1,21 @@
+name: Uptime Check
+# R6-2 部署监控：每日检查 Pages 关键页 200；job 失败时 GitHub 自动向仓库所有者发邮件
+on:
+  schedule:
+    - cron: '30 21 * * *' # UTC 21:30 = 北京时间 05:30，避开部署高峰
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check key pages
+        run: |
+          BASE="https://xingbuild.github.io/CS329Zlearning"
+          fail=0
+          for p in "" "l01/" "l04/lab/" "l08/lab/" "l08/readings/mast/" "l08/resources/" "lineage/"; do
+            code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 20 "$BASE/$p")
+            echo "$code /$p"
+            [ "$code" = "200" ] || fail=1
+          done
+          exit $fail

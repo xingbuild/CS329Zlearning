@@ -76,4 +76,8 @@
 .sw { rx: 2; }
 .sw.gate { fill: none; stroke: var(--vp-c-brand-1); stroke-width: 2; }
 .sw.det { fill: none; stroke: #16a34a; stroke-width: 2; }
+
+/* 窄屏横向滚动查看：桌面容器足够宽不受影响（R6-4） */
+.tca { overflow-x: auto; }
+.tca svg { min-width: 640px; }
 </style>

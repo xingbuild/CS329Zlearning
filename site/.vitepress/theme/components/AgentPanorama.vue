@@ -142,4 +142,8 @@ const parts = {
 .part:hover .frame, .part:focus-visible .frame { stroke: var(--vp-c-brand-1); }
 .part:hover .bt, .part:focus-visible .bt { fill: var(--vp-c-brand-1); }
 .pano-cap { font-size: 13.5px; line-height: 1.75; color: var(--vp-c-text-2); margin-top: 8px; max-width: 760px; }
+
+/* 窄屏横向滚动查看：桌面容器足够宽不受影响（R6-4） */
+.pano { overflow-x: auto; }
+.pano svg { min-width: 640px; }
 </style>

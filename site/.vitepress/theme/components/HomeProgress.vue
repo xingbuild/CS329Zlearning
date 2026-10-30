@@ -23,7 +23,24 @@ onMounted(() => {
   const lessonDone = new Set(LESSONS.filter((l) => p.includes(l.id)).map((l) => l.id))
   const next = LESSONS.find((l) => !lessonDone.has(l.id))
   nextLesson.value = next ? { title: next.title, link: next.link } : null
+  syncHeroCta(next)
 })
+
+// R6-5：hero 主按钮随进度改写（"从 L01 开始" → "继续 → 下一讲"）；找不到按钮或出错则保留静态文案兜底
+function syncHeroCta(next?: { title: string; link: string } | null) {
+  try {
+    const btn = document.querySelector('.VPHero .actions a.VPButton.brand') as HTMLAnchorElement | null
+    if (!btn) return
+    const p = getProgress()
+    const started = p.includes('l01')
+    if (started && next) {
+      btn.textContent = `继续 → ${next.title}`
+      btn.setAttribute('href', next.link)
+    } else if (!next) {
+      btn.textContent = '复习 → L01 · Agent 是什么'
+    }
+  } catch { /* 静态 hero 按钮兜底 */ }
+}
 </script>
 
 <template>

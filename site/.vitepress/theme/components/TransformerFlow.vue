@@ -69,4 +69,8 @@
 .bar { fill: var(--vp-c-divider); }
 .bar.top { fill: var(--vp-c-brand-1); }
 .nb { font-size: 13px; fill: var(--vp-c-text-2); }
+
+/* 窄屏横向滚动查看：桌面容器足够宽不受影响（R6-4） */
+.tf { overflow-x: auto; }
+.tf svg { min-width: 640px; }
 </style>
