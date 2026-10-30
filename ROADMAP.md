@@ -77,7 +77,7 @@
 - [x] L08 资源页 ✓ 2026-10-30（6 条：Anthropic vs Cognition 同周判据对撞 / OpenAI Agents SDK / AutoGen 官方文档 / Magentic-One 出版页 / DL.AI 交叉；含"八讲资源页集齐"闭环提示）
 - [x] L05 实验室设计 ✓ 2026-10-30（Lab 04 · Agent 选型工作台：六卡定档决策台 / Optimizer 评估回路蒙特卡洛真算 + Bootstrap 注入 / Temporal 事件溯源崩溃恢复重放，IAB 实测三站全绿）
 - [x] L06 实验室设计 ✓ 2026-10-30（Lab 05 · 模式组装台：七积木拼三场景逐槽判定 + 自评 vs 外反馈蒙特卡洛对照）
-- [ ] L07 实验室设计（候选：记忆系统模拟器——三因子检索 + 写入/淘汰策略可视化）
+- [x] L07 实验室设计 ✓ 2026-10-30（Lab 06 · 记忆系统模拟器：三因子检索真算 + RAM FIFO 淘汰 × core_memory_write 对照）
 - [ ] L08 实验室设计（候选：拓扑切换器——同一任务换四种拓扑看成本/质量差异）
 - [ ] L01 资源页（补齐，当前缺；L01 现为课文内链形式）
 
@@ -87,7 +87,7 @@
 
 - [x] L05 交互密度 ✓ 2026-10-30（Lab 04 三组件：TaskSizingDesk / MiniOptimizer / DurableReplay）
 - [x] L06 交互密度 ✓ 2026-10-30（PatternAssembler / ReflectionLab）
-- [ ] L07：候选 = 三因子检索实验（拨动时近/重要性/相关性权重看排序变化）
+- [x] L07 交互密度 ✓ 2026-10-30（MemoryRetrievalLab / MemoryLossTheater）
 - [ ] L08：候选 = 协调成本计算器（并行度×通信量×冲突率的动态账单）
 
 ## R5 · 精读扩充

@@ -101,6 +101,7 @@ export default defineConfig({
         text: 'L07 · 记忆架构',
         items: [{ text: '课文', link: '/l07/' },
           { text: '术语与复刻', link: '/l07/guide/' },
+          { text: '记忆实验室 · Lab 06', link: '/l07/lab/' },
           { text: '外部资源与视频', link: '/l07/resources/' }],
       },
       {

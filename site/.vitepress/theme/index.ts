@@ -40,6 +40,8 @@ import MiniOptimizer from './components/MiniOptimizer.vue'
 import DurableReplay from './components/DurableReplay.vue'
 import PatternAssembler from './components/PatternAssembler.vue'
 import ReflectionLab from './components/ReflectionLab.vue'
+import MemoryRetrievalLab from './components/MemoryRetrievalLab.vue'
+import MemoryLossTheater from './components/MemoryLossTheater.vue'
 import './custom.css'
 
 export default {
@@ -85,5 +87,7 @@ export default {
     app.component('DurableReplay', DurableReplay)
     app.component('PatternAssembler', PatternAssembler)
     app.component('ReflectionLab', ReflectionLab)
+    app.component('MemoryRetrievalLab', MemoryRetrievalLab)
+    app.component('MemoryLossTheater', MemoryLossTheater)
   },
 } satisfies Theme
