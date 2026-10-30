@@ -51,6 +51,7 @@ export default defineConfig({
           { text: '课文', link: '/l01/' },
           { text: '术语与复刻', link: '/l01/guide/' },
           { text: '论文精读 · ReAct', link: '/l01/readings/react/' },
+          { text: '外部资源与视频', link: '/l01/resources/' },
         ],
       },
       {

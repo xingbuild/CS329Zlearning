@@ -12,7 +12,7 @@ title: L01 · Agent 是什么：一个循环的五十年
 符号循环（1956–95，规则手写、脆弱）→ RL 循环（1998–2015，循环形式化但大脑要逐任务训练）→ LLM 循环（2022，大脑可插拔）。根本问题随之演进：怎么表示知识 → 怎么训练策略 → **怎么给概率大脑加确定性边界**（本讲主题）。（[全课程谱系图 →](/lineage/)）
 :::
 
-<LessonPack mins="35" :units="[{ t: '论文精读 · ReAct', href: '/l01/readings/react/' }, { t: 'Lab 01 闭环剧场（交叉）', href: '/l04/lab/' }]" />
+<LessonPack mins="35" :units="[{ t: '论文精读 · ReAct', href: '/l01/readings/react/' }, { t: 'Lab 01 闭环剧场（交叉）', href: '/l04/lab/' }, { t: '外部资源 · 三个任务', href: '/l01/resources/' }]" />
 
 ## 开场实验：能力没变，结局全变
 
@@ -138,5 +138,7 @@ title: L01 · Agent 是什么：一个循环的五十年
 - [HAL 能力-可靠性仪表盘](https://hal.cs.princeton.edu)
 - Sutton & Barto, *Reinforcement Learning: An Introduction*（agent–环境循环的出处）
 - 动手：先玩 [Lab 01 · Structured I/O 实验室](/labs/)（配合 L04）
+
+**[→ 精选外部资源与视频页](/l01/resources/)**：8 条逐链验证可达的框架文章与一手出处（Lilian Weng 开山框架文、BAIR 判据出处、ReAct 项目页与作者主页、HAL 仪表盘、AI Agents That Matter、HF 免费课程、Simon Willison 随笔），按四幕对位，配三个动手任务。
 
 <LessonDone id="l01" />
