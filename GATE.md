@@ -72,3 +72,25 @@
 ## 5 · 审计频率
 
 每完成一个 W 工单或一轮学习反馈迭代后，重跑本文件 §1/§2 的取证脚本并更新记分；每大版本（0.x.0）做一次全站重审。
+
+## 6 · 取证脚本（重审时可复跑，报告可自证）
+
+```bash
+cd site
+# ① 内容层四尺取证（八讲）
+for L in l01 l02 l03 l04 l05 l06 l07 l08; do
+  f="$L/index.md"
+  echo "$L: 谱系块=$(grep -c 演进谱系 $f) 术语卡=$(grep -c TermCard $f) \
+复刻清单/题=$(grep -c '复刻清单\|复刻检验' $f) 思考题=$(grep -c '<summary>' $f)"
+done
+# Labs / 资源页 / 站级
+grep -c '::: tip' l0{2,3,4}/resources/index.md
+ls lineage/index.md >/dev/null && echo "lineage ✓"
+
+# ② 交付层取证
+for f in index.md l0{1..8}/index.md; do echo "$f: $(wc -l < $f)行/$(grep -c '^## ' $f)节"; done   # D4 页面负荷
+grep -o 'HomeProgress :ids="\[[^]]*\]"' index.md                                                # D5 进度闭环范围
+for L in l01 l02 l03 l04 l05 l06 l07 l08; do echo -n "$L:"; for d in lab lab2 readings resources; do [ -d "$L/$d" ] && echo -n " $d✓"; done; echo; done  # D2 四件套
+```
+
+> 重审纪律：跑完脚本 → 更新 §1/§2 记分与结论 → 本地提交。数字说话，不接受"感觉达标"。
