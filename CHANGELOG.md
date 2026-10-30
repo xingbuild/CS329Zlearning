@@ -17,6 +17,9 @@
 
 
 
+
+## v0.5.16 · 2026-10-30 · R2 收官：L08 DyLAN + 全六讲知道级→能造层完成
+
 ## v0.5.15 · 2026-10-30 · R2 继续：L07 MemGPT/G-Memory 深度
 
 ## v0.5.14 · 2026-10-30 · R2 继续：L03 RAPTOR/GraphRAG/LateChunking 深度
