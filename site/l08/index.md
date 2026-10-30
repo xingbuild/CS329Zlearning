@@ -12,7 +12,7 @@ title: L08 · 多智能体系统
 单 agent（能力够就别拆）→ 多 agent（并行/专业化/聚焦上下文）→ 失败分类（协调的诅咒：单 agent 做两份活反而更快）→ 混合拓扑（按任务可分性选型）。问题主线：**并行的收益何时大于协调的成本**——开放中。（[全课程谱系图 →](/lineage/)）
 :::
 
-<LessonPack mins="50" :units="[{ t: '外部资源 · 三个任务', href: '/l08/resources/' }]" />
+<LessonPack mins="50" :units="[{ t: '论文精读 · MAST', href: '/l08/readings/mast/' }, { t: 'Lab 07 · MAS 成本账本', href: '/l08/lab/' }, { t: '外部资源 · 三个任务', href: '/l08/resources/' }]" />
 
 ## 开场：MAS 的收益与代价账本
 
@@ -146,6 +146,8 @@ MAS = 多个 agent 面向共享任务的集合（p.10），设计要过三关：
 - Wu et al., *AutoGen*（arXiv:2308.08155）· Fourney et al., *Magentic-One*（arXiv:2411.04468）
 - Anthropic：[多智能体系统研究](https://www.anthropic.com/research/multiagent-systems) · [Building a C Compiler with an Agent Swarm](https://www.anthropic.com/engineering/building-c-compiler)
 - [A2A 协议](https://a2a-protocol.org) · Zou, *Patterns and Problems in Emerging Multi-Agent Systems*（arXiv:2510.01171）
+
+**[→ 论文精读 · MAST](/l08/readings/mast/)**：Cemri et al. 2025——为什么 MAS 失败的实证判决书（14 失败模式 / 78.7% 组织层 / +15.6% 验证干预）。
 
 **[→ 精选外部资源与视频页](/l08/resources/)**：判据对撞与正典文档（Anthropic / Cognition 同周正反判据文、OpenAI Agents SDK 与 AutoGen 官方文档、Magentic-One 出版页），按幕对位，配三个动手任务。
 

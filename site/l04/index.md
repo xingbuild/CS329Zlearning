@@ -1,4 +1,4 @@
-<LessonPack mins="50" :units="[{ t: 'Lab 01 · Structured I/O', href: '/l04/lab/' }, { t: 'Lab 03 · Coding 闭环', href: '/l04/lab2/' }, { t: '外部资源', href: '/l04/resources/' }]" />
+<LessonPack mins="50" :units="[{ t: '论文精读 · Toolformer', href: '/l04/readings/toolformer/' }, { t: 'Lab 01 · Structured I/O', href: '/l04/lab/' }, { t: 'Lab 03 · Coding 闭环', href: '/l04/lab2/' }, { t: '外部资源', href: '/l04/resources/' }]" />
 
 ---
 title: L04 · 工具使用：从会说到会做
@@ -183,6 +183,8 @@ pass@k（抽 k 次至少一次成功）是研究口径的乐观指标；pass^k�
 - 动手：**[Lab 01 · Structured I/O 实验室](/labs/)**——本讲全部主线的亲手版
 
 ### 外部资源 · 交互与视频
+
+**[→ 论文精读 · Toolformer](/l04/readings/toolformer/)**：Schick et al. 2023——自监督学会用工具的源头（采样→执行→困惑度过滤 / 6.7B 胜 175B）。
 
 **[→ 精选外部资源与视频页](/l04/resources/)**：14 条逐链验证可达的文档、课程与榜单（Anthropic 工具设计哲学、Outlines/Instructor、FastMCP、BFCL 在线演示、τ-bench Pass^1–4、工具投毒实测……），按本讲五幕对位。
 

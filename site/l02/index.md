@@ -12,7 +12,7 @@ L01 说清了 agent 是什么；这一讲往下钻一层——**把 LLM 这块"�
 n-gram（局部统计，看不见远处）→ RNN/LSTM（有记忆但串行难并行）→ Transformer（并行看全局，但 O(n²) 贵）→ 线性注意力（便宜，但长程有损）。问题主线：**"看全局"与"算得起"不可兼得，每一代都在换一种代价**。（[全课程谱系图 →](/lineage/)）
 :::
 
-<LessonPack mins="45" :units="[{ t: '外部资源 · 两个动手任务', href: '/l02/resources/' }]" />
+<LessonPack mins="45" :units="[{ t: '论文精读 · CoT', href: '/l02/readings/cot/' }, { t: '外部资源 · 两个动手任务', href: '/l02/resources/' }]" />
 
 ## 开场：三条昂贵的线索
 
@@ -199,6 +199,8 @@ Agent 专属训练：如 SWE-Smith 造软件工程数据（p.117–118）
 - 动手：**[Lab 01 · Structured I/O 实验室](/l04/lab/)**——第 3 站掩码解码就是本讲"约束解码"的硬核版
 
 ### 外部资源 · 交互与视频
+
+**[→ 论文精读 · Chain-of-Thought](/l02/readings/cot/)**：Wei et al. 2022——「模仿推理的文本」的原文现场（涌现阈值 / GSM8K 17.9→56.9 / 流利但不合逻辑）。
 
 **[→ 精选外部资源与视频页](/l02/resources/)**：14 条逐链验证可达的交互与视频（Transformer Explainer、3b1b 双语 Ch5–6、李沐精读、Karpathy Deep Dive、KV Cache 系列、Anthropic 归因图……），按本讲四幕对位。
 

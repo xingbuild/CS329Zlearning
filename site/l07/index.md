@@ -12,7 +12,7 @@ L06 结束时 Pi 告诉你上下文要"聚焦 + 连续"；这一讲回答那个�
 上下文即记忆（会溢出、会 rot）→ MemGPT 分层自管理（RAM/磁盘隐喻）→ 技能库（经验固化为程序记忆）→ 睡眠维护（闲时整理）。问题主线：**存什么、怎么压、何时取**——每一代都在换一种"遗忘策略"。（[全课程谱系图 →](/lineage/)）
 :::
 
-<LessonPack mins="50" :units="[{ t: '外部资源 · 三个任务', href: '/l07/resources/' }]" />
+<LessonPack mins="50" :units="[{ t: '论文精读 · MemGPT', href: '/l07/readings/memgpt/' }, { t: 'Lab 06 · 记忆模拟器', href: '/l07/lab/' }, { t: '外部资源 · 三个任务', href: '/l07/resources/' }]" />
 
 ## 开场：没有记忆的三种失忆
 
@@ -158,6 +158,8 @@ L06 结束时 Pi 告诉你上下文要"聚焦 + 连续"；这一讲回答那个�
 - Park et al., *Generative Agents*（arXiv:2304.03442）· Lin et al., *Sleep-time Compute*（arXiv:2504.13171）
 - Chhikara et al., *Mem0*（arXiv:2504.19413）· Maharana et al., *LoCoMo*（ACL 2024）
 - LangChain：[How we built agent memory](https://www.langchain.com/blog/how-we-built-agent-builders-memory-system)
+
+**[→ 论文精读 · MemGPT](/l07/readings/memgpt/)**：Packer et al. 2023——虚拟内存隐喻的原文现场（memory pressure / self-editing / 嵌套 KV 唯一通关）。
 
 **[→ 精选外部资源与视频页](/l07/resources/)**：8 条一手实物（MemGPT 作者亲授短课、Generative Agents / Mem0 / Zep Graphiti 官方 repo、Voyager 项目页、Letta 研究线、LangChain 工程实录），按幕对位，配三个动手任务。
 

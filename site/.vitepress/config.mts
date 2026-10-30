@@ -59,6 +59,7 @@ export default defineConfig({
         items: [
           { text: '课文', link: '/l02/' },
           { text: '术语与复刻', link: '/l02/guide/' },
+          { text: '论文精读 · CoT', link: '/l02/readings/cot/' },
           { text: '外部资源与视频', link: '/l02/resources/' },
         ],
       },
@@ -78,6 +79,7 @@ export default defineConfig({
           { text: '术语与复刻', link: '/l04/guide/' },
           { text: '交互实验室 · Lab 01', link: '/l04/lab/' },
           { text: 'Coding 闭环 · Lab 03', link: '/l04/lab2/' },
+          { text: '论文精读 · Toolformer', link: '/l04/readings/toolformer/' },
           { text: '外部资源与视频', link: '/l04/resources/' },
         ],
       },
@@ -103,6 +105,7 @@ export default defineConfig({
         items: [{ text: '课文', link: '/l07/' },
           { text: '术语与复刻', link: '/l07/guide/' },
           { text: '记忆实验室 · Lab 06', link: '/l07/lab/' },
+          { text: '论文精读 · MemGPT', link: '/l07/readings/memgpt/' },
           { text: '外部资源与视频', link: '/l07/resources/' }],
       },
       {
@@ -110,6 +113,7 @@ export default defineConfig({
         items: [{ text: '课文', link: '/l08/' },
           { text: '术语与复刻', link: '/l08/guide/' },
           { text: 'MAS 实验室 · Lab 07', link: '/l08/lab/' },
+          { text: '论文精读 · MAST', link: '/l08/readings/mast/' },
           { text: '外部资源与视频', link: '/l08/resources/' }],
       },
       // 未上线的讲次不进侧栏；上线时在此追加（AGENTS.md §6 流程）

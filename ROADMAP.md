@@ -10,7 +10,7 @@
 - 版本：0.5.22 · 日期：2026-10-30（R3 全部完成：资源页 8/8 讲、实验室 8/8 讲配齐，R4 全销；D2 关闭）
 - 四尺达标：8/8 讲 ✅（guide 子页八讲齐全）
 - 交付层：D1 ✅ D3 ✅ D5 ✅（16 单元聚合）D4 ✅ D2 ✅（八讲四件套配齐：资源 8/8 + 实验室 8/8）D6 ✅（随实验室）
-- 剩余工单：R5（精读 4 篇）/ R6（长线）——R3 R4 全部清零
+- 剩余工单：R6 三小项（监控/移动端/hero CTA 核实；品牌命名挂起待用户）——R3 R4 R5 全部清零
 
 ---
 
@@ -26,10 +26,10 @@
 | 4 | R3+R4 · L08 实验室 | `site/l08/lab/`：协调成本计算器（DAG 真执行）+ 交接丢失实验 | ✅ 2026-10-30 |
 | 5 | R3 · L01 资源页 | `site/l01/resources/`：8 条框架文/一手出处（自检索验证） | ✅ 2026-10-30 |
 | 6 | R6-1 · 精读摘录开关 | `site/scripts/build.sh`：默认摘录 / `FULL=1` 全文，eaia 切全文 | ✅ 2026-10-30 |
-| 7 | R5 · L02 精读 | Chain-of-Thought（Wei 2022） | 🔲 |
-| 8 | R5 · L04 精读 | Toolformer（Schick 2023） | 🔲 |
-| 9 | R5 · L07 精读 | MemGPT（Packer 2024） | 🔲 |
-| 10 | R5 · L08 精读 | Why Do Multi-Agent LLM Systems Fail?（Cemri 2025） | 🔲 |
+| 7 | R5 · L02 精读 | Chain-of-Thought（Wei 2022） | ✅ 2026-10-30 |
+| 8 | R5 · L04 精读 | Toolformer（Schick 2023） | ✅ 2026-10-30 |
+| 9 | R5 · L07 精读 | MemGPT（Packer 2024） | ✅ 2026-10-30 |
+| 10 | R5 · L08 精读 | Why Do Multi-Agent LLM Systems Fail?（Cemri 2025） | ✅ 2026-10-30 |
 | 11 | R6-2 · 部署监控 | GitHub Actions 周期检查 Pages 200 | 🔲 |
 | 12 | R6-4 · 移动端打磨 | 长 SVG 横向滚动体验 | 🔲 |
 | 13 | R6-5 · hero CTA 文案 | 先核实 D1 修复是否已覆盖（防重复工单） | 🔲 |
@@ -94,10 +94,10 @@
 
 **内容**：为后续讲次配论文精读页（PaperPara 模具已就绪，`site/lNN/readings/<paper>/`）。
 
-- [ ] L02 精读：候选 = Chain-of-Thought（Wei 2022）或 Self-Consistency（Wang 2023）
-- [ ] L04 精读：候选 = Toolformer（Schick 2023）
-- [ ] L07 精读：候选 = MemGPT（Packer 2024）或 Generative Agents（Park 2023）
-- [ ] L08 精读：候选 = Why Do Multi-Agent LLM Systems Fail?（Cemri 2025）
+- [x] L02 精读 ✓ 2026-10-30（Chain-of-Thought：涌现阈值/GSM8K 17.9→56.9/流利但不合逻辑——短引+直译+要点式摘录精读）
+- [x] L04 精读 ✓ 2026-10-30（Toolformer：采样→执行→困惑度过滤三步/五工具/6.7B 胜 175B）
+- [x] L07 精读 ✓ 2026-10-30（MemGPT：虚拟上下文管理/memory pressure/嵌套 KV 唯一通关）
+- [x] L08 精读 ✓ 2026-10-30（MAST：14 失败模式全谱/78.7% 组织层/+9.4%/+15.6% 干预）
 
 ## R6 · 长线优化
 
