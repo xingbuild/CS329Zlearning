@@ -12,7 +12,7 @@ title: L05 · 框架与编排：看穿打包术
 手写循环（透明但每次重造轮子）→ 重框架（快但抽象税+依赖风险）→ 编排服务化（Temporal：持久执行/重试）。问题主线：**复用与可靠怎么兼得**——框架打包的是你已会的机制，买不买取决于你懂不懂里面是什么。（[全课程谱系图 →](/lineage/)）
 :::
 
-<LessonPack mins="45" :units="[]" />
+<LessonPack mins="45" :units="[{ t: '外部资源 · 三个任务', href: '/l05/resources/' }]" />
 
 ## 开场：三个团队的三种命运
 
@@ -185,5 +185,7 @@ DSPy 的 `BootstrapFewShot` 本质就是：用当前程序跑一遍 → 收集�
 - [Harness Tax：arena.ai 博客](https://arena.ai/blog/coding-agents-harness-tax)（同模型换 harness 的成绩差）
 - Hamel Husain：[怎样看 prompt 失败](https://hamel.dev/blog/posts/prompt/)（看 traces 的方法论）
 - metr.org：[Time Horizons](https://metr.org/time-horizons/)（任务时长指数增长的研究）
+
+**[→ 精选外部资源与视频页](/l05/resources/)**：9 条逐链验证可达的课程、演讲与一手 repo（Karpathy LLMOS 演讲、DL.AI LangGraph 短课、mini-swe-agent / OpenHands / Pi / OpenClaw 四 harness 实物……），按本讲五幕对位，配三个动手任务。
 
 <LessonDone id="l05" />
