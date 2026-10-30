@@ -125,6 +125,9 @@ engineeringaiagents/
 
 ## 7. 当前状态（每讲/每次迭代后更新）
 
+- 2026-10-30（六）：**自主推进批次完成——ROADMAP 全部工单清零（v0.5.17–v0.5.25，仅品牌命名挂起）**。本批交付：① R3 资源页 L05–L08 四讲 + L01（全站资源页八讲集齐，检索 session handoff 材料工程化 + L01 自检索）；② R3+R4 四个新实验室——**Lab 04 选型工作台**（六卡定档/Optimizer 蒙特卡洛/事件溯源重放）、**Lab 05 模式组装台**（七积木三场景/自评 vs 外反馈对照）、**Lab 06 记忆系统模拟器**（三因子检索拨权重/FIFO 淘汰与写入对照）、**Lab 07 MAS 成本账本**（四拓扑 DAG 成本/交接丢失超几何）——全部真计算 + IAB 实测 + 390px 无溢出，D2/D6 关闭；③ R6-1 精读双态构建（scripts/build.sh 默认摘录安全侧、FULL=1 全文、eaia 切全文）；④ R5 四篇精读（CoT/Toolformer/MemGPT/MAST，短引+直译+要点式，五篇精读覆盖五讲，进度聚合 20 单元）；⑤ R6 收官（uptime.yml 每日监控/五张结构图 390px 横滑/hero CTA 三态联动）。**修复遗留 bug 一个**：L07/L08 课文 LessonPack 此前 python replace 静默 miss（Lab 06/07 未进学习包卡）——已修并确立"脚本 patch 必查 MISS"纪律。坑+1：IAB 点击对首屏外元素会 actionability 超时，测交互先 scrollIntoView 或用结构选择器；后台标签页 setTimeout 被节流，动画类测试要轮询而非固定等待。
+
+
 - 2026-10-30（五）：**R3 资源页四讲齐备——全站外部资源页 L02–L08 集齐**（检索 session 五份 handoff 材料到达后同批工程化）：`site/l05–l08/resources/` 四页上线（L05 九条课程/repo 实物、L06 六条判据展开、L07 八条一手阵容、L08 六条判据对撞+集齐闭环提示），每页三动手任务挂钩课文思考题/复刻题；四讲侧栏 + LessonPack 学习包 + 课文入口三处登记；跨讲资源分配避重复（Anthropic 五模式主放 L06、Pi repo 主放 L05、AutoGen 课主放 L06）；外链 15 条抽查全 200，域名迁移按新址入库（cognition.com / earendil-works/pi / mast.systems 弃用）。build 零错 + 四页交互级验证全绿。**R3 余项：实验室 4 项 + L01 资源页**。
 - 2026-10-30（四）：**新 session 交接完成**——按 HANDOFF-SESSION.md → AGENTS.md → GATE.md → ROADMAP.md 完成接续。交接核验：GATE §6 取证实测通过（四尺 8/8、八讲 guide 齐全、进度 12 单元、L04 195 行/12 节压线达标→D4 关闭）；修正版本号漂移（HANDOFF/ROADMAP 快照中 v0.6.x 系笔误，CHANGELOG 证实实际版本线止于 v0.5.16）；R1+R2 状态核验属实。**当前待办 = R3（四件套配齐，资源等检索 handoff，实验室可先行）→ R4（交互密度）→ R5（精读）→ R6（长线）**；handoff/ 目录 L05–L08 材料尚未到达。
 - 2026-10-30（三）：**Session 交接**——前一 session 完成全部 R1+R2 工单后归档，交接文件 [HANDOFF-SESSION.md](HANDOFF-SESSION.md)。新 session 读该文件 + 本文件 + GATE.md + ROADMAP.md 即可完整接续。检索 session 正在为 L05-L08 搜资源，等 handoff 到达。
