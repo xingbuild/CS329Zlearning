@@ -12,7 +12,7 @@ L05 教你看穿框架；这一讲给你框架之下真正的复用资产——*
 CoT（会想，但黑箱幻觉）→ ReAct（边想边做，接地）→ Reflexion（失败反思——但自评会错，反思必须来自外部信号）→ CodeAct（代码即动作）→ ReWOO（先规划后执行，把不确定性集中）。问题演进：**推理与行动的边界怎么划**。（[全课程谱系图 →](/lineage/)）
 :::
 
-<LessonPack mins="50" :units="[{ t: 'Lab 01 第 5 站（交叉）', href: '/l04/lab/' }]" />
+<LessonPack mins="50" :units="[{ t: 'Lab 01 第 5 站（交叉）', href: '/l04/lab/' }, { t: '外部资源 · 三个任务', href: '/l06/resources/' }]" />
 
 ## 开场：模式为什么存在
 
@@ -136,5 +136,7 @@ Thought 生成（内部动作：更新上下文不产生观察）→ Act 工具�
 - Wang et al., *CodeAct*（arXiv:2402.01030）· Xu et al., *ReWOO*（arXiv:2305.18323）· Kim et al., *LLMCompiler*（arXiv:2312.04511）
 - Anthropic：[Effective Context Engineering](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) · LangChain：[Context Engineering for Agents](https://www.langchain.com/blog/context-engineering-for-agents)
 - [Pi 文档](https://pi.dev/docs/latest) · 动手：[Lab 01 · 第 5 站闭环剧场](/l04/lab/)——手写最小 ReAct 的产品化版
+
+**[→ 精选外部资源与视频页](/l06/resources/)**：判据文章展开与课程（Anthropic 五模式出处、STORM repo 实物、AutoGen 四模式短课、LangChain / Anthropic 上下文工程两篇展开、站内 ReAct 精读交叉），按四幕对位，配三个动手任务。
 
 <LessonDone id="l06" />

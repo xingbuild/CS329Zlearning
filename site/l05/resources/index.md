@@ -41,4 +41,4 @@ title: L05 · 外部资源与视频
 
 ## 第四、五幕 · 编排、遥测与判据
 
-- （交叉引用）Anthropic：[Building Effective Agents](https://www.anthropic.com/engineering/building-effective-agents) **（判据文 · 2024-12）**——其"workflow vs agent"判据正对 L05 第一幕的光谱定档问题。**主放 L06 资源页**（五模式出处），此处一行交叉引用；一句话提醒：**判据仍在，工具名会旧**——这本身就是"爬你自己的山"的又一证。
+- （交叉引用）Anthropic：[Building Effective Agents](https://www.anthropic.com/engineering/building-effective-agents) **（判据文 · 2024-12）**——其"workflow vs agent"判据正对 L05 第一幕的光谱定档问题。**主放 [L06 资源页](/l06/resources/)**（五模式出处），此处一行交叉引用；一句话提醒：**判据仍在，工具名会旧**——这本身就是"爬你自己的山"的又一证。

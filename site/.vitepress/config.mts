@@ -92,17 +92,20 @@ export default defineConfig({
           { text: '课文', link: '/l06/' },
           { text: '术语与复刻', link: '/l06/guide/' },
           { text: '配套实验 · Lab 01', link: '/labs/' },
+          { text: '外部资源与视频', link: '/l06/resources/' },
         ],
       },
       {
         text: 'L07 · 记忆架构',
         items: [{ text: '课文', link: '/l07/' },
-          { text: '术语与复刻', link: '/l07/guide/' }],
+          { text: '术语与复刻', link: '/l07/guide/' },
+          { text: '外部资源与视频', link: '/l07/resources/' }],
       },
       {
         text: 'L08 · 多智能体系统',
         items: [{ text: '课文', link: '/l08/' },
-          { text: '术语与复刻', link: '/l08/guide/' }],
+          { text: '术语与复刻', link: '/l08/guide/' },
+          { text: '外部资源与视频', link: '/l08/resources/' }],
       },
       // 未上线的讲次不进侧栏；上线时在此追加（AGENTS.md §6 流程）
       {

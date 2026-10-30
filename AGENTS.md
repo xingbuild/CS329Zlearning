@@ -125,6 +125,7 @@ engineeringaiagents/
 
 ## 7. 当前状态（每讲/每次迭代后更新）
 
+- 2026-10-30（五）：**R3 资源页四讲齐备——全站外部资源页 L02–L08 集齐**（检索 session 五份 handoff 材料到达后同批工程化）：`site/l05–l08/resources/` 四页上线（L05 九条课程/repo 实物、L06 六条判据展开、L07 八条一手阵容、L08 六条判据对撞+集齐闭环提示），每页三动手任务挂钩课文思考题/复刻题；四讲侧栏 + LessonPack 学习包 + 课文入口三处登记；跨讲资源分配避重复（Anthropic 五模式主放 L06、Pi repo 主放 L05、AutoGen 课主放 L06）；外链 15 条抽查全 200，域名迁移按新址入库（cognition.com / earendil-works/pi / mast.systems 弃用）。build 零错 + 四页交互级验证全绿。**R3 余项：实验室 4 项 + L01 资源页**。
 - 2026-10-30（四）：**新 session 交接完成**——按 HANDOFF-SESSION.md → AGENTS.md → GATE.md → ROADMAP.md 完成接续。交接核验：GATE §6 取证实测通过（四尺 8/8、八讲 guide 齐全、进度 12 单元、L04 195 行/12 节压线达标→D4 关闭）；修正版本号漂移（HANDOFF/ROADMAP 快照中 v0.6.x 系笔误，CHANGELOG 证实实际版本线止于 v0.5.16）；R1+R2 状态核验属实。**当前待办 = R3（四件套配齐，资源等检索 handoff，实验室可先行）→ R4（交互密度）→ R5（精读）→ R6（长线）**；handoff/ 目录 L05–L08 材料尚未到达。
 - 2026-10-30（三）：**Session 交接**——前一 session 完成全部 R1+R2 工单后归档，交接文件 [HANDOFF-SESSION.md](HANDOFF-SESSION.md)。新 session 读该文件 + 本文件 + GATE.md + ROADMAP.md 即可完整接续。检索 session 正在为 L05-L08 搜资源，等 handoff 到达。
 - 2026-10-30（二）：**GATE.md 立档**——全站审计升级为"内容双螺旋 + 页面交付体验"双层，发现并记录交付层六项问题（D1 hero CTA 未联动〔v2 重建时丢失 v1 能力〕/D2 四件套完整仅 2/8/D3 无学习包顺序指引/D4 L04 12 节逼近负荷/D5 lab·精读不进主页进度/D6 L05–L08 交互密度低）；固化 §0 一体化总纲与 §4 四道验证门（内容/交互/交付/一体化），作为后续迭代指导与发版门栏。
