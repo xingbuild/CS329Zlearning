@@ -3,16 +3,16 @@ import { useRouter } from 'vitepress'
 
 // 全课程技术谱系：问题演进 × 约束（点击节点跳对应讲次）
 const NODES = [
-  { y: 30, era: '1956–1995 · 符号时代', prob: '智能=手写规则；问题：规则写不完', tech: '符号 agent / 专家系统', cost: '脆弱、不可迁移', link: '/l01/' },
-  { y: 100, era: '1998–2015 · RL 时代', prob: '循环形式化了；问题：大脑要逐任务训练', tech: 'agent–环境循环 / DQN', cost: '稀疏奖励、样本天价', link: '/l01/' },
-  { y: 170, era: '2018–2022 · 大脑可插拔', prob: '换任务不用重训了；问题：只会说话', tech: 'in-context learning / GPT-3', cost: '知识冻结、幻觉', link: '/l02/' },
-  { y: 240, era: '2022 · 会做', prob: '怎么让概率大脑行动？', tech: 'ReAct：推理×行动循环', cost: '输出不可靠 → 契约问题', link: '/l01/' },
-  { y: 310, era: '2023–24 · 定契约', prob: '模型与代码如何互信？', tech: 'Structured I/O / Function Calling', cost: 'schema 碎片化 → 生态问题', link: '/l04/' },
+  { y: 30, era: '1956–1995 · 符号时代', prob: '智能=手写规则；问题：规则写不完', tech: '符号 agent / 专家系统', cost: '脆弱不可迁移 ｜ 约束：算力匮乏', link: '/l01/' },
+  { y: 100, era: '1998–2015 · RL 时代', prob: '循环形式化了；问题：大脑要逐任务训练', tech: 'agent–环境循环 / DQN', cost: '稀疏奖励 ｜ 约束：样本天价', link: '/l01/' },
+  { y: 170, era: '2018–2022 · 大脑可插拔', prob: '换任务不用重训了；问题：只会说话', tech: 'in-context learning / GPT-3 ｜ 约束：规模化定律', cost: '知识冻结、幻觉', link: '/l02/' },
+  { y: 240, era: '2022 · 会做', prob: '怎么让概率大脑行动？', tech: 'ReAct：推理×行动循环', cost: '输出不可靠 → 契约问题 ｜ 约束：API 经济', link: '/l01/' },
+  { y: 310, era: '2023–24 · 定契约', prob: '模型与代码如何互信？', tech: 'Structured I/O / Function Calling ｜ 约束：decoder-only 架构', cost: 'schema 碎片化 → 生态问题', link: '/l04/' },
   { y: 380, era: '2024– · 生态化', prob: '工具一次编写、处处可用？', tech: 'MCP（+ 发现即攻击面）', cost: '信任问题（投毒/影子）', link: '/l04/' },
   { y: 450, era: '2020– · 外挂知识', prob: '参数记忆不够用', tech: 'RAG → Agentic RAG', cost: '召回天花板 / 注入', link: '/l03/' },
   { y: 520, era: '2023– · 工程化', prob: '循环能复用、能可靠吗？', tech: '框架 / Temporal 编排', cost: '抽象税、依赖风险', link: '/l05/' },
   { y: 590, era: '2023– · 有经验', prob: '上下文装不下过去', tech: '记忆架构（存-压-取）', cost: '记什么忘什么（未解）', link: '/l07/' },
-  { y: 660, era: '2023– · 成组织', prob: '并行收益 > 协调成本？', tech: '多智能体拓扑（开放问题）', cost: '从众 / 武力解决', link: '/l08/' },
+  { y: 660, era: '2023– · 成组织', prob: '并行收益 > 协调成本？', tech: '多智能体拓扑（开放问题）', cost: '从众 / 武力 ｜ 约束：token 成本', link: '/l08/' },
 ]
 const router = useRouter()
 function go(p: string) { router.go(p) }

@@ -1,3 +1,5 @@
+<LessonPack mins="50" :units="[{ t: 'Lab 01 · Structured I/O', href: '/l04/lab/' }, { t: 'Lab 03 · Coding 闭环', href: '/l04/lab2/' }, { t: '外部资源', href: '/l04/resources/' }]" />
+
 ---
 title: L04 · 工具使用：从会说到会做
 ---

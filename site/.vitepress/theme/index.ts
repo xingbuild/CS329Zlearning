@@ -34,6 +34,7 @@ import PassKSim from './components/PassKSim.vue'
 import EvoChain from './components/EvoChain.vue'
 import TermCard from './components/TermCard.vue'
 import LineageMap from './components/LineageMap.vue'
+import LessonPack from './components/LessonPack.vue'
 import './custom.css'
 
 export default {
@@ -73,5 +74,6 @@ export default {
     app.component('EvoChain', EvoChain)
     app.component('TermCard', TermCard)
     app.component('LineageMap', LineageMap)
+    app.component('LessonPack', LessonPack)
   },
 } satisfies Theme
