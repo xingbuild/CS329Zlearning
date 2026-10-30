@@ -93,6 +93,7 @@ export default defineConfig({
           { text: '课文', link: '/l06/' },
           { text: '术语与复刻', link: '/l06/guide/' },
           { text: '配套实验 · Lab 01', link: '/labs/' },
+          { text: '模式组装台 · Lab 05', link: '/l06/lab/' },
           { text: '外部资源与视频', link: '/l06/resources/' },
         ],
       },

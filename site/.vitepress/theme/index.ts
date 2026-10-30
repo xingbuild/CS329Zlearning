@@ -38,6 +38,8 @@ import LessonPack from './components/LessonPack.vue'
 import TaskSizingDesk from './components/TaskSizingDesk.vue'
 import MiniOptimizer from './components/MiniOptimizer.vue'
 import DurableReplay from './components/DurableReplay.vue'
+import PatternAssembler from './components/PatternAssembler.vue'
+import ReflectionLab from './components/ReflectionLab.vue'
 import './custom.css'
 
 export default {
@@ -81,5 +83,7 @@ export default {
     app.component('TaskSizingDesk', TaskSizingDesk)
     app.component('MiniOptimizer', MiniOptimizer)
     app.component('DurableReplay', DurableReplay)
+    app.component('PatternAssembler', PatternAssembler)
+    app.component('ReflectionLab', ReflectionLab)
   },
 } satisfies Theme
