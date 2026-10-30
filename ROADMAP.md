@@ -39,7 +39,7 @@
 - [x] **L05**：DSPy Optimizer ✓ 2026-10-30（三支柱如何代码化为 Sig+Mod+Opt）、Temporal（Activity/Workflow/重试策略的零件图——已有复刻清单，正文需展开机制）、Harness 详解（四案例的设计决策逐维拆解）
 - [x] **L02**：RLVR ✓ 2026-10-30（奖励设计 vs Goodhart 风险的机制级）、midtraining（域聚焦数据配比的实际操作）
 - [x] **L06**：CodeAct ✓ 2026-10-30（代码作为动作空间的形式化、与 FC 的递进关系）、ReWOO（规划如何把 agent 变回 workflow 的具体操作步骤）、LLMCompiler（并行执行 + 动态重规划的调度机制）
-- [ ] **L03**：RAPTOR（聚类→摘要→再嵌入的递归树构造步骤）、GraphRAG（LLM 抽实体→建图→社区发现的管线零件）、Late Chunking（长上下文编码器→块边界池化的实现路径）
+- [x] **L03**：RAPTOR ✓ 2026-10-30（聚类→摘要→再嵌入的递归树构造步骤）、GraphRAG（LLM 抽实体→建图→社区发现的管线零件）、Late Chunking（长上下文编码器→块边界池化的实现路径）
 - [ ] **L07**：MemGPT（LLM 管理内存的 write/replace/search 工具集操作流）、G-Memory（洞察图/查询图/交互图三图的构造与检索路径）、Sleep-time Compute（闲时后台 agent 的触发/整理/写入策略）
 - [ ] **L08**：DyLAN（前向评分→互相打分→信用回传→选队的完整流程）
 - [ ] 每讲补完后跑 GATE §6 取证脚本更新记分
