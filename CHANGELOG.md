@@ -15,6 +15,9 @@
 
 
 
+
+## v0.5.14 · 2026-10-30 · R2 继续：L03 RAPTOR/GraphRAG/LateChunking 深度
+
 ## v0.5.13 · 2026-10-30 · R2 继续：L06 CodeAct/ReWOO/LLMCompiler 深度
 
 ## v0.5.12 · 2026-10-30 · R2 继续：L02 RLVR/midtraining 深度
