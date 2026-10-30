@@ -31,7 +31,7 @@ fi
 # ---- 收编未提交变更（保持干净）----
 if [ -n "$(git status --porcelain)" ]; then
   echo "· 收编未提交的变更…"
-  git add -A && git commit -m "wip: 发布前自动收编（v$VER）" >/dev/null
+  git add -A && git commit -m "chore: pre-release pickup (v$VER)" >/dev/null
 fi
 
 # ---- 版本与记录 ----
