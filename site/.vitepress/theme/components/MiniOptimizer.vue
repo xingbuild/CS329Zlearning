@@ -61,6 +61,11 @@ const best = computed(() => {
   return id
 })
 const bootLog = ref<string[]>([])
+const bet = ref<string | null>(null)
+const betResult = computed(() => {
+  if (!bet.value) return null
+  return bet.value === best.value ? 'right' : 'wrong'
+})
 
 function hitRate(c: Cand, kind: Kind) {
   let r = c.base[kind]
@@ -114,6 +119,19 @@ function reset() {
       <span class="rn">第 {{ roundNo }} 轮</span>
     </div>
 
+    <div class="betbar">
+      <template v-if="roundNo === 0">
+        <span class="betq">跑分之前，凭直觉下注：哪个候选最准？</span>
+        <button v-for="c in cands" :key="'bet' + c.id" type="button" class="wbtn mini"
+          :aria-pressed="bet === c.id" @click="bet = c.id">{{ c.name }}</button>
+        <span class="betn">（可选——但值得被结果打脸一次）</span>
+      </template>
+      <template v-else-if="betResult">
+        <span class="betq" :class="betResult">直觉 {{ betResult === 'right' ? '✓ 对了' : '✗ 错了' }}：</span>
+        <span v-if="betResult === 'wrong'" class="betr">名字与直觉不承载信息——分数才承载。这正是评估回路的被需要之处：把"感觉"换成"测量"。</span>
+        <span v-else class="betr">这次对了——但连跑几轮看分数波动：单轮分数仍会骗人，评估回路要样本量。</span>
+      </template>
+    </div>
     <div class="cands">
       <div v-for="c in cands" :key="c.id" class="cand" :class="{ top: c.id === best && roundNo > 0 }">
         <div class="ch">
@@ -149,6 +167,13 @@ function reset() {
 <style scoped>
 .opt { display: flex; flex-direction: column; gap: 12px; }
 .ops { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.betbar { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; border: 1px dashed var(--vp-c-divider); border-radius: 8px; padding: 8px 10px; }
+.betq { font-size: 13px; font-weight: 650; }
+.betq.wrong { color: var(--vp-c-danger-1); }
+.betq.right { color: var(--vp-c-brand-1); }
+.betr { font-size: 12.5px; color: var(--vp-c-text-2); }
+.betn { font-size: 11.5px; color: var(--vp-c-text-3); }
+.wbtn.mini { padding: 2px 8px; font-size: 12px; }
 .rn { font-size: 12px; color: var(--vp-c-text-2); margin-left: auto; }
 .cands { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px; }
 .cand { border: 1px solid var(--vp-c-divider); border-radius: 8px; padding: 10px; display: flex; flex-direction: column; gap: 8px; }

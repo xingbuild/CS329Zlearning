@@ -10,6 +10,7 @@ interface Card {
   answer: 'model' | 'workflow' | 'agent'
   why: string
   durable: boolean
+  costs?: Partial<Record<'model' | 'workflow' | 'agent', string>>
 }
 
 const CARDS: Card[] = [
@@ -26,6 +27,10 @@ const CARDS: Card[] = [
     answer: 'model',
     why: '单点转换是 Model 档的定义场景（p.14 左列）；可靠性靠输出契约 + 校验闸（lab01 两道闸），不需要循环。',
     durable: false,
+    costs: {
+      workflow: '为单点转换引入编排层——多节点多故障面，收益为零（军规：你可能根本不需要 agent）',
+      agent: '给一次调用装上循环与工具——pⁿ 复利凭空而起，成本数倍，换不来任何新能力',
+    },
   },
   {
     id: 'news',
@@ -40,6 +45,10 @@ const CARDS: Card[] = [
     answer: 'workflow',
     why: '步骤固定、分支可写尽——控制流留在代码里（p.14）；写成两个节点的图（LangGraph）或两行函数调用都行。',
     durable: false,
+    costs: {
+      model: '两步硬压一步——检索没发生就开写，"最新要闻"只能靠幻觉',
+      agent: '分支可预先写尽——交给模型定序只会引入观察误读与重试，A 团队式抽象税',
+    },
   },
   {
     id: 'refund',
@@ -54,6 +63,10 @@ const CARDS: Card[] = [
     answer: 'agent',
     why: '下一步取决于观察内容——L01 那把刀的标准 Agent 侧（p.14 右列）；退款执行本身保持纯代码 workflow。',
     durable: false,
+    costs: {
+      model: '没有循环的它答不了"下一步查订单还是查政策"——每个歧义都转人工，用户来回跑',
+      workflow: '分支取决于对话与查询结果——写死的分支必死在没写的那个 case 上，剧场 Obs 2 死法重演',
+    },
   },
   {
     id: 'pipeline',
@@ -68,6 +81,10 @@ const CARDS: Card[] = [
     answer: 'workflow',
     why: '控制流确定 → Workflow 档；但时长跨人类时间量级——判据之外还要持久执行（p.92-93），底盘选 Temporal 是加分项。',
     durable: true,
+    costs: {
+      model: '一次调用装不下 8 小时管道——它既没有状态也没有执行能力',
+      agent: '步骤强依赖且可预写——交给模型定序只引入 pⁿ：单步 90% 走 6 步只剩一半',
+    },
   },
   {
     id: 'research',
@@ -82,6 +99,10 @@ const CARDS: Card[] = [
     answer: 'agent',
     why: 'Agentic RAG 的三决策（要不要查/查什么/够不够）都在模型手里（L03 第四幕）——Agent 档。',
     durable: false,
+    costs: {
+      model: '单点转换答不了"要不要再查"——检索轮数事前未知，一步给不出答案',
+      workflow: '三决策依赖每轮观察——分支写不尽，死在开放域的第一种没见过的情况上',
+    },
   },
   {
     id: 'review',
@@ -96,6 +117,10 @@ const CARDS: Card[] = [
     answer: 'workflow',
     why: '步骤与分支能写尽 → Workflow 档；硬塞成 agent 只会引入 pⁿ 误差复利——"你可能根本不需要 agent"（p.124）。',
     durable: false,
+    costs: {
+      model: '四步管线压成一步——diff 没读、规约没查，评审报告靠幻觉',
+      agent: '流程可预写却交给概率——误差复利，3 个 bug 带着绿灯上线（Lab 03 关验证器的死法）',
+    },
   },
 ]
 
@@ -189,7 +214,7 @@ function toggleDurable() {
       <div v-if="pick.chassis" class="bill">
         <div class="b-row"><span class="bk">你的定档</span><span><b>{{ LEVEL_NAME[pick.level] }}</b> · 底盘：{{ CHASSIS[pick.level].find((c) => c.id === pick.chassis)?.name }}{{ pick.durable ? ' ＋ Temporal' : '' }}</span></div>
         <div class="b-row"><span class="bk">抽象税</span><span>{{ CHASSIS[pick.level].find((c) => c.id === pick.chassis)?.tax }} · {{ CHASSIS[pick.level].find((c) => c.id === pick.chassis)?.note }}</span></div>
-        <div class="b-row"><span class="bk">讲义判据</span><span :class="pick.level === card.answer ? 'ok' : 'off'">{{ pick.level === card.answer ? '✓ 与讲义推荐一致' : '✗ 讲义推荐 ' + LEVEL_NAME[card.answer] + ' 档' }}——{{ card.why }}</span></div>
+        <div class="b-row"><span class="bk">讲义判据</span><span :class="pick.level === card.answer ? 'ok' : 'off'">{{ pick.level === card.answer ? '✓ 与讲义推荐一致——' + card.why : '✗ 你的选择会付出：' + (card.costs?.[pick.level as 'model' | 'workflow' | 'agent'] || '次优方案') + '。讲义推荐 ' + LEVEL_NAME[card.answer] + ' 档：' + card.why }}</span></div>
         <div v-if="card.durable" class="b-row"><span class="bk">持久执行</span><span :class="pick.durable ? 'ok' : 'off'">{{ pick.durable ? '✓ 长时任务的保险买上了（事件溯源，第四幕）' : '⚠ 该任务跨"人类时间"量级——不配持久执行，崩溃即全部重来' }}</span></div>
       </div>
     </div>

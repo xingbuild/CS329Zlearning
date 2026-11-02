@@ -3,10 +3,10 @@ import { ref, computed } from 'vue'
 
 // 站③ · 事件溯源持久执行的浏览器复刻：执行 → 崩溃 → 恢复（开=重放跳过 / 关=全部重来）
 const STEPS = [
-  { id: 1, name: '拉取订单数据', api: '外部 API ×2' },
-  { id: 2, name: '清洗去重', api: '纯代码' },
-  { id: 3, name: 'LLM 摘要分析', api: 'LLM 调用 ×3' },
-  { id: 4, name: '写入报表', api: '外部 API ×1' },
+  { id: 1, name: '拉取订单数据（≈1.5h）', api: '外部 API ×2' },
+  { id: 2, name: '清洗去重（≈1.5h）', api: '纯代码' },
+  { id: 3, name: 'LLM 摘要分析（≈1.5h）', api: 'LLM 调用 ×3' },
+  { id: 4, name: '写入报表（≈1.5h）', api: '外部 API ×1' },
 ]
 
 interface Ev { n: number; text: string; kind: 'run' | 'crash' | 'replay' }
@@ -35,7 +35,7 @@ async function run() {
     }
   } else if (phase.value === 'crashed' && !durable.value) {
     doneSet.value = new Set()
-    events.value.push({ n: ++evSeq, text: '无持久化：状态全丢，从第 1 步重来', kind: 'crash' })
+    events.value.push({ n: ++evSeq, text: `无持久化：状态全丢——前 ${crashAt.value} 步 ≈ ${(crashAt.value * 1.5).toFixed(1)} 小时全部白跑，只能从第 1 步重来`, kind: 'crash' })
   }
   phase.value = 'running'
   for (let i = from; i <= STEPS.length; i++) {
@@ -46,7 +46,7 @@ async function run() {
     doneSet.value = new Set(doneSet.value)
     events.value.push({ n: ++evSeq, text: `执行 #${STEPS[i - 1].id} ${STEPS[i - 1].name}（${STEPS[i - 1].api}）→ 成功`, kind: 'run' })
     if (i === crashAt.value && i < STEPS.length) {
-      events.value.push({ n: ++evSeq, text: `⚡ worker 进程崩溃（第 ${crashAt.value} 步后）——执行历史已落盘`, kind: 'crash' })
+      events.value.push({ n: ++evSeq, text: `⚡ worker 进程崩溃（第 ${crashAt.value} 步后，墙钟已过约 ${(crashAt.value * 1.5).toFixed(1)} 小时）——执行历史已落盘`, kind: 'crash' })
       phase.value = 'crashed'
       return
     }
@@ -110,15 +110,15 @@ const running = computed(() => phase.value === 'running')
       </div>
       <div class="bill">
         <div class="lt">成本账单</div>
-        <div class="b-row"><span class="bk">真实执行</span><span><b>{{ executed }}</b> 步（外部调用都算钱）</span></div>
-        <div class="b-row"><span class="bk">重放跳过</span><span>{{ replayed }} 步（读历史，零成本）</span></div>
+        <div class="b-row"><span class="bk">真实执行</span><span><b>{{ executed }}</b> 步 ≈ <b>{{ (executed * 1.5).toFixed(1) }}</b> 小时（外部调用都算钱）</span></div>
+        <div class="b-row"><span class="bk">重放跳过</span><span>{{ replayed }} 步（读历史零成本——持久执行买回来的就是这部分时间）</span></div>
         <div class="bar-wrap">
           <div class="bar-label">持久版累计执行</div>
           <div class="track"><div class="fill okf" :style="{ width: Math.min(100, (executed / 4) * 100) + '%' }" /></div>
           <div class="bar-num">{{ executed }}/4</div>
         </div>
         <div class="bar-wrap">
-          <div class="bar-label">若全程无持久化重跑一次</div>
+          <div class="bar-label">无持久化崩溃一次 = ≈{{ ((executed + replayed) * 1.5).toFixed(1) }} 小时白跑重干</div>
           <div class="track"><div class="fill badf" :style="{ width: Math.min(100, ((executed + replayed) / 8) * 100) + '%' }" /></div>
           <div class="bar-num">{{ executed + replayed }}/8</div>
         </div>
