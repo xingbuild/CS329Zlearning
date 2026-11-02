@@ -70,22 +70,23 @@ const round = computed(() => frames.value.slice(0, idx.value + 1).filter(f => f.
 </template>
 
 <style scoped>
-.lp { display: flex; flex-direction: column; gap: 10px; }
+.lp { display: flex; flex-direction: column; gap: 10px; overflow-x: auto; }
+.lp svg { min-width: 680px; }
 .row { display: flex; align-items: center; gap: 8px; }
 .row.wrap { flex-wrap: wrap; }
 svg :deep(text) { font-family: inherit; }
 .box { fill: var(--vp-c-bg-soft); stroke: var(--vp-c-divider); stroke-width: 1.5; }
 .box.on { stroke: var(--vp-c-brand-1); stroke-width: 2.5; fill: var(--vp-c-brand-soft); }
-.box.crashb { stroke: #dc2626; }
+.box.crashb { stroke: var(--vp-c-danger-1); }
 .rn { font-size: 16px; font-weight: 700; fill: var(--vp-c-text-1); }
 .rs { font-size: 12px; fill: var(--vp-c-text-2); }
 .arr { stroke: var(--vp-c-text-3); stroke-width: 1.8; fill: none; }
 .arr.hot, .arr.hotfeed.hot { stroke: var(--vp-c-brand-1); stroke-width: 3; }
-.arr.crash { stroke: #dc2626; stroke-width: 2.5; }
+.arr.crash { stroke: var(--vp-c-danger-1); stroke-width: 2.5; }
 .dim { opacity: .35; }
 .al { font-size: 12px; fill: var(--vp-c-text-2); }
 .loop-t { font-size: 18px; font-weight: 700; fill: var(--vp-c-text-3); letter-spacing: 6px; }
-.loop-s { font-size: 11.5px; fill: var(--vp-c-text-3); }
+.loop-s { font-size: 12px; fill: var(--vp-c-text-3); }
 .cur { font-size: 14.5px; line-height: 1.7; background: var(--vp-c-brand-soft); border-radius: 9px; padding: 10px 14px; }
 .cur.bad { background: rgba(220,38,38,.09); }
 </style>

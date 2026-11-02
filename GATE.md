@@ -63,7 +63,7 @@
 - [ ] 一图一玩（结构图 + 交互组件互补，§4.3）
 - [ ] 交互级验证实测（IAB 点击走通，非仅 build 通过）
 
-**类别级排查纪律（2026-11-02 立法）**：修复/验证一类问题时，先枚举**同类资产全量清单**逐项过门——不允许只修被发现的实例（R6-4 修五张结构图加横滑时漏了 EvoChain，即按实例打未按类别打的教训）。当前待按新门全量排查的同类资产：**全部含图内文字的 SVG 组件**——EvoChain（已证违规：390px 3.6px + 三通道缺）、MasTopology / WorkflowPatterns / ContextPatterns / MemoryTaxonomy / MemoryDesignBoard（图鉴类，待验）、AgentPanorama / TransformerFlow / RagPipeline / ToolCallAnatomy / LineageMap（已有横滑，字号与承诺通道待按新门复验）。
+**类别级排查纪律（2026-11-02 立法）**：修复/验证一类问题时，先枚举**同类资产全量清单**逐项过门——不允许只修被发现的实例（R6-4 修五张结构图加横滑时漏了 EvoChain，即按实例打未按类别打的教训）。**2026-11-02 补充批次（实验室页）**：EVALUATE-lab03 案再次实证课文页清单的覆盖缺口——补扫实验室页捕获 Lab01Loop（无横滑/11.5px/硬编码色，已修，v0.5.29）。至此全站 SVG 组件类别清单（8 个）全部过门：AgentPanorama / TransformerFlow / RagPipeline / ToolCallAnatomy / LineageMap / EvoChain / CodingLoopLab / Lab01Loop。原清单：EvoChain（已证违规：390px 3.6px + 三通道缺）、MasTopology / WorkflowPatterns / ContextPatterns / MemoryTaxonomy / MemoryDesignBoard（图鉴类，待验）、AgentPanorama / TransformerFlow / RagPipeline / ToolCallAnatomy / LineageMap（已有横滑，字号与承诺通道待按新门复验）。
 
 **交付门**（每次发版）：
 - [ ] 改动挂在四件套/双图结构上，闭环走得通（学到→练到→验证到）

@@ -64,3 +64,19 @@
 4. **P4**：hint 文案去 `**`（或该段改用 HTML 加粗）
 5. **P5**：`.cll` 加横滑（min-width 680）+ `rs` 名义字号 ≥12；**并补一轮"实验室页 SVG"类别级排查**（lab/lab2/lab3–07 全部页面按 GATE §6 ③ 取证）
 6. **P6/P7**：删废组；硬编码色改 `--vp-c-danger-1` / `--vp-c-green-1`
+
+
+---
+
+## §5 验收单（迭代执行后逐项实测）—— ✅ 2026-11-02 全项通过（v0.5.29）
+
+> 实测记录：初始态 pill="第 1 轮 · 写码中"（结果不先知）；feed 相位回喂卡含 `hello,-world!` 详情与 hint 指引；ship 含"5/5 全绿"宣言；hint 星号清零；两组件 390px minPx=12 且横滑在场（Lab01Loop 为类别排查新捕获的第二个漏网者，同批修复：横滑+min-width 680+loop-s 12px+色变量）；废组清零；硬编码色仅余合规 fallback 模式。
+
+- [x] V-P1 feed 相位 DOM 含第 1 轮错误详情（如 `hello,-world!`）；ship 相位含 `5/5 全绿` 宣言
+- [x] V-P2 初始态 pill = "第 1 轮 · 写码中"（无 2/5 先知）；feed 相位 pill 含 `2/5 通过`
+- [x] V-P3 页面无"生成中…"与已显示代码并存的矛盾
+- [x] V-P4 hint 无字面 `**` 星号
+- [x] V-P5 两组件（CodingLoopLab + 类别排查新发现的 Lab01Loop）390px SVG minPx ≥12、横滑在场；排查记录归档
+- [x] V-P6 CodingLoopLab 无 display:none 废组
+- [x] V-P7 CodingLoopLab 无硬编码色（#dc2626 / #16a34a 清零）
+- [x] 门 build 零错 + IAB 全程步进复验（开/关两线）+ GATE 四门

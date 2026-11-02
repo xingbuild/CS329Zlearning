@@ -77,6 +77,16 @@ const PHASES: Record<Phase, { name: string; sub: string }> = {
   ship: { name: '交付 ✓', sub: '确定性代码' },
   bug: { name: '带 bug 上线', sub: '💥 无验证器' },
 }
+
+// P2 · 结果不先知：write/exec/test 显示进行时，N/5 只在测试跑完后（feed/ship）公布
+const pillText = computed(() => {
+  if (!verifierOn.value) return '未经验证'
+  const r = roundIdx.value + 1
+  if (cur.value === 'write') return `第 ${r} 轮 · 写码中`
+  if (cur.value === 'exec') return `第 ${r} 轮 · 执行中`
+  if (cur.value === 'test') return `第 ${r} 轮 · 验收中`
+  return `第 ${r} 轮 · ${ROUNDS[roundIdx.value].results.filter(Boolean).length}/5 通过`
+})
 </script>
 
 <template>
@@ -86,7 +96,7 @@ const PHASES: Record<Phase, { name: string; sub: string }> = {
       <button type="button" class="wbtn" :disabled="step === 0" @click="step--">◀</button>
       <button type="button" class="wbtn primary" :disabled="done" @click="step++">下一步 ▶</button>
       <button type="button" class="wbtn" @click="reset">重置</button>
-      <span class="pill brand">第 {{ roundIdx + 1 }} 轮 · {{ verifierOn ? `${ROUNDS[roundIdx].results.filter(Boolean).length}/5 通过` : '未经验证' }}</span>
+      <span class="pill brand">{{ pillText }}</span>
     </div>
 
     <!-- 环形舞台：四角色固定，循环是结构 -->
@@ -103,11 +113,7 @@ const PHASES: Record<Phase, { name: string; sub: string }> = {
         <line x1="200" y1="60" x2="480" y2="60" class="arr" :class="{ hot: cur === 'exec' }" marker-end="url(#cll-a)" />
         <line x1="580" y1="100" x2="580" y2="180" class="arr crash" :class="{ hot: cur === 'ship' || cur === 'bug' }" marker-end="url(#cll-a)" />
       </g>
-      <g v-for="(p, k) in (verifierOn ? (['write','exec','test'] as Phase[]) : (['write','exec','bug'] as Phase[]))" :key="k">
-        <rect :x="20 + k * 240" :y="k === 1 ? 20 : k === 0 ? 20 : 160" width="160" height="80" rx="12"
-          class="box" :class="{ on: cur === p, crashb: !verifierOn && p === 'bug' }" style="display: none" />
-      </g>
-      <!-- 真实角色框（手动定位，避免上面隐藏组的坐标混乱） -->
+      <!-- 角色框（手动定位） -->
       <rect x="20" y="20" width="180" height="80" rx="12" class="box" :class="{ on: cur === 'write' }" />
       <text x="110" y="56" text-anchor="middle" class="rn">{{ PHASES.write.name }}</text>
       <text x="110" y="78" text-anchor="middle" class="rs">{{ PHASES.write.sub }}</text>
@@ -130,7 +136,7 @@ const PHASES: Record<Phase, { name: string; sub: string }> = {
     <div class="main">
       <div class="codes">
         <div v-for="(r, ri) in shownRounds" :key="ri" class="coderound" :class="{ cur: ri === roundIdx }">
-          <div class="crh">第 {{ ri + 1 }} 轮代码 <span v-if="ri === roundIdx && cur === 'write'" class="pill brand">生成中…</span></div>
+          <div class="crh">第 {{ ri + 1 }} 轮代码</div>
           <pre><code><span v-for="(l, li) in r.code" :key="li" class="ln" :class="{ nw: li >= r.code.length - r.news }">{{ l }}
 </span></code></pre>
         </div>
@@ -150,29 +156,36 @@ const PHASES: Record<Phase, { name: string; sub: string }> = {
       </div>
     </div>
 
+    <!-- P1 · 回喂信息卡：失败变信息的"信息"本体（feed/ship 相位展示该轮回喂全文） -->
+    <div v-if="verifierOn && (cur === 'feed' || cur === 'ship')" class="feedcard" :class="{ okcard: cur === 'ship' }">
+      <div class="fh">{{ cur === 'ship' ? '✅ 验收宣言（回路闭合）' : '🔄 错误回喂（失败 → 信息）——这是下一轮写码的上下文' }}</div>
+      <div class="fb">{{ ROUNDS[roundIdx].feed }}</div>
+    </div>
+
     <div class="hint"><span class="k">现在看什么 · </span>
       <template v-if="!verifierOn">对照模式：一次生成直接交付——概率世界的裸奔。切回"验证回路：开"看同样起点怎么被回路修好。</template>
-      <template v-else-if="cur === 'feed'">关键帧：失败的不是模型，是被测试**判定**出来的——expected vs got 是确定性信号；它沿环回到写码位，成为下一轮的上下文（Reflexion：反思来自外部信号）。</template>
-      <template v-else-if="cur === 'ship'">交付的是确定性代码：输入输出关系被 5 条断言钉死。模型每一步都可能错，但回路保证**验收过线的才出门**——确定性来自验证器，不来自模型。</template>
+      <template v-else-if="cur === 'feed'">关键帧：失败的不是模型，是被测试<b>判定</b>出来的——expected vs got 是确定性信号（见下方回喂信息卡）；它沿环回到写码位，成为下一轮的上下文（Reflexion：反思来自外部信号）。</template>
+      <template v-else-if="cur === 'ship'">交付的是确定性代码：输入输出关系被 5 条断言钉死。模型每一步都可能错，但回路保证<b>验收过线的才出门</b>——确定性来自验证器，不来自模型。</template>
       <template v-else>左看代码怎么长（新增行高亮），右看测试怎么从 ✗ 变 ✓——两条线都是累积的：过去不消失。</template>
     </div>
   </div>
 </template>
 
 <style scoped>
-.cll { display: flex; flex-direction: column; gap: 10px; }
+.cll { display: flex; flex-direction: column; gap: 10px; overflow-x: auto; }
+.cll svg { min-width: 680px; }
 .row { display: flex; align-items: center; gap: 8px; }
 .row.wrap { flex-wrap: wrap; }
 svg :deep(text) { font-family: inherit; }
 .box { fill: var(--vp-c-bg-soft); stroke: var(--vp-c-divider); stroke-width: 1.5; }
 .box.on { stroke: var(--vp-c-brand-1); stroke-width: 2.5; fill: var(--vp-c-brand-soft); }
-.box.crashb { stroke: #dc2626; }
+.box.crashb { stroke: var(--vp-c-danger-1); }
 .rn { font-size: 15px; font-weight: 700; fill: var(--vp-c-text-1); }
-.rs { font-size: 11.5px; fill: var(--vp-c-text-2); }
+.rs { font-size: 12px; fill: var(--vp-c-text-2); }
 .arr { stroke: var(--vp-c-text-3); stroke-width: 1.8; fill: none; }
-.arr.hot, .arr.hotobs.hot { stroke: var(--vp-c-brand-1); stroke-width: 3; }
-.arr.crash { stroke: #dc2626; stroke-width: 2.5; }
-.al { font-size: 12px; fill: var(--vp-c-text-2); }
+.arr.hot, .arr.hotobs.hot { stroke: var(--vp-c-brand-1); stroke-width:  3; }
+.arr.crash { stroke: var(--vp-c-danger-1); stroke-width: 2.5; }
+.al { font-size:  12px; fill: var(--vp-c-text-2); }
 .loop-t { font-size: 15px; font-weight: 700; fill: var(--vp-c-text-3); letter-spacing: 4px; }
 .main { display: flex; gap: 14px; flex-wrap: wrap; }
 .codes { flex: 1.2; min-width: 280px; display: flex; flex-direction: column; gap: 8px; }
@@ -189,8 +202,12 @@ svg :deep(text) { font-family: inherit; }
 .tc { font-size: 11.5px; background: none; padding: 0; }
 .hist { margin-left: auto; display: flex; gap: 3px; }
 .r { font-size: 13px; }
-.r.ok { color: #16a34a; }
-.r.no { color: #dc2626; }
+.r.ok { color: var(--vp-c-green-1, #16a34a); }
+.r.no { color: var(--vp-c-danger-1); }
 .r.unk { color: var(--vp-c-text-3); }
-.nores { font-size: 13px; line-height: 1.65; background: rgba(220,38,38,.08); border-radius: 8px; padding: 8px 12px; margin-top: 6px; }
+.nores { font-size: 13px; line-height: 1.65; background: var(--vp-c-danger-soft); border-radius: 8px; padding: 8px 12px; margin-top: 6px; }
+.feedcard { border: 1.5px solid var(--vp-c-danger-1); border-radius: 10px; padding: 10px 14px; background: var(--vp-c-danger-soft); }
+.feedcard.okcard { border-color: var(--vp-c-green-1, #16a34a); background: transparent; }
+.fh { font-size: 13px; font-weight: 650; margin-bottom: 4px; }
+.fb { font-size: 13.5px; line-height: 1.7; }
 </style>
