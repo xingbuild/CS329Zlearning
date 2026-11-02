@@ -72,5 +72,5 @@
 
 /* 窄屏横向滚动查看：桌面容器足够宽不受影响（R6-4） */
 .tf { overflow-x: auto; }
-.tf svg { min-width: 640px; }
+.tf svg { min-width: 920px; }
 </style>

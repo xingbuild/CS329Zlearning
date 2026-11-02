@@ -24,7 +24,8 @@ function go(p: string) { router.go(p) }
       <defs><marker id="lm-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" fill="var(--vp-c-text-3)" /></marker></defs>
       <line x1="70" y1="20" x2="70" y2="710" class="axis" marker-end="url(#lm-a)" />
       <text x="30" y="380" class="axis-t" transform="rotate(-90 30 380)">问题在不断演进 →</text>
-      <g v-for="n in NODES" :key="n.y" class="node" @click="go(n.link)">
+      <g v-for="n in NODES" :key="n.y" class="node" :tabindex="0" role="link" :aria-label="`进入 ${n.era}`"
+        @click="go(n.link)" @keydown.enter="go(n.link)">
         <circle cx="70" :cy="n.y" r="7" class="dot" />
         <rect x="100" :y="n.y - 30" width="750" height="60" rx="10" class="nbox" />
         <text x="118" :y="n.y - 8" class="ne">{{ n.era }}</text>
@@ -47,10 +48,12 @@ function go(p: string) { router.go(p) }
 .ne { font-size: 12.5px; font-weight: 700; fill: var(--vp-c-text-2); }
 .np { font-size: 12.5px; fill: var(--vp-c-text-1); font-weight: 600; }
 .nt { font-size: 12px; fill: var(--vp-c-brand-1); font-weight: 600; }
-.nc { font-size: 11.5px; fill: var(--vp-c-text-3); }
+.nc { font-size: 12.5px; fill: var(--vp-c-text-3); }
 .foot { font-size: 12px; fill: var(--vp-c-text-3); }
+.node { cursor: pointer; outline: none; }
+.node:focus-visible .nbox { stroke: var(--vp-c-brand-1); stroke-width: 2.5; }
 
 /* 窄屏横向滚动查看：桌面容器足够宽不受影响（R6-4） */
 .lm { overflow-x: auto; }
-.lm svg { min-width: 560px; }
+.lm svg { min-width: 880px; }
 </style>

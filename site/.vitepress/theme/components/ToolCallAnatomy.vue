@@ -66,7 +66,7 @@
 .box.det { stroke: #16a34a; stroke-width: 2; }
 .llm { fill: var(--vp-c-brand-soft); stroke: var(--vp-c-brand-1); stroke-width: 2; }
 .bt { font-size: 14.5px; font-weight: 650; fill: var(--vp-c-text-1); }
-.bs { font-size: 11.5px; fill: var(--vp-c-text-2); }
+.bs { font-size: 12px; fill: var(--vp-c-text-2); }
 .arr { stroke: var(--vp-c-text-3); stroke-width: 1.8; fill: none; }
 .arr.dash { stroke-dasharray: 5 5; }
 .arr.bad { stroke: var(--vp-c-danger, #dc2626); }
@@ -79,5 +79,5 @@
 
 /* 窄屏横向滚动查看：桌面容器足够宽不受影响（R6-4） */
 .tca { overflow-x: auto; }
-.tca svg { min-width: 640px; }
+.tca svg { min-width: 920px; }
 </style>

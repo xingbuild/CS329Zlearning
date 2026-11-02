@@ -87,5 +87,5 @@
 
 /* 窄屏横向滚动查看：桌面容器足够宽不受影响（R6-4） */
 .rp { overflow-x: auto; }
-.rp svg { min-width: 640px; }
+.rp svg { min-width: 920px; }
 </style>

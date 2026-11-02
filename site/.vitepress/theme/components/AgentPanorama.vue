@@ -145,5 +145,5 @@ const parts = {
 
 /* 窄屏横向滚动查看：桌面容器足够宽不受影响（R6-4） */
 .pano { overflow-x: auto; }
-.pano svg { min-width: 640px; }
+.pano svg { min-width: 920px; }
 </style>
