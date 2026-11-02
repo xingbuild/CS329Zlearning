@@ -3,7 +3,8 @@ import { ref, computed } from 'vue'
 
 /* Coding Agent 闭环剧场：概率模型 × 确定性验证回路 → 收敛到正确
    任务：slugify(title) ；五条可判定验收测试；剧本三轮修复 + 无验证器对照 */
-interface Round { code: string[]; news: number; results: boolean[]; feed: string }
+interface Fail { t: string; exp: string; got: string }
+interface Round { code: string[]; news: number; results: boolean[]; fails: Fail[]; passNote: string; feedNote: string }
 const TESTS = [
   'slugify("Hello World") === "hello-world"',
   'slugify("Hello, World!") === "hello-world"',
@@ -19,7 +20,13 @@ const ROUNDS: Round[] = [
       '    .replace(/ /g, "-");',
       '}',
     ], news: 4, results: [true, false, false, false, true],
-    feed: '3 个断言失败：T2 期望 "hello-world" 得到 "hello,-world!"；T3 得到 "-multiple---spaces-"；T4 得到 "cs329z:-agent-课程!"。错误详情（expected vs got）回喂给模型——失败变成信息。',
+    fails: [
+      { t: 'T2 slugify("Hello, World!")', exp: '"hello-world"', got: '"hello,-world!"' },
+      { t: 'T3 slugify("  Multiple   Spaces  ")', exp: '"multiple-spaces"', got: '"-multiple---spaces-"' },
+      { t: 'T4 slugify("CS329Z: Agent 课程!")', exp: '"cs329z-agent"', got: '"cs329z:-agent-课程!"' },
+    ],
+    passNote: 'T1 / T5 通过（不展开）',
+    feedNote: '失败详情（expected vs got）回喂给模型——失败变成信息，不靠模型自觉。',
   },
   {
     code: [
@@ -28,7 +35,12 @@ const ROUNDS: Round[] = [
       '    .replace(/[^a-z0-9]+/g, "-");',
       '}',
     ], news: 1, results: [true, true, false, false, true],
-    feed: 'T2 修好了（标点被清）。新失败：T3 得到 "-multiple-spaces-"、T4 得到 "cs329z-agent-"——首尾连字符残留。回喂继续。',
+    fails: [
+      { t: 'T3 slugify("  Multiple   Spaces  ")', exp: '"multiple-spaces"', got: '"-multiple-spaces-"' },
+      { t: 'T4 slugify("CS329Z: Agent 课程!")', exp: '"cs329z-agent"', got: '"cs329z-agent-"' },
+    ],
+    passNote: 'T1 / T2 / T5 通过（T2 已修好：标点被清）',
+    feedNote: '新失败：首尾连字符残留——错误更具体，下一轮改动更短。',
   },
   {
     code: [
@@ -38,7 +50,9 @@ const ROUNDS: Round[] = [
       '    .replace(/^-+|-+$/g, "");',
       '}',
     ], news: 1, results: [true, true, true, true, true],
-    feed: '5/5 全绿——测试作为可判定的验收者宣布完成。这份代码从此是确定性的：同样的输入，永远同样的输出。',
+    fails: [],
+    passNote: '5/5 全绿',
+    feedNote: '验收宣言：这份代码从此是确定性的——同样的输入，永远同样的输出。',
   },
 ]
 type Phase = 'write' | 'exec' | 'test' | 'feed' | 'ship' | 'bug'
@@ -148,7 +162,11 @@ const pillText = computed(() => {
           <span class="hist">
             <template v-if="!verifierOn"><span class="r unk">?</span></template>
             <template v-else>
-              <span v-for="(r, ri) in shownRounds" :key="ri" class="r" :class="r.results[ti] ? 'ok' : 'no'">{{ r.results[ti] ? '✓' : '✗' }}</span>
+              <!-- 时序：测试用例=需求规格（始终公开）；结果只产生于"测试验收"步之后——当前轮在 write/exec 为未知占位，历史轮保留（过去不消失） -->
+              <template v-for="(r, ri) in shownRounds" :key="ri">
+                <span v-if="ri === roundIdx && (cur === 'write' || cur === 'exec')" class="r unk">…</span>
+                <span v-else class="r" :class="r.results[ti] ? 'ok' : 'no'">{{ r.results[ti] ? '✓' : '✗' }}</span>
+              </template>
             </template>
           </span>
         </div>
@@ -156,10 +174,23 @@ const pillText = computed(() => {
       </div>
     </div>
 
-    <!-- P1 · 回喂信息卡：失败变信息的"信息"本体（feed/ship 相位展示该轮回喂全文） -->
+    <!-- P1 · 回喂清单：结构化写明"哪些内容进入下一轮 LLM 的上下文"（feed/ship 相位展示） -->
     <div v-if="verifierOn && (cur === 'feed' || cur === 'ship')" class="feedcard" :class="{ okcard: cur === 'ship' }">
-      <div class="fh">{{ cur === 'ship' ? '✅ 验收宣言（回路闭合）' : '🔄 错误回喂（失败 → 信息）——这是下一轮写码的上下文' }}</div>
-      <div class="fb">{{ ROUNDS[roundIdx].feed }}</div>
+      <div class="fh">{{ cur === 'ship' ? '✅ 验收宣言（回路闭合）' : '🔄 错误回喂 · 以下内容打包进入下一轮 LLM 的上下文' }}</div>
+      <template v-if="cur === 'feed'">
+        <div v-for="f in ROUNDS[roundIdx].fails" :key="f.t" class="fitem">
+          <span class="ft">✗ {{ f.t }}</span>
+          <span class="feg">expected <code>{{ f.exp }}</code></span>
+          <span class="feg">got <code class="fgot">{{ f.got }}</code></span>
+        </div>
+        <div class="fitem dim">📎 上一轮代码全文（下一轮在它基础上修改，不是从零重写）</div>
+        <div class="fitem dim">✓ {{ ROUNDS[roundIdx].passNote }}</div>
+        <div class="fnote">{{ ROUNDS[roundIdx].feedNote }}</div>
+      </template>
+      <template v-else>
+        <div class="fitem dim">📦 最终代码 + 五条断言 = 交付物（测试钉死了输入输出关系）</div>
+        <div class="fnote">{{ ROUNDS[roundIdx].feedNote }}</div>
+      </template>
     </div>
 
     <div class="hint"><span class="k">现在看什么 · </span>
@@ -208,6 +239,12 @@ svg :deep(text) { font-family: inherit; }
 .nores { font-size: 13px; line-height: 1.65; background: var(--vp-c-danger-soft); border-radius: 8px; padding: 8px 12px; margin-top: 6px; }
 .feedcard { border: 1.5px solid var(--vp-c-danger-1); border-radius: 10px; padding: 10px 14px; background: var(--vp-c-danger-soft); }
 .feedcard.okcard { border-color: var(--vp-c-green-1, #16a34a); background: transparent; }
-.fh { font-size: 13px; font-weight: 650; margin-bottom: 4px; }
-.fb { font-size: 13.5px; line-height: 1.7; }
+.fh { font-size: 13px; font-weight: 650; margin-bottom: 6px; }
+.fitem { font-size: 13px; line-height: 1.8; display: flex; gap: 10px; flex-wrap: wrap; align-items: baseline; }
+.fitem.dim { color: var(--vp-c-text-3); }
+.ft { font-family: var(--vp-font-family-mono, monospace); font-size: 12px; color: var(--vp-c-danger-1); }
+.feg { font-size: 12px; color: var(--vp-c-text-3); }
+.feg code, .fgot { font-family: var(--vp-font-family-mono, monospace); font-size: 12px; }
+.fgot { color: var(--vp-c-danger-1); font-weight: 650; }
+.fnote { font-size: 12.5px; color: var(--vp-c-text-2); margin-top: 4px; border-top: 1px dashed var(--vp-c-divider); padding-top: 6px; }
 </style>
