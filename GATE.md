@@ -57,8 +57,12 @@
 **交互门**（改/新增组件）：
 - [ ] 过程整体可见（累积帧 + 循环有持久环/相位/轮次；§5.5）
 - [ ] 控件位置固定、指引随进度、亮暗双主题、`--vp-c-*` 变量、390px 无溢出
+- [ ] **图内文字可读（缩放不豁免，2026-11-02 立法）**：SVG/图组件内文字验收** 390px 视口下的实际渲染字号**（= 名义字号 × clientWidth ÷ viewBox 宽度）正文 ≥12px、标题 ≥14px——"无溢出"对矢量图无效（viewBox+100% 靠缩放永不溢出，文字却可小到 3.6px，见 §7 案例）；不达标必须提供 1:1 查看路径（容器横滑 min-width 或点击展开）并实测该路径可用
+- [ ] **截断即承诺 · 三通道（2026-11-02 立法）**：图内每个"…"省略号都视为"可看全文"的承诺——补全交互（面板/弹层/链接）必须真实存在且内容完整；触发通道三件套齐备并实测：`cursor:pointer`（鼠标暗示）、`tabindex`+Enter（键盘可达）、`role`（读屏语义）——AGENTS §4.3 成文规则由此入栏
 - [ ] 一图一玩（结构图 + 交互组件互补，§4.3）
 - [ ] 交互级验证实测（IAB 点击走通，非仅 build 通过）
+
+**类别级排查纪律（2026-11-02 立法）**：修复/验证一类问题时，先枚举**同类资产全量清单**逐项过门——不允许只修被发现的实例（R6-4 修五张结构图加横滑时漏了 EvoChain，即按实例打未按类别打的教训）。当前待按新门全量排查的同类资产：**全部含图内文字的 SVG 组件**——EvoChain（已证违规：390px 3.6px + 三通道缺）、MasTopology / WorkflowPatterns / ContextPatterns / MemoryTaxonomy / MemoryDesignBoard（图鉴类，待验）、AgentPanorama / TransformerFlow / RagPipeline / ToolCallAnatomy / LineageMap（已有横滑，字号与承诺通道待按新门复验）。
 
 **交付门**（每次发版）：
 - [ ] 改动挂在四件套/双图结构上，闭环走得通（学到→练到→验证到）
@@ -91,6 +95,23 @@ ls lineage/index.md >/dev/null && echo "lineage ✓"
 for f in index.md l0{1..8}/index.md; do echo "$f: $(wc -l < $f)行/$(grep -c '^## ' $f)节"; done   # D4 页面负荷
 grep -o 'HomeProgress :ids="\[[^]]*\]"' index.md                                                # D5 进度闭环范围
 for L in l01 l02 l03 l04 l05 l06 l07 l08; do echo -n "$L:"; for d in lab lab2 readings resources; do [ -d "$L/$d" ] && echo -n " $d✓"; done; echo; done  # D2 四件套
+
+# ③ 图内文字可读性取证（IAB/浏览器控制台执行；先把视口设为 390×844）
+#    对每个含 SVG 的组件容器执行（.evo 换成对应根 class，以下为待粘贴 JS）：
+#
+#    [...document.querySelectorAll('.evo svg text')].map(t => {
+#      const vb = t.closest('svg').viewBox.baseVal;
+#      const scale = t.closest('svg').getBoundingClientRect().width / vb.width;
+#      const fs = parseFloat(getComputedStyle(t).fontSize);
+#      return { cls: t.getAttribute('class'), px: +(fs * scale).toFixed(1), txt: t.textContent.slice(0, 12) };
+#    })
+#
+#    判定：正文 px ≥ 12、标题 px ≥ 14；未达标查容器 scrollWidth > clientWidth（横滑路径在场且可用）
+#    三通道：getComputedStyle(el).cursor === 'pointer' / el.tabIndex >= 0 / el.getAttribute('role')
 ```
 
 > 重审纪律：跑完脚本 → 更新 §1/§2 记分与结论 → 本地提交。数字说话，不接受"感觉达标"。
+
+## 7 · 立法案例档案（规则从失效中来）
+
+- **2026-11-02 · EvoChain 图内文字案（用户发现，催生交互门两条新规）**：L04 演进链 SVG（viewBox 860×300）在 390px 视口缩放 0.33，"代价/新问题"文字实渲染 **3.6px**；567px 半宽窗口亦仅 ≈7.3px；容器无横滑（R6-4 修五图时未枚举同类，遗漏）。同组件"点击任一时代看全文"承诺：鼠标联动有效、面板全文完整，但 `cursor=auto`、`tabIndex=-1`、无 `role`——三通道缺二。**根因不是实现疏忽，是门栏测错物理量**：`390px 无溢出`对矢量图恒真（缩放适配永不溢出），"无溢出"≠"可读"；且 AGENTS §4.3 的键盘可达成文规则从未进验证门。据此立法：交互门"图内文字可读（缩放不豁免）"+"截断即承诺·三通道"+ 类别级排查纪律。EvoChain 及同类组件的修复**待后续迭代**（按 §4 新门全量排查后统一处理）。

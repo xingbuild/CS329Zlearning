@@ -91,6 +91,7 @@ engineeringaiagents/
 - **现有图形资产**：`AgentPanorama`（全景解剖图：首页 + L01）、`TransformerFlow`（L02）、`RagPipeline`（L03）、`ToolCallAnatomy`（L04）；L05–L08 的结构图已由交互组件承载（AgencySpectrum / 模式图鉴 / 记忆图谱 / MasTopology）。
 
 - **讲次清单三处同步**（新增讲必须同时登记）：`.vitepress/config.mts` sidebar（只有已上线讲进侧栏）；`site/index.md` features 卡片；`<HomeProgress :ids="[...]"/>` 追加讲次 id。
+- **图内文字红线（2026-11-02 用户发现 EvoChain 案后立法）**：SVG 内文字的实际字号 = 名义字号 × 渲染宽度 ÷ viewBox 宽度——设计时按 390px 验算（正文 ≥12px、标题 ≥14px），不达标必须给 1:1 查看路径（横滑/展开）；**长句不进图**（截断句不进卡片，图只放自足短语，全文交配套面板）；图内每个"…"是"看全文"承诺，触发交互须 `cursor:pointer` + `tabindex`/Enter + `role` 三通道齐备。验证门与取证脚本见 GATE.md §4 交互门与 §6 ③（**规则进门才算规则**）。
 - **交互组件**：放 `.vitepress/theme/components/*.vue`，在 `theme/index.ts` 全局注册。数据内嵌组件；控件位置固定；指引随进度更新。
 - **学习进度**：localStorage key `eaia-progress`；主题跟随 VitePress 亮暗切换。
 - **实验室发布**：把 `labs/NN-xxx/*.html` 复制进 `site/public/labs/NN-xxx/`，并在 `site/labs/index.md` 登记。
@@ -124,6 +125,9 @@ engineeringaiagents/
 - 组件内嵌数据用 ES5 友好写法无关紧要（vite 会转译），但 `window`/`document` 只能在 `onMounted` 后访问（SSR 构建期无 DOM）。
 
 ## 7. 当前状态（每讲/每次迭代后更新）
+
+- 2026-11-02：**图内文字红线立法（用户发现 L04 EvoChain 案，只立规不迭代）**——用户在 `/l04/` 发现演进链 SVG 三处错误：390px 下"代价/新问题"文字实渲染 3.6px（缩放 0.33；567px 半宽亦仅 7.3px）、教学核心字段（代价=引擎）在卡上以"…"截断、"点击看全文"承诺缺三通道（cursor=auto / tabIndex=-1 / 无 role）。根因定性：**验证门测错物理量**（"390px 无溢出"对 SVG 恒真——缩放适配永不溢出≠可读）+ **成文规则不进门**（§4.3 键盘可达成文多年但 GATE 无对应勾选）。立法：交互门新增"图内文字可读（缩放不豁免，验收 390px 实渲染 ≥12px）"与"截断即承诺·三通道"两条 + 类别级排查纪律（修一类问题先枚举同类资产全量清单）；GATE §6 补可复跑取证脚本 ③、§7 立法案例档案；本文件 §4.3 补图内文字红线。**EvoChain 及同类 SVG 组件（MasTopology/WorkflowPatterns/ContextPatterns/MemoryTaxonomy/MemoryDesignBoard + 五张已横滑图按新门复验）的修复列为待办，待后续迭代统一处理**。
+
 
 - 2026-10-30（七）：**品牌落地 + ROADMAP 100% 清零**（v0.5.26）——用户拍板：系列品牌 **AI Engineering Learning**（本课程系列名），当前课名保持 Engineering AI Agents。品牌挂三处：导航栏 siteTitle、页脚版权行、og:site_name 分享卡。至此 R1–R6 全部完成，产品进入"学习反馈驱动"阶段。
 
