@@ -28,6 +28,9 @@
 
 
 
+
+## v0.5.27 · 2026-11-02 · 审计 V1-V3 修复：图内文字红线首批达标（7 个 SVG 组件全过新门）
+
 ## v0.5.26 · 2026-10-30 · 品牌落地：AI Engineering Learning 系列 × Engineering AI Agents 课程——ROADMAP 100% 完成
 
 ## v0.5.25 · 2026-10-30 · R6 收官：监控/移动端/hero 联动——ROADMAP 全清（品牌命名待用户）
