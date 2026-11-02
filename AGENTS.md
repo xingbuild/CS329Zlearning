@@ -13,7 +13,7 @@
 
 - **学习即产品**：教学内容落盘在 `site/`（v2），不是只存在对话里。
 - **互联网优先**：产品以"部署到任意静态托管、任何浏览器通用浏览"为第一约束；本地迭代走 localhost dev server，**禁止依赖 `file://` 做验证或作为产品入口**（macOS 文稿权限会让浏览器读不到同目录子资源，此坑已踩）。
-- 讲义 PDF（仓库根目录）是**内容的 ground truth**，演绎时标注页码；**PDF 永不部署上网**（版权）。
+- 讲义 PDF（`doc/`，2026-11-02 起集中存放；lecture01–11）是**内容的 ground truth**，演绎时标注页码；**PDF 永不入库、永不部署上网**（版权，.gitignore `lecture*.pdf` 全层级生效）。
 
 ## 2. 身份与教学法（对用户永远生效）
 
@@ -39,7 +39,7 @@ engineeringaiagents/
 ├── AGENTS.md               # 本文件
 ├── README.md               # 仓库索引
 ├── index.html              # 指向 v1 冻结版的历史入口
-├── lecture01–08 *.pdf      # 讲义（ground truth，勿改，勿部署）
+├── doc/                   # 讲义 PDF 集中存放（lecture01–11，ground truth；gitignore 全覆盖，不入库）
 ├── v1/                     # v1 冻结版（零依赖静态站，历史参考，不再迭代）
 ├── site/                   # ★ v2 产品本体（VitePress）
 │   ├── index.md            # 主页（hero + 课程地图 features + 进度）
@@ -125,6 +125,9 @@ engineeringaiagents/
 - 组件内嵌数据用 ES5 友好写法无关紧要（vite 会转译），但 `window`/`document` 只能在 `onMounted` 后访问（SSR 构建期无 DOM）。
 
 ## 7. 当前状态（每讲/每次迭代后更新）
+
+- 2026-11-02（二）：**仓库文件重组（用户操作）+ 治理文档对齐**——用户将 8 份讲义 PDF 从仓库根目录集中到 `doc/`，并**新增三份讲义：L09 Optimization、L10 Guest Lecture Terminal-Bench、L11 Data for Agentic Systems**（课程源不止八讲）。版权红线不受影响（`lecture*.pdf` gitignore 模式全层级生效，doc/ 整体未被跟踪）；AGENTS/README 目录描述已对齐。**产品"八讲课程站"定位不变；L09–L11 是否产品化为新课次 = 待用户规划的候选事项**（本日审计清单 AUDIT-2026-11-02.md 的 V1–V3 迭代仍处待确认状态）。清理：删除根/site/v1 三处 .DS_Store。
+
 
 - 2026-11-02：**图内文字红线立法（用户发现 L04 EvoChain 案，只立规不迭代）**——用户在 `/l04/` 发现演进链 SVG 三处错误：390px 下"代价/新问题"文字实渲染 3.6px（缩放 0.33；567px 半宽亦仅 7.3px）、教学核心字段（代价=引擎）在卡上以"…"截断、"点击看全文"承诺缺三通道（cursor=auto / tabIndex=-1 / 无 role）。根因定性：**验证门测错物理量**（"390px 无溢出"对 SVG 恒真——缩放适配永不溢出≠可读）+ **成文规则不进门**（§4.3 键盘可达成文多年但 GATE 无对应勾选）。立法：交互门新增"图内文字可读（缩放不豁免，验收 390px 实渲染 ≥12px）"与"截断即承诺·三通道"两条 + 类别级排查纪律（修一类问题先枚举同类资产全量清单）；GATE §6 补可复跑取证脚本 ③、§7 立法案例档案；本文件 §4.3 补图内文字红线。**EvoChain 及同类 SVG 组件（MasTopology/WorkflowPatterns/ContextPatterns/MemoryTaxonomy/MemoryDesignBoard + 五张已横滑图按新门复验）的修复列为待办，待后续迭代统一处理**。
 

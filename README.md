@@ -28,7 +28,7 @@ cd site && npx vitepress preview           # 预览构建产物（localhost:4173
 engineeringaiagents/
 ├── AGENTS.md                # Agent 工作契约（连续性事实源）
 ├── index.html               # → v1 冻结版入口
-├── lecture01–08 *.pdf       # 课程讲义（ground truth，勿部署）
+├── doc/                    # 课程讲义 lecture01–11（ground truth，gitignore 不入库）
 ├── v1/                      # v1 冻结版静态站
 ├── site/                    # ★ v2 课程站（VitePress：markdown 课文 + Vue 交互组件）
 │   ├── index.md / l01/ / labs/
