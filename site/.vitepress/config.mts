@@ -136,6 +136,13 @@ export default defineConfig({
           { text: '任务工坊 · Lab 09', link: '/l10/lab/' },
           { text: '外部资源与视频', link: '/l10/resources/' }],
       },
+      {
+        text: 'L11 · Agent 数据',
+        items: [{ text: '课文', link: '/l11/' },
+          { text: '术语与复刻', link: '/l11/guide/' },
+          { text: '数据工坊 · Lab 10', link: '/l11/lab/' },
+          { text: '外部资源与视频', link: '/l11/resources/' }],
+      },
       // 未上线的讲次不进侧栏；上线时在此追加（AGENTS.md §6 流程）
       {
         text: '实验室',

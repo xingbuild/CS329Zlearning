@@ -49,6 +49,9 @@ import OptimizerEvo from './components/OptimizerEvo.vue'
 import OptStrategyDesk from './components/OptStrategyDesk.vue'
 import TaskAnatomyTB from './components/TaskAnatomyTB.vue'
 import TaskForge from './components/TaskForge.vue'
+import DataSourceMap from './components/DataSourceMap.vue'
+import DataGotcha from './components/DataGotcha.vue'
+import DataMarket from './components/DataMarket.vue'
 import './custom.css'
 
 export default {
@@ -103,5 +106,8 @@ export default {
     app.component('OptStrategyDesk', OptStrategyDesk)
     app.component('TaskAnatomyTB', TaskAnatomyTB)
     app.component('TaskForge', TaskForge)
+    app.component('DataSourceMap', DataSourceMap)
+    app.component('DataGotcha', DataGotcha)
+    app.component('DataMarket', DataMarket)
   },
 } satisfies Theme
