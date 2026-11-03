@@ -46,9 +46,13 @@ features:
     title: L08 · 多智能体系统
     details: 分工、通信与失控成本：本质是组织设计问题。
     link: /l08/
+  - icon: 🎯
+    title: L09 · 优化：从玄学到搜索
+    details: context / weight / agent 三层优化族谱——用数据和评测替代猜测。
+    link: /l09/
 ---
 
-<HomeProgress :ids="['l01', 'l02', 'l03', 'l04', 'l05', 'l06', 'l07', 'l08', 'l01-r-react', 'l02-r-cot', 'l04-r-toolformer', 'l07-r-memgpt', 'l08-r-mast', 'l03-lab02', 'l04-lab01', 'l04-lab03', 'l05-lab04', 'l06-lab05', 'l07-lab06', 'l08-lab07']" />
+<HomeProgress :ids="['l01', 'l02', 'l03', 'l04', 'l05', 'l06', 'l07', 'l08', 'l01-r-react', 'l02-r-cot', 'l04-r-toolformer', 'l07-r-memgpt', 'l08-r-mast', 'l03-lab02', 'l04-lab01', 'l04-lab03', 'l05-lab04', 'l06-lab05', 'l07-lab06', 'l08-lab07', 'l09', 'l09-lab08']" />
 
 ## 一张图看懂这门课
 

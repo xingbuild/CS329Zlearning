@@ -122,6 +122,13 @@ export default defineConfig({
           { text: '论文精读 · MAST', link: '/l08/readings/mast/' },
           { text: '外部资源与视频', link: '/l08/resources/' }],
       },
+      {
+        text: 'L09 · 优化：从玄学到搜索',
+        items: [{ text: '课文', link: '/l09/' },
+          { text: '术语与复刻', link: '/l09/guide/' },
+          { text: '优化决策台 · Lab 08', link: '/l09/lab/' },
+          { text: '外部资源与视频', link: '/l09/resources/' }],
+      },
       // 未上线的讲次不进侧栏；上线时在此追加（AGENTS.md §6 流程）
       {
         text: '实验室',

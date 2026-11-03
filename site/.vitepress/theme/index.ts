@@ -44,6 +44,9 @@ import MemoryRetrievalLab from './components/MemoryRetrievalLab.vue'
 import MemoryLossTheater from './components/MemoryLossTheater.vue'
 import MasCostCalc from './components/MasCostCalc.vue'
 import HandoffLossLab from './components/HandoffLossLab.vue'
+import PromptLottery from './components/PromptLottery.vue'
+import OptimizerEvo from './components/OptimizerEvo.vue'
+import OptStrategyDesk from './components/OptStrategyDesk.vue'
 import './custom.css'
 
 export default {
@@ -93,5 +96,8 @@ export default {
     app.component('MemoryLossTheater', MemoryLossTheater)
     app.component('MasCostCalc', MasCostCalc)
     app.component('HandoffLossLab', HandoffLossLab)
+    app.component('PromptLottery', PromptLottery)
+    app.component('OptimizerEvo', OptimizerEvo)
+    app.component('OptStrategyDesk', OptStrategyDesk)
   },
 } satisfies Theme
