@@ -55,7 +55,7 @@ title: L01 · Agent 是什么：一个循环的五十年
 - **推理模式是个家族**——CoT、Self-Consistency（多路采样投票）、Reflexion（失败后用自然语言自我反思）、多智能体辩论、orchestrator 协调——L06 展开。
 
 <div class="widget">
-  <h3>Agent 全景解剖图 · 五大件 × 八讲</h3>
+  <h3>Agent 全景解剖图 · 五大件 × 基础八讲</h3>
   <AgentPanorama embedded />
 </div>
 

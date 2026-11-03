@@ -48,6 +48,9 @@ engineeringaiagents/
 | L06 | 设计模式与脚手架 | ✅ | 工作流/上下文模式图鉴 | lecture06 |
 | L07 | 记忆架构 | ✅ | 记忆类型图谱 + 设计盘 | lecture07 |
 | L08 | 多智能体系统 | ✅ | 编排拓扑选择器 + MAS 失败动物园 | lecture08 |
+| L09 | 优化：从玄学到搜索 | ✅ | 提示彩票机 + 优化演进链 + 决策台 | lecture09 |
+| L10 | 评测即事实源（Terminal-Bench） | ✅ | 任务解剖边界图 + 任务工坊 | lecture10 |
+| L11 | Agent 数据 | ✅ | 五来源矩阵 + 六事故卡 + 数据工坊 | lecture11 |
 
 ## labs 索引
 

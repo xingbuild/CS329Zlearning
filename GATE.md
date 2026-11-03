@@ -86,8 +86,8 @@
 
 ```bash
 cd site
-# ① 内容层四尺取证（八讲）
-for L in l01 l02 l03 l04 l05 l06 l07 l08; do
+# ① 内容层四尺取证（十一讲）
+for L in l01 l02 l03 l04 l05 l06 l07 l08 l09 l10 l11; do
   f="$L/index.md"
   echo "$L: 谱系块=$(grep -c 演进谱系 $f) 术语卡=$(grep -c TermCard $f) \
 复刻清单/题=$(grep -c '复刻清单\|复刻检验' $f) 思考题=$(grep -c '<summary>' $f)"
@@ -99,7 +99,7 @@ ls lineage/index.md >/dev/null && echo "lineage ✓"
 # ② 交付层取证
 for f in index.md l0{1..8}/index.md; do echo "$f: $(wc -l < $f)行/$(grep -c '^## ' $f)节"; done   # D4 页面负荷
 grep -o 'HomeProgress :ids="\[[^]]*\]"' index.md                                                # D5 进度闭环范围
-for L in l01 l02 l03 l04 l05 l06 l07 l08; do echo -n "$L:"; for d in lab lab2 readings resources; do [ -d "$L/$d" ] && echo -n " $d✓"; done; echo; done  # D2 四件套
+for L in l01 l02 l03 l04 l05 l06 l07 l08 l09 l10 l11; do echo -n "$L:"; for d in lab lab2 readings resources; do [ -d "$L/$d" ] && echo -n " $d✓"; done; echo; done  # D2 四件套
 
 # ③ 图内文字可读性取证（IAB/浏览器控制台执行；先把视口设为 390×844）
 #    对每个含 SVG 的组件容器执行（.evo 换成对应根 class，以下为待粘贴 JS）：

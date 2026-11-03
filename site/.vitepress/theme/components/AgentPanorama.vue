@@ -20,7 +20,7 @@ const parts = {
 
 <template>
   <div class="pano" :class="{ embedded }">
-    <svg viewBox="0 0 920 560" width="100%" role="img" aria-label="Agent 全景解剖图：五大件与八讲对应关系，点击部件进入对应讲次">
+    <svg viewBox="0 0 920 560" width="100%" role="img" aria-label="Agent 全景解剖图：五大件与基础八讲的对应关系，点击部件进入对应讲次（进阶三部曲 L09-L11 深化三支柱，不新增部件）">
       <defs>
         <marker id="ap-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
           <path d="M0,0 L10,5 L0,10 z" fill="var(--vp-c-text-3)" />

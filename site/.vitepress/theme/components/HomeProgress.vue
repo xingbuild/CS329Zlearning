@@ -15,6 +15,9 @@ const LESSONS = [
   { id: 'l06', title: 'L06 · 设计模式', link: '/l06/' },
   { id: 'l07', title: 'L07 · 记忆架构', link: '/l07/' },
   { id: 'l08', title: 'L08 · 多智能体', link: '/l08/' },
+  { id: 'l09', title: 'L09 · 优化', link: '/l09/' },
+  { id: 'l10', title: 'L10 · 评测', link: '/l10/' },
+  { id: 'l11', title: 'L11 · Agent 数据', link: '/l11/' },
 ]
 
 onMounted(() => {
@@ -50,7 +53,7 @@ function syncHeroCta(next?: { title: string; link: string } | null) {
     </div>
     <span class="pill">{{ doneCount }} / {{ ids.length }} 学习单元已完成</span>
     <a v-if="nextLesson" :href="nextLesson.link" class="cta">继续 → {{ nextLesson.title }}</a>
-    <span v-else class="pill done-all">✓ 八讲全部完成</span>
+    <span v-else class="pill done-all">✓ 十一讲全部完成</span>
   </div>
 </template>
 
