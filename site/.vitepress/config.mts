@@ -129,6 +129,13 @@ export default defineConfig({
           { text: '优化决策台 · Lab 08', link: '/l09/lab/' },
           { text: '外部资源与视频', link: '/l09/resources/' }],
       },
+      {
+        text: 'L10 · 评测即事实源',
+        items: [{ text: '课文', link: '/l10/' },
+          { text: '术语与复刻', link: '/l10/guide/' },
+          { text: '任务工坊 · Lab 09', link: '/l10/lab/' },
+          { text: '外部资源与视频', link: '/l10/resources/' }],
+      },
       // 未上线的讲次不进侧栏；上线时在此追加（AGENTS.md §6 流程）
       {
         text: '实验室',

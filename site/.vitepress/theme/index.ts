@@ -47,6 +47,8 @@ import HandoffLossLab from './components/HandoffLossLab.vue'
 import PromptLottery from './components/PromptLottery.vue'
 import OptimizerEvo from './components/OptimizerEvo.vue'
 import OptStrategyDesk from './components/OptStrategyDesk.vue'
+import TaskAnatomyTB from './components/TaskAnatomyTB.vue'
+import TaskForge from './components/TaskForge.vue'
 import './custom.css'
 
 export default {
@@ -99,5 +101,7 @@ export default {
     app.component('PromptLottery', PromptLottery)
     app.component('OptimizerEvo', OptimizerEvo)
     app.component('OptStrategyDesk', OptStrategyDesk)
+    app.component('TaskAnatomyTB', TaskAnatomyTB)
+    app.component('TaskForge', TaskForge)
   },
 } satisfies Theme
