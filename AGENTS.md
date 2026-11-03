@@ -126,6 +126,9 @@ engineeringaiagents/
 
 ## 7. 当前状态（每讲/每次迭代后更新）
 
+- 2026-11-03：**L09–L11 三讲产品化上线（v0.5.32–35，进阶三部曲）**——课程从八讲扩为**十一讲**：L09 优化（System 支柱：PromptLottery 彩票机/OptimizerEvo 演进链/Lab 08 决策台）、L10 评测即事实源（Eval 支柱：TaskAnatomyTB 边界图/Lab 09 任务工坊——弱 verifier 被 hack 失败路径实测）、L11 Agent 数据（Data 支柱：DataSourceMap 五来源矩阵/DataGotcha 六事故卡/Lab 10 数据工坊）。谱系图扩为 13 节点；全站 51 页 200；三条新法（问题先行/图内文字/边界图）全过；方案与验收见 ITERATE-2026-11-03-l09-l11.md（全项实测）。**产品定位更新：八讲课程站 → 十一讲（含进阶三部曲），AI Engineering Learning 系列不变。**
+
+
 - 2026-11-02（二）：**仓库文件重组（用户操作）+ 治理文档对齐**——用户将 8 份讲义 PDF 从仓库根目录集中到 `doc/`，并**新增三份讲义：L09 Optimization、L10 Guest Lecture Terminal-Bench、L11 Data for Agentic Systems**（课程源不止八讲）。版权红线不受影响（`lecture*.pdf` gitignore 模式全层级生效，doc/ 整体未被跟踪）；AGENTS/README 目录描述已对齐。**产品"八讲课程站"定位不变；L09–L11 是否产品化为新课次 = 待用户规划的候选事项**（本日审计清单 AUDIT-2026-11-02.md 的 V1–V3 迭代仍处待确认状态）。清理：删除根/site/v1 三处 .DS_Store。
 
 

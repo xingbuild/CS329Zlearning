@@ -13,6 +13,9 @@ const NODES = [
   { y: 520, era: '2023– · 工程化', prob: '循环能复用、能可靠吗？', tech: '框架 / Temporal 编排', cost: '抽象税、依赖风险', link: '/l05/' },
   { y: 590, era: '2023– · 有经验', prob: '上下文装不下过去', tech: '记忆架构（存-压-取）', cost: '记什么忘什么（未解）', link: '/l07/' },
   { y: 660, era: '2023– · 成组织', prob: '并行收益 > 协调成本？', tech: '多智能体拓扑（开放问题）', cost: '从众 / 武力 ｜ 约束：token 成本', link: '/l08/' },
+  { y: 730, era: '2024– · System 深化', prob: '改系统怎么从手艺变搜索？', tech: '优化：context/weight/agent（L09）', cost: '样本效率 vs 数据饥渴 ｜ 约束：API 权限', link: '/l09/' },
+  { y: 800, era: '2025– · Eval 深化', prob: '规则不可写时怎么钉死正确？', tech: '评测即事实源：Terminal-Bench（L10）', cost: '任务会腐烂、会被 hack ｜ 约束：verifier 设计', link: '/l10/' },
+  { y: 870, era: '2024– · Data 深化', prob: '数据偷偷教了什么？', tech: '轨迹与环境五来源（L11）', cost: 'reward hack / harness 过拟合 ｜ 约束：真实×规模', link: '/l11/' },
 ]
 const router = useRouter()
 function go(p: string) { router.go(p) }
@@ -20,9 +23,9 @@ function go(p: string) { router.go(p) }
 
 <template>
   <div class="lm">
-    <svg viewBox="0 0 880 740" width="100%" role="img" aria-label="全课程技术谱系：问题演进链，点击节点进入对应讲次">
+    <svg viewBox="0 0 880 950" width="100%" role="img" aria-label="全课程技术谱系：问题演进链，点击节点进入对应讲次">
       <defs><marker id="lm-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" fill="var(--vp-c-text-3)" /></marker></defs>
-      <line x1="70" y1="20" x2="70" y2="710" class="axis" marker-end="url(#lm-a)" />
+      <line x1="70" y1="20" x2="70" y2="920" class="axis" marker-end="url(#lm-a)" />
       <text x="30" y="380" class="axis-t" transform="rotate(-90 30 380)">问题在不断演进 →</text>
       <g v-for="n in NODES" :key="n.y" class="node" :tabindex="0" role="link" :aria-label="`进入 ${n.era}`"
         @click="go(n.link)" @keydown.enter="go(n.link)">
@@ -33,7 +36,7 @@ function go(p: string) { router.go(p) }
         <text x="118" :y="n.y + 16" class="nt">{{ n.tech }}</text>
         <text x="560" :y="n.y + 16" class="nc">代价：{{ n.cost }}</text>
       </g>
-      <text x="440" y="735" text-anchor="middle" class="foot">每个技术都是"当时问题的应答"，又用自己的代价孕育下一个问题——点击任一节点进入对应讲次（与首页全景图互补：一图时间，一图空间）</text>
+      <text x="440" y="935" text-anchor="middle" class="foot">每个技术都是"当时问题的应答"，又用自己的代价孕育下一个问题——点击任一节点进入对应讲次（与首页全景图互补：一图时间，一图空间）</text>
     </svg>
   </div>
 </template>
