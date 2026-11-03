@@ -18,14 +18,13 @@ export default defineConfig({
     '把「会用 AI」变成「会工程化 AI」——以斯坦福 CS329Z 讲义为底本的交互式课程',
   head: [
     ['meta', { name: 'viewport', content: 'width=device-width, initial-scale=1' }],
-    ['meta', { property: 'og:site_name', content: 'AI Engineering Learning' }],
+    ['meta', { property: 'og:site_name', content: 'Engineering AI Agents · AI Engineering Learning 系列' }],
     ['meta', { property: 'og:title', content: 'Engineering AI Agents · 交互式课程' }],
     ['meta', { property: 'og:description', content: 'AI Engineering Learning 系列第一门课：以斯坦福 CS329Z 讲义为底本的中文交互式课程——概率大脑 × 确定性边界。' }],
   ],
   markdown: { math: true },
 
   themeConfig: {
-    siteTitle: 'AI Engineering Learning',
     nav: [
       { text: '课程地图', link: '/' },
       { text: '技术谱系', link: '/lineage/' },
@@ -101,7 +100,6 @@ export default defineConfig({
         items: [
           { text: '课文', link: '/l06/' },
           { text: '术语与复刻', link: '/l06/guide/' },
-          { text: '配套实验 · Lab 01', link: '/labs/' },
           { text: '模式组装台 · Lab 05', link: '/l06/lab/' },
           { text: '外部资源与视频', link: '/l06/resources/' },
         ],
@@ -146,7 +144,7 @@ export default defineConfig({
       // 未上线的讲次不进侧栏；上线时在此追加（AGENTS.md §6 流程）
       {
         text: '实验室',
-        items: [{ text: 'Lab 01 · Structured I/O', link: '/labs/' }],
+        items: [{ text: '全部实验室总览', link: '/labs/' }],
       },
     ],
 
