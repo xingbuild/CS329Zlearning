@@ -52,6 +52,7 @@ import TaskForge from './components/TaskForge.vue'
 import DataSourceMap from './components/DataSourceMap.vue'
 import DataGotcha from './components/DataGotcha.vue'
 import DataMarket from './components/DataMarket.vue'
+import HarnessReplay from './components/HarnessReplay.vue'
 import './custom.css'
 
 export default {
@@ -109,5 +110,6 @@ export default {
     app.component('DataSourceMap', DataSourceMap)
     app.component('DataGotcha', DataGotcha)
     app.component('DataMarket', DataMarket)
+    app.component('HarnessReplay', HarnessReplay)
   },
 } satisfies Theme

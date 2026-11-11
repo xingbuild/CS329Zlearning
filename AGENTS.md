@@ -126,6 +126,9 @@ engineeringaiagents/
 
 ## 7. 当前状态（每讲/每次迭代后更新）
 
+- 2026-11-11：**Lab 11 · Harness 模拟回放实验室上线（v0.5.38，L05 第二实验室 /l05/lab2/）**——接收 agentminiswe TA session 交接（kingjin 授权直传）：真实轨迹六圈回放（GLM-5.3-flash"排序修绿"局：侦察→读残留→建码变红→修复全绿→扫尾→交卷暗号→Submitted），想/做两半逐步回放 + 逐圈预测-对照（localStorage）+ 圈 6"终止即消息"演出 + 记忆序列累积暗化；架构条六阶段三档着色（阶段 2 Reason 独为概率档——边界图自证）；诚实三重声明（徽章"模拟回放·非实时运行"/来源脚注/标注式剪辑）。**安全事件**：交接附录轨迹 JSON 含明文 API key——入库版已脱敏（REDACTED），用户已在平台删除该 key（失效闭环）；验收单加 V-无凭据断言（key 形态扫描=0）。**事实修正一处**：TA 剧情线称"圈 1 建文件变红"，实际轨迹圈 1-2 为 ls/cat 侦察、圈 3 才红——以轨迹 JSON 为准（诚实性优先）。方案与验收：ITERATE-2026-11-11-l05-replay.md 全项实测回填。
+
+
 - 2026-11-03：**L09–L11 三讲产品化上线（v0.5.32–35，进阶三部曲）**——课程从八讲扩为**十一讲**：L09 优化（System 支柱：PromptLottery 彩票机/OptimizerEvo 演进链/Lab 08 决策台）、L10 评测即事实源（Eval 支柱：TaskAnatomyTB 边界图/Lab 09 任务工坊——弱 verifier 被 hack 失败路径实测）、L11 Agent 数据（Data 支柱：DataSourceMap 五来源矩阵/DataGotcha 六事故卡/Lab 10 数据工坊）。谱系图扩为 13 节点；全站 51 页 200；三条新法（问题先行/图内文字/边界图）全过；方案与验收见 ITERATE-2026-11-03-l09-l11.md（全项实测）。**产品定位更新：八讲课程站 → 十一讲（含进阶三部曲），AI Engineering Learning 系列不变。**
 
 
