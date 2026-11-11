@@ -96,3 +96,57 @@ export const ROUNDS: Round[] = [
     outcome: '🏁 暗号命中：观察被没收（观察形成/追加不发生）→ exit 消息入史（写给轨迹而非模型）→ exit_status=Submitted。',
   },
 ]
+
+
+/* ===== 单步闭环扩展数据（规格源：notes/stepper.py v3.4 + 手册 + replay 终端取证）===== */
+
+// 分拍预测提示语（终端 pause() 原文）
+export const HINTS = {
+  think: '模型接下来会执行什么命令？先在心里/纸上写下来',
+  do: '这条命令会成功吗？返回码几？输出是什么？',
+}
+
+// 溯源 6 站（阶段 0 · 数据血统链：键盘 → 头两条消息入史）
+export const ORIGIN = [
+  { n: 1, title: '终端输入——源头中的源头', body: [
+    '你敲的整行命令: python notes/stepper.py "在当前目录创建 sorter.py，实现一个有 bug 的冒泡排序…（任务全文）"',
+    'Python 收到的参数数组 sys.argv: [0]="notes/stepper.py" [1]="任务全文（引号把一串字捆成一个参数）"',
+  ]},
+  { n: 2, title: 'task 变量诞生', body: [
+    '代码: task = " ".join(a for a in sys.argv[1:] if a not in ("--fast","--menu"))',
+    'task 的值 = 你的任务全文（一个普通字符串）',
+  ]},
+  { n: 3, title: '说明书产地：default.yaml → system_template', body: [
+    '共 15 行、无变量占位符——宪法在配置文件里躺着，不在代码里',
+    '前两行：You are a helpful assistant… / Your response must contain exactly ONE bash code block…',
+    '（终端此处可输 2 看说明书全文——网页版点页面下方"说明书全文"）',
+  ]},
+  { n: 4, title: '信纸产地：default.yaml → instance_template', body: [
+    '共 85 行、含 {{task}} 填空处——任务将以模板变量填进信纸',
+    '关键行：Please solve this issue: {{task}} … Submit … echo COMPLETE_TASK_AND_SUBMIT_FINAL_OUTPUT',
+  ]},
+  { n: 5, title: '填空渲染（jinja2）——你的字进入信纸的瞬间', body: [
+    'agent._render_template(ins_tpl)：{{task}} 处被替换为你的任务文本',
+    '渲染结果 = user 消息全文（含推荐工作流六步、格式禁令、系统信息）',
+  ]},
+  { n: 6, title: '头两条消息入史 → 主循环启动', body: [
+    'messages[0] = system（渲染后的说明书） · messages[1] = user（渲染后的信纸）',
+    '此刻记忆 2 条——agent 的一切"经验"从这个底座开始增长',
+  ]},
+]
+
+// 秘技 2 · 本拍将执行的代码原文（default.py 关键行，据 stepper.py CODE 字典照录）
+export const CODE = {
+  think: 'L132  if 0 < step_limit <= n_calls or 0 < cost_limit <= cost:\nL133      raise LimitsExceeded(...)          <- 超步数/超钱: 当场跳车\nL148  self.n_calls += 1\nL149  message = self.model.query(self.messages)   <- 真正调 GLM\nL150  self.cost += message["extra"]["cost"]\nL151  self.add_messages(message)                  <- 回复入史',
+  do: 'L156  outputs = [self.env.execute(action) for action in message["extra"]["actions"]]\n           <- local.py 开子进程执行\nL157  return self.add_messages(...format_observation_messages...)  <- 观察入史\nlocal.py L48  if 输出首行 == "COMPLETE_TASK_AND_SUBMIT_FINAL_OUTPUT":\n           <- 交卷暗号命中 -> 抛 Submitted',
+}
+
+// 秘技 3 · playground 文件现状（由轨迹输出推导，页面须标注）
+export const FILES: Record<number, string> = {
+  1: 'hello.txt 22B · hi.txt 19B · hi2.txt 13B · hi3.txt 15B · sorter.py 350B(前次残留) · test_sorter.py 422B(前次残留) · …（据圈1 ls 输出）',
+  2: 'hello.txt 22B · hi.txt 19B · hi2.txt 13B · hi3.txt 15B · sorter.py 350B(前次残留) · test_sorter.py 422B(前次残留) · …（据圈1 ls 输出）',
+  3: 'sorter.py（本轮重写·真bug版 `<`） · test_sorter.py（本轮重写·3 assert）——据圈3 heredoc 命令推导',
+  4: 'sorter.py（`<`→`>` 已修复）——据圈4 sed 命令推导',
+  5: 'sorter.py（docstring 更新为「已修复」）——据圈5 sed 推导',
+  6: 'sorter.py（docstring 更新为「已修复」）——据圈5 sed 推导',
+}
