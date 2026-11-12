@@ -53,6 +53,7 @@ import DataSourceMap from './components/DataSourceMap.vue'
 import DataGotcha from './components/DataGotcha.vue'
 import DataMarket from './components/DataMarket.vue'
 import HarnessReplay from './components/HarnessReplay.vue'
+import PlanningLevels from './components/PlanningLevels.vue'
 import './custom.css'
 
 export default {
@@ -111,5 +112,6 @@ export default {
     app.component('DataGotcha', DataGotcha)
     app.component('DataMarket', DataMarket)
     app.component('HarnessReplay', HarnessReplay)
+    app.component('PlanningLevels', PlanningLevels)
   },
 } satisfies Theme

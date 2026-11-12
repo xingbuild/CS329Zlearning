@@ -12,6 +12,8 @@ title: L06 · 术语与复刻指南
 
 <TermCard term="Scaffold（脚手架）" from="建筑借喻：Vygotsky 学习理论中的「可拆的临时支撑」——建完可拆、但建时必需" replaced="硬编码逻辑——脚手架是包裹模型的柔软结构" is="结构化的试错框架：ReAct/Reflexion/规划-执行都是脚手架形状" isNot="不是框架——脚手架是模式（半成品），框架是产品（成品包装）" />
 
+<TermCard term="Amortized Planning（摊销规划）" from="kingjin 学习反哺（2026-11）：与 JIT 热点编译、习惯化（System 2→System 1）、AlphaGo policy（amortized MCTS）同构" replaced="每次任务都从头在线搜索——最贵的方式当成唯一的方式" is="把验证有效的搜索结果逐级下沉：上下文探索 → 代码/技能结晶 → 权重直觉，重复越多摊销越赚" isNot="不是「背答案」——下沉的是规划规律（元策略），具体路径仍按控制流熵现场决定" />
+
 <TermCard term="Reflexion（反思）" from="Shinn et al. 2023——心理学「元认知」的工程化：把失败经验写成文字记忆" replaced="简单重试（不带失败分析的再跑一遍）" is="外部信号 → 语言反思 → 上下文记忆 → 下一轮改进" isNot="不是自评——自评会降性能（Huang 2023），反思必须来自外部信号" />
 
 ### 复刻清单 · 最小 ReAct 循环零件
